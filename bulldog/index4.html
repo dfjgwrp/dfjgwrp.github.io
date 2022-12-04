@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Imporant meta information to make the page as rigid as possible on mobiles, to avoid unintentional zooming on the page itself  -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+ <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap" rel="stylesheet"> 
+ <link rel="stylesheet" media="only screen and (max-width: 600px)" href="css/mobile_index2.css" />
+ <link rel="stylesheet" media="only screen and (min-width: 601px)" href="css/desktop_index2.css" />
+
+    <title>Portafolio Bulldog Ad</title>
+    
+		</head>
+
+
+
+<body>
+  
+<script src="jquery.min.js"></script>
+<div class="spinner-wrapper vertical-center " >
+CARGANDO...
+<div class="spinner vertical-center "></div>
+</div>
+
+
+<div class="wrapper">
+<canvas id="c"></canvas>
+</div>
+
+<div class="flexbox_1">
+
+	<div align="center" id="DefaultCustomizeTopBase" >
+		<p id="label1_1_headline"><b>Bulldog Ad</b></p>
+
+		<p id="label1_1_headline5"><b>Servicios</b></p>
+
+		<p id="label1_1_aLotOfTextBlock"></p>
+
+
+	<div class="line-separator2" >
+		  <div class="side-line2"> </div>
+	</div>
+
+
+	
+
+
+
+</div>
+
+
+	<div id="b_icon">
+		<a href="index.html">
+	<img id="b_icon_img" src="b.png">
+			</a>
+	</div>
+
+
+
+	<div id="hamburger_icon"><img id="hamburger_icon_img" src="ham.png"></div>
+
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src='three.min.js'></script>
+<script src='GLTFLoader.js'></script>
+<script src='OrbitControls.js'></script>
+<script src="../node_modules/dat.gui/build/dat.gui.min.js"></script>
+
+<script>
+
+
+(function() {
+
+  	let scene,  
+    renderer,
+    camera,
+    model,                              
+    possibleAnims,                      
+    mixer,
+		backgroundMesh,
+
+		anchorONE,
+		anchorONEMesh,
+
+		cloudsGLB,
+		cloudsMESH,
+
+		controls,                              
+    anim1,anim2,anim3,anim4,anim5,anim6,anim7,               
+    clock = new THREE.Clock(),          
+    currentlyAnimating = false, 
+        
+    raycaster = new THREE.Raycaster(), 
+    loaderAnim = document.getElementById('js-loader');
+
+
+		var mouseX = 0, mouseY = 0;
+
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+
+		var frustumSize = 10;
+
+		init(); 
+		update();
+
+
+
+  	function init() {
+
+
+		var aspect = window.innerWidth / window.innerHeight;
+
+    const MODEL_PATH = 'anim3_1_radio.glb';
+
+    const canvas = document.querySelector('#c');
+    const backgroundColor = 0xFFFFFF;
+    
+    // Init the scene
+    scene = new THREE.Scene();
+    //scene.background = new THREE.Color(backgroundColor);
+    //scene.fog = new THREE.Fog(0x63aec1, 1500, 4000);
+    
+    // Init the renderer
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+		renderer.setClearColor( 0x000000, 0 );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.shadowMap.enabled = false;
+		renderer.shadowMapSoft = false;
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild(renderer.domElement);
+
+
+
+    
+		/*
+    camera = new THREE.PerspectiveCamera(
+      15,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    camera.position.x = 0;
+    camera.position.y = -6;
+    camera.position.z = 49;
+
+		*/
+
+	  window.addEventListener( 'resize', onWindowResize, false );
+
+
+
+
+
+let body1 = document.getElementById("b_icon_img");
+let x11, x22, x33;
+const style1 = getComputedStyle(body1);
+const width1 = style1.opacity;
+console.log(width1);
+
+
+if (width1 === "0.98") {
+
+		var frustumSize = 18;
+
+x11 = -0.4;
+x22 = -4;
+x33 = 0;
+
+} else if (width1 === "0.99") {
+
+		var frustumSize = 10;
+
+x11 = -0.4;
+x22 = -8;
+x33 = 0;
+
+}
+
+
+
+
+		camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 0.1, 100 );
+
+    camera.position.x = x11;
+    camera.position.y = x22;
+    camera.position.z = x33;
+    
+
+		
+
+		function onWindowResize() {
+
+			var aspect = window.innerWidth / window.innerHeight;
+	
+			camera.left = frustumSize * aspect / - 2;
+			camera.right = frustumSize * aspect / 2;
+			camera.top = frustumSize / 2;
+			camera.bottom = - frustumSize / 2;
+
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}
+
+
+const textureCube = new THREE.CubeTextureLoader()
+	.load([
+	'img/px.png',
+	'img/nx.png',
+	'img/py.png',
+	'img/ny.png',
+	'img/pz.png',
+	'img/nz.png',
+]);
+
+
+  let stacy_txt = new THREE.TextureLoader().load('oct_ns.jpg');
+		stacy_txt.magFilter = THREE.LinearFilter;
+		stacy_txt.minFilter = THREE.LinearFilter;
+		//LinearMipmapLinearFilter,  LinearFilter
+    stacy_txt.flipY = false;
+
+    const stacy_mtl = new THREE.MeshStandardMaterial({
+      map: stacy_txt,
+     // color: 0xffffff,
+      skinning: true,
+		//	flatShading: false,
+		roughness: 0.2,
+		metalness: 0.4,
+		envMap: textureCube
+			
+    });
+
+
+
+    const stacy_mtl2 = new THREE.MeshStandardMaterial({
+      map: stacy_txt,
+     // color: 0xffffff,
+      skinning: true,
+		//	flatShading: false,
+		roughness: 0.2,
+		metalness: 0.4,
+		envMap: textureCube
+			
+    });
+
+
+
+    const whiteMap = new THREE.MeshBasicMaterial({
+
+      color: 0xffffff,
+
+    });
+
+    
+
+
+    const greyMap = new THREE.MeshStandardMaterial({
+      map: stacy_txt,
+     // color: 0xffffff,
+      skinning: true,
+		//	flatShading: false,
+		roughness: 0.2,
+		metalness: 0.9,
+		envMap: textureCube
+    });
+
+
+
+    var loader = new THREE.GLTFLoader(); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const MODEL_PATH2 = 'anim4.glb';
+{
+
+var radioMesh;
+    loader.load(
+      MODEL_PATH2,
+      function(gltf) {
+
+        model = gltf.scene;
+
+        let fileAnimations = gltf.animations;
+
+          model.traverse(o => {
+
+          if (o.isMesh) {
+            o.castShadow = false;
+            o.receiveShadow = false;
+            o.material = stacy_mtl;
+          }
+
+        });
+        
+        model.scale.set(10, 10, 10);
+        model.position.y = -12.5;
+        model.position.x = 1;
+        model.rotation.x = 0.22;
+
+
+
+
+
+				cloudsGLB = gltf.scene.children[4];
+        cloudsGLB.material =  whiteMap;
+        cloudsGLB.scale.set(10, 10, 10);
+        cloudsGLB.position.y = -12.5;
+        cloudsGLB.position.x = 1;
+        cloudsGLB.rotation.x = 0.22;
+
+
+
+
+
+
+				mixer = new THREE.AnimationMixer(model);
+
+				let clips = fileAnimations.filter(val => val.name !== 'Base.001Action');
+				possibleAnims = clips.map(val => {
+				let clip = THREE.AnimationClip.findByName(clips, val.name);
+				clip = mixer.clipAction(clip);
+				return clip;
+				});
+				let anim1Main = THREE.AnimationClip.findByName(fileAnimations, 'Base.001Action');
+				anim1 = mixer.clipAction(anim1Main);
+				//idle.timeScale = 1/10;
+				anim1.play();
+
+
+
+				let clips2 = fileAnimations.filter(val => val.name !== 'Circle.000Action.001');
+				possibleAnims = clips2.map(val => {
+				let clip2 = THREE.AnimationClip.findByName(clips2, val.name);
+				clip2 = mixer.clipAction(clip2);
+				return clip2;
+				});
+				let animMain2 = THREE.AnimationClip.findByName(fileAnimations, 'Circle.000Action.001');
+				anim2 = mixer.clipAction(animMain2);
+				//idle.timeScale = 1/10;
+				anim2.play();
+
+
+
+				let clips3 = fileAnimations.filter(val => val.name !== 'Base.000Action');
+				possibleAnims = clips3.map(val => {
+				let clip3 = THREE.AnimationClip.findByName(clips3, val.name);
+				clip3 = mixer.clipAction(clip3);
+				return clip3;
+				});
+				let animMain3 = THREE.AnimationClip.findByName(fileAnimations, 'Base.000Action');
+				anim3 = mixer.clipAction(animMain3);
+				//idle.timeScale = 1/10;
+				anim3.play();
+
+
+
+
+
+				radioMesh = gltf.scene.children[0];
+        radioMesh.material =  greyMap;
+        //radioMesh.scale.set(-1, -1, -1);
+       // radioMesh.position.y = -12.5;
+       radioMesh.position.x = -0.14;
+       // radioMesh.rotation.y = 0.0;
+
+				mixer.clipAction( gltf.animations[ 0 ] ).setDuration( 10 ).play();
+
+
+				radioMesh.material.morphTargets = true;
+
+
+
+
+        scene.add(model);
+        
+
+
+
+
+    loaderAnim.remove();
+
+      },
+      undefined, // We don't need this function
+      function(error) {
+        console.error(error);
+      }
+    );
+    
+
+
+
+}
+
+
+
+/*
+{
+var model2,mixer2;
+
+    loader.load(
+      MODEL_PATH,
+      function(Zgltf) {
+
+        model2 = Zgltf.scene;
+
+       // let fileAnimations = gltf.animations;
+
+          model2.traverse(o => {
+
+          if (o.isMesh) {
+            o.castShadow = false;
+            o.receiveShadow = false;
+            o.material = stacy_mtl2;
+          }
+
+        });
+        
+        model2.scale.set(10, 10, 10);
+        model2.position.y = -12.5;
+        model2.position.x = 1;
+        model2.rotation.x = 0.22;
+
+
+				var	mesh = Zgltf.scene.children[ 0 ];
+				mixer2 = new THREE.AnimationMixer( mesh );
+
+				mixer2.clipAction( Zgltf.animations[ 0 ] ).setDuration( 10 ).play();
+
+
+
+        scene.add(model2);
+        
+
+    loaderAnim.remove();
+
+      },
+      undefined, // We don't need this function
+      function(error) {
+        console.error(error);
+      }
+    );
+    
+
+}
+
+
+
+*/
+
+
+
+
+
+/*
+
+		var materialGradient = new THREE.ShaderMaterial({
+			uniforms: {
+				color1: {
+				  value: new THREE.Color("#7499bf")
+				},
+				color2: {
+				  value: new THREE.Color("white") //7499bf
+				}
+			},
+			vertexShader: `
+				varying vec2 vUv;
+
+				void main() {
+				  vUv = uv;
+				  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,2.2);
+				}
+			`,
+			fragmentShader: `
+				uniform vec3 color1;
+				uniform vec3 color2;
+		
+				varying vec2 vUv;
+				
+				void main() {
+				  
+				  gl_FragColor = vec4(mix(color1, color2, vUv.y), 4.0);
+				}
+			`,
+			wireframe: false,
+		});
+*/
+
+
+/*
+		loader.load('background.glb', (Zgltf) => {
+		backgroundMesh = Zgltf.scene.children[0];
+		backgroundMesh.material = materialGradient;
+		scene.add(backgroundMesh);
+
+		backgroundMesh.position.y = -10;
+		backgroundMesh.position.x = 0;
+		backgroundMesh.position.z = -15;
+
+    backgroundMesh.scale.set(300, 30, 30);
+		});
+
+*/
+
+
+
+
+
+
+/*
+
+		loader.load('anchorONE.glb', (Zgltf) => {
+		anchorONEMesh = Zgltf.scene.children[0];
+		anchorONEMesh.material = materialGradient;
+		scene.add(anchorONEMesh);
+		anchorONEMesh.position.z = -55;
+
+		});
+
+*/
+
+
+
+
+    let hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x4390f8, 1);
+    hemiLight.position.set(33, 41, -13);
+    scene.add(hemiLight);
+
+
+    //let d = 8.25;
+    let dirLight = new THREE.DirectionalLight(0xffffff, 1.9);
+    dirLight.position.set(0, 12, 8);
+    dirLight.castShadow = true;
+    // Add directional Light to scene
+    scene.add(dirLight);
+
+	/*	
+		function updateCamera() {
+		dirLight.updateMatrixWorld();
+		}
+
+		
+		class ColorGUIHelper {aa
+		constructor(object, prop) {
+		this.object = object;
+		this.prop = prop;
+		}
+		get value() {
+		return `#${this.object[this.prop].getHexString()}`;
+		}
+		set value(hexString) {
+		this.object[this.prop].set(hexString);
+		}
+		}
+
+		function makeXYZGUI(gui, vector3, name, onChangeFn) {
+		const folder = gui.addFolder(name);
+		folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
+		folder.add(vector3, 'y', -10, 10).onChange(onChangeFn);
+		folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
+		folder.open();
+		}
+		
+		const gui = new dat.GUI();
+		makeXYZGUI(gui, dirLight.position, 'position', updateCamera);
+*/
+		
+
+//end of the main func
+}
+
+ 
+
+
+
+/*
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		function onDocumentMouseMove( event ) {
+
+		mouseX = ( event.clientX - windowHalfX );
+		mouseY = ( event.clientY - windowHalfY );
+
+		}
+
+*/
+
+	function update() {
+		
+		/*if(anchorONEMesh) {
+
+						camera.position.x += ( mouseX - camera.position.x ) * .0000001;
+						camera.position.y += ( - ( mouseY - 100 ) - camera.position.y ) * .00001;
+
+						camera.lookAt( anchorONEMesh.position );
+
+		}*/
+
+
+
+    if (mixer) {
+      mixer.update(clock.getDelta());
+    }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(update);
+
+
+  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  })();
+
+</script>
+
+
+
+
+
+<script>
+
+
+
+
+
+$(document).ready(function() {
+//Preloader
+preloaderFadeOutTime = 5000;
+function hidePreloader() {
+var preloader = $('.spinner-wrapper');
+preloader.fadeOut(preloaderFadeOutTime);
+alert("This page may not work correctly in the Safari web browser, for a better experience, please try Firefox or Google Chrome.");
+}
+hidePreloader();
+});
+
+
+function openAdditionalImageWindow() {
+overlayZ.style.display = "block";
+overlayZ.style.animation = 'animationName 1s';
+}
+
+
+
+
+function closeAdditionalImageWindow() {
+overlayZ.style.display = "none";
+}
+
+</script>
+
+
+
+<script type="text/javascript"> // RELOADS WEBPAGE WHEN MOBILE ORIENTATION CHANGES  
+    window.onorientationchange = function() { 
+        var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0:
+                case 90:
+                case -90: window.location.reload(); 
+                break; } 
+    };
+
+</script>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+$(document).ready(function() {
+//Preloader
+preloaderFadeOutTime = 5000;
+function hidePreloader() {
+var preloader = $('.spinner-wrapper');
+preloader.fadeOut(preloaderFadeOutTime);
+}
+hidePreloader();
+});
+
+
+function openAdditionalImageWindow() {
+overlayZ.style.display = "block";
+overlayZ.style.animation = 'animationName 1s';
+}
+
+
+
+
+function closeAdditionalImageWindow() {
+overlayZ.style.display = "none";
+}
+
+</script>
+
+
+
+<script type="text/javascript"> // RELOADS WEBPAGE WHEN MOBILE ORIENTATION CHANGES  
+    window.onorientationchange = function() { 
+        var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0:
+                case 90:
+                case -90: window.location.reload(); 
+                break; } 
+    };
+
+</script>
+
+
+
+
+

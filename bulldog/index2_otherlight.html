@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Imporant meta information to make the page as rigid as possible on mobiles, to avoid unintentional zooming on the page itself  -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ANIM5 Bulldog Live Alpha</title>
+    
+		</head>
+		<style>
+
+
+body {
+
+	background: linear-gradient(-45deg, #ee7752, #117cb2, #717cb2, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 25s ease infinite;
+  margin: 0;
+  padding: 0;
+
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+html {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+* {
+  touch-action: manipulation;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  font-family: 'Poppins', 'arial', sans-serif;
+  width: 100%;
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#c {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.loading {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader{
+  -webkit-perspective: 120px;
+  -moz-perspective: 120px;
+  -ms-perspective: 120px;
+  perspective: 120px;
+  width: 100px;
+  height: 100px;
+}
+
+.loader:before{
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+  animation: flip 1s infinite;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(180deg)  rotateX(180deg);
+  }
+}
+
+
+
+
+
+#DefaultCustomizeTopBase {
+position:absolute;
+top: 0%;
+display: block;
+z-index: 10;
+color: white;
+font-weight:bolder;
+}
+
+#DefaultCustomizeTopBase1 {
+position:absolute;
+top: 85%;
+display: block;
+z-index: 10;
+color: white;
+}
+
+
+
+
+
+#top1_titles {
+display:flex;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width:55%;
+height: 95%;
+background-color: rgba(0, 0, .0, .0	);
+}
+#topMenuImg {
+margin-top: 55px;
+}
+
+
+
+
+
+
+.flexbox_1{
+  display:flex;
+  justify-content:center;
+
+}
+
+
+#label1_1_aLotOfTextBlock {
+	width: 23em;
+	font-size: 0.8em;
+	color: #444444;
+	opacity: 0.9;
+	margin-top: -32em;
+	margin-left: 24em;
+	height: 3em;
+	text-align: left;
+}
+</style>
+
+
+
+<body>
+  
+  <!-- The loading element overlays all else until the model is loaded, at which point we remove this element from the DOM -->  
+<div class="loading" id="js-loader"><div class="loader"></div></div>
+
+
+<div class="wrapper">
+<canvas id="c"></canvas>
+</div>
+
+<div class="flexbox_1">
+
+	<div align="center" id="DefaultCustomizeTopBase" >
+	<p style="font-size:4em; color: #444444; font-family: sans-serif, arial;"><b>DIGITAL</b></p>
+	</div>
+
+	<div align="center" id="DefaultCustomizeTopBase1" >
+	<p id="label1_1_aLotOfTextBlock">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+	</p>
+	</div>
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+<script src='three.min.js'></script>
+<script src='GLTFLoader.js'></script>
+<script src='OrbitControls.js'></script>
+<script src="../node_modules/dat.gui/build/dat.gui.min.js"></script>
+
+<script>
+
+
+(function() {
+
+  	let scene,  
+    renderer,
+    camera,
+    model,                              
+    possibleAnims,                      
+    mixer,
+		backgroundMesh,
+
+		anchorONE,
+		anchorONEMesh,
+
+		cloudsGLB,
+		cloudsMESH,
+
+		controls,                              
+    anim1,anim2,anim3,anim4,anim5,anim6,anim7,               
+    clock = new THREE.Clock(),          
+    currentlyAnimating = false, 
+        
+    raycaster = new THREE.Raycaster(), 
+    loaderAnim = document.getElementById('js-loader');
+
+
+		var mouseX = 0, mouseY = 0;
+
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+
+		var frustumSize = 10;
+
+		init(); 
+		update();
+
+
+
+  	function init() {
+
+
+		var aspect = window.innerWidth / window.innerHeight;
+
+    const MODEL_PATH = 'anim5.glb';
+    const canvas = document.querySelector('#c');
+    const backgroundColor = 0xFFFFFF;
+    
+    // Init the scene
+    scene = new THREE.Scene();
+    //scene.background = new THREE.Color(backgroundColor);
+    //scene.fog = new THREE.Fog(0x63aec1, 1500, 4000);
+    
+    // Init the renderer
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+		renderer.setClearColor( 0x000000, 0 );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.shadowMap.enabled = false;
+		renderer.shadowMapSoft = false;
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild(renderer.domElement);
+
+
+
+    
+		/*
+    camera = new THREE.PerspectiveCamera(
+      15,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    camera.position.x = 0;
+    camera.position.y = -6;
+    camera.position.z = 49;
+
+		*/
+
+	  window.addEventListener( 'resize', onWindowResize, false );
+
+		camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 0.1, 100 );
+    camera.position.x = 0;
+    camera.position.y = -8;
+    camera.position.z = 9;
+
+
+
+		
+
+		function onWindowResize() {
+
+			var aspect = window.innerWidth / window.innerHeight;
+	
+			camera.left = frustumSize * aspect / - 2;
+			camera.right = frustumSize * aspect / 2;
+			camera.top = frustumSize / 2;
+			camera.bottom = - frustumSize / 2;
+
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}
+
+/*
+const textureCube = new THREE.CubeTextureLoader()
+	.load([
+	'img/px.png',
+	'img/nx.png',
+	'img/py.png',
+	'img/ny.png',
+	'img/pz.png',
+	'img/nz.png',
+]);
+*/
+
+    let stacy_txt = new THREE.TextureLoader().load('oct_ns.jpg');
+		stacy_txt.magFilter = THREE.LinearFilter;
+		stacy_txt.minFilter = THREE.LinearFilter;
+		//LinearMipmapLinearFilter,  LinearFilter
+    stacy_txt.flipY = false;
+
+    const stacy_mtl = new THREE.MeshStandardMaterial({
+      map: stacy_txt,
+     // color: 0xffffff,
+      skinning: true,
+		flatShading: false,
+		roughness: 0.,
+	//	metalness: 0.1,
+	//envMap: textureCube
+			
+    });
+
+
+    const whiteMap = new THREE.MeshBasicMaterial({
+
+      color: 0xffffff,
+
+    });
+
+    
+
+
+
+
+    var loader = new THREE.GLTFLoader(); 
+
+    loader.load(
+      MODEL_PATH,
+      function(gltf) {
+
+        model = gltf.scene;
+
+        let fileAnimations = gltf.animations;
+
+          model.traverse(o => {
+
+          if (o.isMesh) {
+            o.castShadow = false;
+            o.receiveShadow = false;
+            o.material = stacy_mtl;
+          }
+
+        });
+        
+        model.scale.set(10, 10, 10);
+        model.position.y = -12.5;
+        model.position.x = 1;
+        model.rotation.x = 0.22;
+
+
+
+				cloudsGLB = gltf.scene.children[6];
+        cloudsGLB.material =  whiteMap;
+
+
+        cloudsGLB.scale.set(10, 10, 10);
+        cloudsGLB.position.y = -12.5;
+        cloudsGLB.position.x = 1;
+        cloudsGLB.rotation.x = 0.22;
+
+        scene.add(model);
+        
+
+
+				mixer = new THREE.AnimationMixer(model);
+
+				let clips = fileAnimations.filter(val => val.name !== 'Base.001Action');
+				possibleAnims = clips.map(val => {
+				let clip = THREE.AnimationClip.findByName(clips, val.name);
+				clip = mixer.clipAction(clip);
+				return clip;
+				});
+				let anim1Main = THREE.AnimationClip.findByName(fileAnimations, 'Base.001Action');
+				anim1 = mixer.clipAction(anim1Main);
+				//idle.timeScale = 1/10;
+				anim1.play();
+
+
+
+				let clips2 = fileAnimations.filter(val => val.name !== 'Circle.000Action.001');
+				possibleAnims = clips2.map(val => {
+				let clip2 = THREE.AnimationClip.findByName(clips2, val.name);
+				clip2 = mixer.clipAction(clip2);
+				return clip2;
+				});
+				let animMain2 = THREE.AnimationClip.findByName(fileAnimations, 'Circle.000Action.001');
+				anim2 = mixer.clipAction(animMain2);
+				//idle.timeScale = 1/10;
+				anim2.play();
+
+
+
+				let clips3 = fileAnimations.filter(val => val.name !== 'Key.010Action');
+				possibleAnims = clips3.map(val => {
+				let clip3 = THREE.AnimationClip.findByName(clips3, val.name);
+				clip3 = mixer.clipAction(clip3);
+				return clip3;
+				});
+				let animMain3 = THREE.AnimationClip.findByName(fileAnimations, 'Key.010Action');
+				anim3 = mixer.clipAction(animMain3);
+				//idle.timeScale = 1/10;
+				anim3.play();
+
+
+      },
+      undefined, // We don't need this function
+      function(error) {
+        console.error(error);
+      }
+    );
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+		var materialGradient = new THREE.ShaderMaterial({
+			uniforms: {
+				color1: {
+				  value: new THREE.Color("#7499bf")
+				},
+				color2: {
+				  value: new THREE.Color("white") //7499bf
+				}
+			},
+			vertexShader: `
+				varying vec2 vUv;
+
+				void main() {
+				  vUv = uv;
+				  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,2.2);
+				}
+			`,
+			fragmentShader: `
+				uniform vec3 color1;
+				uniform vec3 color2;
+		
+				varying vec2 vUv;
+				
+				void main() {
+				  
+				  gl_FragColor = vec4(mix(color1, color2, vUv.y), 4.0);
+				}
+			`,
+			wireframe: false,
+		});
+*/
+
+
+/*
+		loader.load('background.glb', (Zgltf) => {
+		backgroundMesh = Zgltf.scene.children[0];
+		backgroundMesh.material = materialGradient;
+		scene.add(backgroundMesh);
+
+		backgroundMesh.position.y = -10;
+		backgroundMesh.position.x = 0;
+		backgroundMesh.position.z = -15;
+
+    backgroundMesh.scale.set(300, 30, 30);
+		});
+
+*/
+
+
+
+
+
+
+/*
+
+		loader.load('anchorONE.glb', (Zgltf) => {
+		anchorONEMesh = Zgltf.scene.children[0];
+		anchorONEMesh.material = materialGradient;
+		scene.add(anchorONEMesh);
+		anchorONEMesh.position.z = -55;
+
+		});
+
+*/
+
+
+
+
+    let hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF, 0.4);
+    hemiLight.position.set(100, 75, -100);
+    scene.add(hemiLight);
+
+
+    //let d = 8.25;
+    let dirLight = new THREE.DirectionalLight(0xffffff, 5.6);
+    //dirLight.position.set(-8, 12, 8);
+    dirLight.position.set(0.1, 2, -6.5);
+    dirLight.castShadow = false;
+    // Add directional Light to scene
+    scene.add(dirLight);
+
+
+    let dirLight2 = new THREE.DirectionalLight(0xffffff, 0.9);
+    //dirLight.position.set(-8, 12, 8);
+    dirLight2.position.set(-15, 40, 100);
+    dirLight2.castShadow = false;
+    // Add directional Light to scene
+    scene.add(dirLight2);
+
+
+		
+		function updateCamera() {
+		hemiLight.updateMatrixWorld();
+		}
+
+		
+
+		class ColorGUIHelper {aa
+		constructor(object, prop) {
+		this.object = object;
+		this.prop = prop;
+		}
+		get value() {
+		return `#${this.object[this.prop].getHexString()}`;
+		}
+		set value(hexString) {
+		this.object[this.prop].set(hexString);
+		}
+		}
+
+		function makeXYZGUI(gui, vector3, name, onChangeFn) {
+		const folder = gui.addFolder(name);
+		folder.add(vector3, 'x', -100, 100).onChange(onChangeFn);
+		folder.add(vector3, 'y', -100, 100).onChange(onChangeFn);
+		folder.add(vector3, 'z', -100, 100).onChange(onChangeFn);
+		folder.open();
+		}
+		
+		const gui = new dat.GUI();
+		makeXYZGUI(gui, dirLight2.position, 'position', updateCamera);
+
+		
+//end of the main func
+}
+
+ 
+
+
+
+/*
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		function onDocumentMouseMove( event ) {
+
+		mouseX = ( event.clientX - windowHalfX );
+		mouseY = ( event.clientY - windowHalfY );
+
+		}
+
+*/
+
+	function update() {
+		
+		/*if(anchorONEMesh) {
+
+						camera.position.x += ( mouseX - camera.position.x ) * .0000001;
+						camera.position.y += ( - ( mouseY - 100 ) - camera.position.y ) * .00001;
+
+						camera.lookAt( anchorONEMesh.position );
+
+		}*/
+
+
+
+    if (mixer) {
+      mixer.update(clock.getDelta());
+    }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(update);
+
+
+  }
+
+
+  
+    loaderAnim.remove();
+
+
+
+
+
+
+
+
+
+
+  })();
+
+</script>
+

@@ -1,0 +1,765 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Imporant meta information to make the page as rigid as possible on mobiles, to avoid unintentional zooming on the page itself  -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+ <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap" rel="stylesheet"> 
+
+    <title>32</title>
+    
+		</head>
+		<style>
+
+
+
+
+body {
+
+	background: linear-gradient(-5deg, royalblue, #92afcd, #eeeeee, navy);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+html {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+* {
+  touch-action: manipulation;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#c {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.loading {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader{
+  -webkit-perspective: 120px;
+  -moz-perspective: 120px;
+  -ms-perspective: 120px;
+  perspective: 120px;
+  width: 100px;
+  height: 100px;
+}
+
+.loader:before{
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  width: 100px;
+  height: 100px;
+  background-image: url("b.png");
+  background-size: cover;
+background-size: contain;
+background-repeat: no-repeat;
+ /* animation: flip 1s infinite;*/
+}
+
+@keyframes flip {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(180deg)  rotateX(180deg);
+  }
+}
+
+
+
+#label1_1_headline {
+	position: fixed;
+	font-size: 2.3em;
+	color: #444444;
+	font-family: 'Heebo', sans-serif;
+	font-weight: bolder;
+	margin-left: -2.5em;
+	margin-top: 0.2em;
+	font-style: italic;
+}
+
+#label1_1_headline2 {
+	position: fixed;
+	font-size: 3.3em;
+	color: royalblue;
+	font-weight: bolder;
+	font-family: 'Heebo', sans-serif;
+	margin-top: 1.5em;
+	margin-left: -3.7em;
+}
+#label1_1_bottomarrow {
+	position: fixed;
+	font-size: 3.3em;
+	color: royalblue;
+	font-weight: bolder;
+	font-family: 'Heebo', sans-serif;
+	margin-top: 2.1em;
+	margin-left: -2.6em;
+}
+
+#label1_1_aLotOfTextBlock {
+	position: fixed;
+	width: 19.9em;
+	font-size: 0.6em;
+	color: #444444;
+	opacity: 0.8;
+	margin-top: 7em;
+	margin-left: 5.9em;
+	height: 3em;
+	text-align: left;
+	font-family: sans-serif;
+}
+
+
+#DefaultCustomizeTopBase {
+	position: absolute;
+	top: 0%;
+	display: block;
+	z-index: 10;
+	color: white;
+	margin-top: 1em;
+}
+
+
+
+
+
+.line-separator {
+	width: 76em;
+	position: fixed;
+	margin-top: 9.9em;
+	margin-left: -37.1em;
+	z-index: 999;
+	opacity: 0.4;
+	padding: 1em;
+}
+
+.side-line {
+    display: inline-block;
+    border-top: 0.1em solid black;
+    width: 20%;
+}
+
+
+.triangle {
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+	transform: rotate(-135deg);
+	transform-origin: center center;
+	border-top: 0.1em solid black;
+	border-left: 0.1em solid black;
+	margin-left: -0.1em;
+	margin-right: -0.1em;
+	margin-bottom: -0.5em;
+}
+
+
+
+
+.line-separator2 {
+	width: 70em;
+	position: fixed;
+	margin-top: 5.7em;
+	margin-left: -34.5em;
+	z-index: 999;
+	opacity: 0.4;
+	transform: rotate(-90deg);
+	padding: 1em;
+}
+
+.side-line2 {
+	display: inline-block;
+	border-top: 0.1em solid black;
+	width: 8%;
+}
+
+
+
+
+
+
+#hamburger_icon {
+	position: fixed;
+	width: 16.9em;
+	font-size: 0.6em;
+	color: #444444;
+	opacity: 0.8;
+	margin-top: -2.7em;
+	right: 0em;
+	height: 3em;
+	text-align: left;
+	font-family: sans-serif;
+	/* scale: 27em; */
+	scale: 0.4;
+}
+
+
+#b_icon {
+	position: fixed;
+	width: 16.9em;
+	font-size: 0.6em;
+	color: #444444;
+	opacity: 0.8;
+	margin-top: -1.7em;
+	left: -1.6em;
+	height: 3em;
+	text-align: left;
+	font-family: sans-serif;
+	/* scale: 27em; */
+	scale: 0.2;
+}
+
+
+
+#top1_titles {
+display:flex;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width:55%;
+height: 95%;
+background-color: rgba(0, 0, .0, .0	);
+}
+#topMenuImg {
+margin-top: 55px;
+}
+
+
+
+
+
+
+.flexbox_1{
+  display:flex;
+  justify-content:center;
+
+}
+
+
+
+
+</style>
+
+
+
+<body>
+  
+  <!-- The loading element overlays all else until the model is loaded, at which point we remove this element from the DOM -->  
+<!--<div class="loading" id="js-loader"><div class="loader"></div></div>-->
+
+
+<div class="wrapper">
+<canvas id="c"></canvas>
+</div>
+<!--
+<div class="flexbox_1">
+
+	<div align="center" id="DefaultCustomizeTopBase" >
+		<p id="label1_1_headline"><b>MARKETING</b></p>
+
+		<p id="label1_1_headline2"><b>SOCIAL</b></p>
+
+		<p id="label1_1_aLotOfTextBlock">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..<br><br> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		</p>
+
+
+	<div class="line-separator2" >
+		  <div class="side-line2"> </div>
+	</div>
+
+
+	<div class="line-separator" >
+		  <div class="side-line"> </div>
+		  <div class="triangle"> </div>
+		  <div class="side-line"> </div>
+	</div>
+
+	<a href="index.html">
+	<div id="b_icon"><img src="b.png"></div>
+	</a>
+
+
+	<div id="hamburger_icon"><img src="ham.png"></div>
+
+
+
+</div>
+
+-->
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src='three.min.js'></script>
+<script src='GLTFLoader.js'></script>
+<script src='OrbitControls.js'></script>
+<script src="../node_modules/dat.gui/build/dat.gui.min.js"></script>
+
+<script>
+
+
+(function() {
+
+  	let scene,  
+    renderer,
+    camera,
+    model,                              
+    possibleAnims,                      
+    mixer,
+		backgroundMesh,
+
+		anchorONE,
+		anchorONEMesh,
+
+		cloudsGLB,
+		cloudsMESH,
+
+		controls,                              
+    anim1,anim2,anim3,anim4,anim5,anim6,anim7,               
+    clock = new THREE.Clock(),          
+    currentlyAnimating = false, 
+        
+    raycaster = new THREE.Raycaster(), 
+    loaderAnim = document.getElementById('js-loader');
+
+
+		var mouseX = 0, mouseY = 0;
+
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+
+		var frustumSize = 10;
+
+		init(); 
+		update();
+
+
+
+  	function init() {
+
+
+		var aspect = window.innerWidth / window.innerHeight;
+
+
+    const MODEL_PATH2 = 'logo3d.glb';
+    const canvas = document.querySelector('#c');
+    const backgroundColor = 0xFFFFFF;
+    
+    // Init the scene
+    scene = new THREE.Scene();
+    //scene.background = new THREE.Color(backgroundColor);
+    //scene.fog = new THREE.Fog(0x63aec1, 1500, 4000);
+    
+    // Init the renderer
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+		renderer.setClearColor( 0x000000, 0 );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.shadowMap.enabled = false;
+		renderer.shadowMapSoft = false;
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild(renderer.domElement);
+
+
+
+    
+		/*
+    camera = new THREE.PerspectiveCamera(
+      15,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    camera.position.x = 0;
+    camera.position.y = -6;
+    camera.position.z = 49;
+
+		*/
+
+	  window.addEventListener( 'resize', onWindowResize, false );
+
+		camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 0.1, 100 );
+    camera.position.x = -0.7;
+    camera.position.y = -8;
+    camera.position.z = 0;
+
+
+
+		
+
+		function onWindowResize() {
+
+			var aspect = window.innerWidth / window.innerHeight;
+	
+			camera.left = frustumSize * aspect / - 2;
+			camera.right = frustumSize * aspect / 2;
+			camera.top = frustumSize / 2;
+			camera.bottom = - frustumSize / 2;
+
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}
+
+
+const textureCube = new THREE.CubeTextureLoader()
+	.load([
+	'img/px.png',
+	'img/nx.png',
+	'img/py.png',
+	'img/ny.png',
+	'img/pz.png',
+	'img/nz.png',
+]);
+
+
+  let stacy_txt = new THREE.TextureLoader().load('oct_ns.jpg');
+		stacy_txt.magFilter = THREE.LinearFilter;
+		stacy_txt.minFilter = THREE.LinearFilter;
+		//LinearMipmapLinearFilter,  LinearFilter
+    stacy_txt.flipY = false;
+
+    const stacy_mtl = new THREE.MeshStandardMaterial({
+      map: stacy_txt,
+     // color: 0xffffff,
+      skinning: true,
+		//	flatShading: false,
+		roughness: 0.2,
+		metalness: 0.4,
+		envMap: textureCube
+			
+    });
+
+
+
+    
+
+
+
+    var loader = new THREE.GLTFLoader(); 
+
+
+
+    loader.load(
+      MODEL_PATH2,
+      function(gltf) {
+
+        model = gltf.scene;
+
+
+          model.traverse(o => {
+
+          if (o.isMesh) {
+            o.castShadow = false;
+            o.receiveShadow = false;
+            o.material = stacy_mtl;
+          }
+
+        });
+        
+
+        model.scale.set(10, 10, 10);
+        model.position.y = -12.5;
+        model.position.x = 1;
+        model.rotation.x = 0.22;
+
+
+
+        scene.add(model);
+        
+
+
+      },
+      undefined, // We don't need this function
+      function(error) {
+        console.error(error);
+      }
+    );
+    
+
+
+
+
+
+
+
+
+
+/*
+
+		var materialGradient = new THREE.ShaderMaterial({
+			uniforms: {
+				color1: {
+				  value: new THREE.Color("#7499bf")
+				},
+				color2: {
+				  value: new THREE.Color("white") //7499bf
+				}
+			},
+			vertexShader: `
+				varying vec2 vUv;
+
+				void main() {
+				  vUv = uv;
+				  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,2.2);
+				}
+			`,
+			fragmentShader: `
+				uniform vec3 color1;
+				uniform vec3 color2;
+		
+				varying vec2 vUv;
+				
+				void main() {
+				  
+				  gl_FragColor = vec4(mix(color1, color2, vUv.y), 4.0);
+				}
+			`,
+			wireframe: false,
+		});
+*/
+
+
+/*
+		loader.load('background.glb', (Zgltf) => {
+		backgroundMesh = Zgltf.scene.children[0];
+		backgroundMesh.material = materialGradient;
+		scene.add(backgroundMesh);
+
+		backgroundMesh.position.y = -10;
+		backgroundMesh.position.x = 0;
+		backgroundMesh.position.z = -15;
+
+    backgroundMesh.scale.set(300, 30, 30);
+		});
+
+*/
+
+
+
+
+
+
+
+    let hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x4390f8, 0.4);
+    hemiLight.position.set(33, 41, -13);
+    scene.add(hemiLight);
+
+
+    //let d = 8.25;
+    let dirLight = new THREE.DirectionalLight(0xffffff, 2);
+    dirLight.position.set(0, 12, 8);
+    dirLight.castShadow = true;
+    // Add directional Light to scene
+    scene.add(dirLight);
+
+	
+		function updateCamera() {
+		model.updateMatrixWorld();
+		}
+
+/*
+		
+		class ColorGUIHelper {aa
+		constructor(object, prop) {
+		this.object = object;
+		this.prop = prop;
+		}
+		get value() {
+		return `#${this.object[this.prop].getHexString()}`;
+		}
+		set value(hexString) {
+		this.object[this.prop].set(hexString);
+		}
+		}
+
+		function makeXYZGUI(gui, vector3, name, onChangeFn) {
+		const folder = gui.addFolder(name);
+		folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
+		folder.add(vector3, 'y', -10, 10).onChange(onChangeFn);
+		folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
+		folder.open();
+		}
+		
+		const gui = new dat.GUI();
+		makeXYZGUI(gui, model.position, 'position', updateCamera);
+
+		
+*/
+//end of the main func
+}
+
+ 
+
+
+
+/*
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		function onDocumentMouseMove( event ) {
+
+		mouseX = ( event.clientX - windowHalfX );
+		mouseY = ( event.clientY - windowHalfY );
+
+		}
+
+*/
+
+	function update() {
+		
+		/*if(anchorONEMesh) {
+
+						camera.position.x += ( mouseX - camera.position.x ) * .0000001;
+						camera.position.y += ( - ( mouseY - 100 ) - camera.position.y ) * .00001;
+
+						camera.lookAt( anchorONEMesh.position );
+
+		}*/
+
+
+
+    if (mixer) {
+      mixer.update(clock.getDelta());
+    }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(update);
+
+
+  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  })();
+
+</script>
+

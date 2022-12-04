@@ -1,0 +1,1402 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Imporant meta information to make the page as rigid as possible on mobiles, to avoid unintentional zooming on the page itself  -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bulldog Ad</title>
+    
+<link rel="stylesheet" media="only screen and (max-width: 600px)" href="css/mobile_main.css" />
+<link rel="stylesheet" media="only screen and (min-width: 601px)" href="css/desktop_main.css" />
+    
+</head>
+
+
+
+
+
+
+
+<body>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<script src="./jquery.min.js"></script>
+<div class="spinner-wrapper vertical-center " >
+LOADING...
+<div class="spinner vertical-center "></div>
+</div>
+
+
+
+
+
+
+<style>
+
+
+.spinner-wrapper {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader{
+  -webkit-perspective: 120px;
+  -moz-perspective: 120px;
+  -ms-perspective: 120px;
+  perspective: 120px;
+  width: 100px;
+  height: 100px;
+}
+.loader:before{
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  width: 100px;
+  height: 100px;
+  background-image: url("b.png");
+  background-size: cover;
+background-size: contain;
+background-repeat: no-repeat;
+ /* animation: flip 1s infinite;*/
+}
+
+
+
+ @keyframes animationName {
+/*  transition: all 0.4s ease-out;*/
+  0%   { opacity:0;    }
+  100%  { opacity:1;}
+}
+
+#overlayZ {
+padding-left: 5px;
+padding-right: 30px;
+padding-top: 3px;
+display: none;
+width: 100%;
+height: 100%;
+position: fixed;
+top: 0px;
+left:0px;
+margin: 0 auto;
+background-color: rgba(0,0,0,.4);
+z-index: 15;
+}
+
+.flexbox_4 {
+display:flex;
+justify-content:center;
+z-index: 19;
+}
+
+
+
+
+#fcf-form {
+    display:block;
+}
+
+.fcf-body {
+    margin: 0;
+    font-family: -apple-system, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    color: #212529;
+    text-align: left;
+    background-color: #ffffffe0;
+    padding: 30px;
+    padding-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    max-width: 100%;
+margin-top: 2em;
+}
+
+.fcf-form-group {
+    margin-bottom: 1rem;
+}
+
+.fcf-input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.fcf-form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    outline: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.fcf-form-control:focus {
+    border: 1px solid #313131;
+}
+
+select.fcf-form-control[size], select.fcf-form-control[multiple] {
+    height: auto;
+}
+
+textarea.fcf-form-control {
+    font-family: -apple-system, Arial, sans-serif;
+    height: auto;
+}
+
+label.fcf-label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.fcf-credit {
+    padding-top: 10px;
+    font-size: 0.9rem;
+    color: #545b62;
+}
+
+.fcf-credit a {
+    color: #545b62;
+    text-decoration: underline;
+}
+
+.fcf-credit a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.fcf-btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fcf-btn {
+        transition: none;
+    }
+}
+
+.fcf-btn:hover {
+    color: #212529;
+    text-decoration: none;
+}
+
+.fcf-btn:focus, .fcf-btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.fcf-btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.fcf-btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.fcf-btn-primary:focus, .fcf-btn-primary.focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.fcf-btn-lg, .fcf-btn-group-lg>.fcf-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
+
+.fcf-btn-block {
+    display: block;
+    width: 100%;
+}
+
+.fcf-btn-block+.fcf-btn-block {
+    margin-top: 0.5rem;
+}
+
+input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[type="button"].fcf-btn-block {
+    width: 100%;
+}
+
+a {
+  color: hotpink;
+  letter-spacing: -1px;
+}
+
+
+
+</style>
+
+
+<div id="overlayZ">
+<div class="flexbox_4">
+
+
+		<div onclick="closeAdditionalImageWindow()" style="font-size:2em; margin-top: 1.1em; COLOR:white; cursor:pointer">
+			&times
+			</div>
+
+
+<div class="fcf-body">
+
+    <div id="fcf-form">
+    <h3 class="fcf-h3">Contacto Bulldog Ad</h3>
+
+    <form id="fcf-form-id" class="fcf-form-class" method="post" action="contact-form-process.php">
+        
+        <div class="fcf-form-group">
+            <label for="Name" class="fcf-label">Nombre</label>
+            <div class="fcf-input-group">
+                <input type="text" id="Name" name="Name" class="fcf-form-control" required>
+            </div>
+        </div>
+
+        <div class="fcf-form-group">
+            <label for="Email" class="fcf-label">Email</label>
+            <div class="fcf-input-group">
+                <input type="email" id="Email" name="Email" class="fcf-form-control" required>
+            </div>
+        </div>
+
+        <div class="fcf-form-group">
+            <label for="Message" class="fcf-label">Mensaje</label>
+            <div class="fcf-input-group">
+                <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+            </div>
+        </div>
+
+        <div class="fcf-form-group">
+            <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Enviar</button>
+        </div>
+
+    </form>
+    </div>
+
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+<!-- PHP TO HANDLE TO CONTACT FORM 
+
+
+
+
+
+
+"
+The PHP code below is very basic - it will capture the form fields specified in the HTML form above (Name, Email, and Message). The fields are then sent off to your email address in plain text.
+
+Note: You need to edit 2 parts of the script below. You need to set your email address (this will not be available for anyone to see, it is only used by the server to send your email). You can also specify an email subject line (or just leave the one which is there).
+
+File Name: contact-form-process.php (you must use this filename exactly)
+"
+
+
+
+
+
+<?php
+if (isset($_POST['Email'])) {
+
+    // EDIT THE 2 LINES BELOW AS REQUIRED
+    $email_to = "luis.almada.perez@gmail.com";
+    $email_subject = "New form submissions";
+
+    function problem($error)
+    {
+        echo "We are very sorry, but there were error(s) found with the form you submitted. ";
+        echo "These errors appear below.<br><br>";
+        echo $error . "<br><br>";
+        echo "Please go back and fix these errors.<br><br>";
+        die();
+    }
+
+    // validation expected data exists
+    if (
+        !isset($_POST['Name']) ||
+        !isset($_POST['Email']) ||
+        !isset($_POST['Message'])
+    ) {
+        problem('We are sorry, but there appears to be a problem with the form you submitted.');
+    }
+
+    $name = $_POST['Name']; // required
+    $email = $_POST['Email']; // required
+    $message = $_POST['Message']; // required
+
+    $error_message = "";
+    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+
+    if (!preg_match($email_exp, $email)) {
+        $error_message .= 'The Email address you entered does not appear to be valid.<br>';
+    }
+
+    $string_exp = "/^[A-Za-z .'-]+$/";
+
+    if (!preg_match($string_exp, $name)) {
+        $error_message .= 'The Name you entered does not appear to be valid.<br>';
+    }
+
+    if (strlen($message) < 2) {
+        $error_message .= 'The Message you entered do not appear to be valid.<br>';
+    }
+
+    if (strlen($error_message) > 0) {
+        problem($error_message);
+    }
+
+    $email_message = "Form details below.\n\n";
+
+    function clean_string($string)
+    {
+        $bad = array("content-type", "bcc:", "to:", "cc:", "href");
+        return str_replace($bad, "", $string);
+    }
+
+    $email_message .= "Name: " . clean_string($name) . "\n";
+    $email_message .= "Email: " . clean_string($email) . "\n";
+    $email_message .= "Message: " . clean_string($message) . "\n";
+
+    // create email headers
+    $headers = 'From: ' . $email . "\r\n" .
+        'Reply-To: ' . $email . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+    @mail($email_to, $email_subject, $email_message, $headers);
+?>
+
+
+    Thank you for contacting us. We will be in touch with you very soon.
+
+<?php
+}
+?>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="wrapper">
+    <!-- The canvas element is used to draw the 3D scene -->
+<canvas id="c"></canvas>
+
+	<a id="labels" onclick="label1_1_open()"></a>
+			<div id="labels1_1">
+			</div>
+	<a id="labels2"  onclick="label2_1_open()"></a>
+			<div id="labels2_1">
+			</div>
+	<a id="labels3"  onclick="label3_1_open()"></a>
+			<div id="labels3_1">
+			</div>
+	<a id="labels4" onclick="label4_1_open()"></a>
+			<div id="labels4_1">
+			</div>
+	<a id="labels5"  onclick="label5_1_open()"></a>
+			<div id="labels5_1">
+			</div>
+
+
+
+
+
+
+<div class="flexbox_1">
+
+	<div align="center" id="DefaultCustomizeTopBase" >
+
+
+
+
+
+
+	<div id="night_icon" style="cursor:pointer" onclick="nightVersion()"><img id="night_icon_jpg" src="night.png"></div>
+
+
+	<div id="day_icon" style="cursor:pointer" onclick="dayVersion()"><img id="day_icon_jpg" src="day.png"></div>
+
+
+
+</div>
+
+
+	<div id="b_icon">
+		<a href="index.html">
+	<img id="b_icon_img" src="b.png">
+		</a>
+	</div>
+
+
+
+
+		<img src="question_icon.png" onclick="openAdditionalImageWindow()" id="contact_mail">
+
+
+
+	<div id="hamburger_icon"><img id="hamburger_icon_img" src="ham.png"></div>
+
+
+
+
+</div>
+</body>
+</html>
+
+
+<script src='./three.min.js'></script>
+<script src='./GLTFLoader.js'></script>
+<script src='./OrbitControls.js'></script>
+
+<script>
+
+
+
+
+  	let scene,  
+    renderer,
+    camera,
+    model,                              
+    possibleAnims,                      
+    mixer,
+		controls,                              
+    anim1,anim2,anim3,anim4,anim5,anim6,anim7,               
+    clock = new THREE.Clock(),          
+    currentlyAnimating = false,         
+    raycaster = new THREE.Raycaster(), 
+    loaderAnim = document.getElementById('js-loader');
+
+
+		
+		const tempVLEFT = new THREE.Vector3( );
+		const labelContainerElem = document.querySelector('#labels');
+		const elem = document.createElement('div');
+
+		const tempVLEFT2 = new THREE.Vector3( );
+		const labelContainerElem2 = document.querySelector('#labels2');
+		const elem2 = document.createElement('div');
+
+		const tempVLEFT3 = new THREE.Vector3( );
+		const labelContainerElem3 = document.querySelector('#labels3');
+		const elem3 = document.createElement('div');
+
+		const tempVLEFT4 = new THREE.Vector3( );
+		const labelContainerElem4 = document.querySelector('#labels4');
+		const elem4 = document.createElement('div');
+
+		const tempVLEFT5 = new THREE.Vector3( );
+		const labelContainerElem5 = document.querySelector('#labels5');
+		const elem5 = document.createElement('div');
+
+
+
+
+		const tempVLEFT1_1 = new THREE.Vector3( );
+		const labelContainerElem1_1 = document.querySelector('#labels1_1');
+		const elem1_1 = document.createElement('div');
+
+		const tempVLEFT2_1 = new THREE.Vector3( );
+		const labelContainerElem2_1 = document.querySelector('#labels2_1');
+		const elem2_1 = document.createElement('div');
+
+		const tempVLEFT3_1 = new THREE.Vector3( );
+		const labelContainerElem3_1 = document.querySelector('#labels3_1');
+		const elem3_1 = document.createElement('div');
+
+		const tempVLEFT4_1 = new THREE.Vector3( );
+		const labelContainerElem4_1 = document.querySelector('#labels4_1');
+		const elem4_1 = document.createElement('div');
+
+
+
+		const tempVLEFT5_1 = new THREE.Vector3( );
+		const labelContainerElem5_1 = document.querySelector('#labels5_1');
+		const elem5_1 = document.createElement('div');
+
+
+    const MODEL_PATH = 'mainModel.glb';
+    const canvas = document.querySelector('#c');
+    const backgroundColor = 0x777777;
+    
+    // Init the scene
+    scene = new THREE.Scene();
+   //scene.background = new THREE.Color(backgroundColor);
+    //scene.fog = new THREE.Fog(backgroundColor, 60, 100);
+    
+    // Init the renderer
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true  });
+    renderer.shadowMap.enabled = false;
+		renderer.setClearColor( 0x000000, 0 );
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
+    
+    // Add a camera
+    camera = new THREE.PerspectiveCamera(
+      25,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.x = -38.07; 
+    camera.position.y = 20.13;
+    camera.position.z = 37.42;
+    
+
+
+
+
+
+		controls = new THREE.OrbitControls(camera, canvas);
+
+		//controls//
+
+		controls.target.set(-0, -9.9	, 0);
+		controls.minDistance = 34.1;
+		controls.maxDistance = 138.4; //5
+		controls.maxPolarAngle = Math.PI / 2;
+		controls.enableKeys = false;
+		controls.enablePan = false;
+		controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+		controls.dampingFactor = 0.02;
+		controls.screenSpacePanning = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let body1 = document.getElementById("b_icon_img");
+
+const style1 = getComputedStyle(body1);
+const width1 = style1.width;
+console.log(width1);
+
+
+if (width1 === "38px") {
+
+	controls.minDistance = 64.1;
+	controls.maxDistance = 138.4; //5
+	
+			controls.target.set(-0, -9.9	, 0);
+	camera.position.x = -88.07; 
+    	camera.position.y = 80.13;
+    	camera.position.z = 67.42;
+    
+
+
+	
+} else if (width1 === "72.5938px") {
+	controls.minDistance = 64.1;
+	controls.maxDistance = 98.4; //5
+	
+	controls.target.set(-0, -9.9	, 0);
+	camera.position.x = -38.07; 
+    	camera.position.y = 20.13;
+    	camera.position.z = 37.42;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   let stacy_txt = new THREE.TextureLoader().load('oct.jpg');
+    stacy_txt.flipY = false;
+
+
+   let oct_n = new THREE.TextureLoader().load('oct_n.jpg');
+    oct_n.flipY = false;
+
+
+    const stacy_mtl = new THREE.MeshPhongMaterial({
+      map: stacy_txt,
+      color: 0xffffff,
+      skinning: true
+    });
+
+    
+
+    const nightVersionMat = new THREE.MeshPhongMaterial({
+      color: 0x000000,
+    });
+
+    
+
+
+    var loader = new THREE.GLTFLoader(); 
+
+    loader.load(
+      MODEL_PATH,
+      function(gltf) {
+
+        model = gltf.scene;
+
+        let fileAnimations = gltf.animations;
+
+          model.traverse(o => {
+
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+            o.material = stacy_mtl;
+
+          }
+
+        });
+        
+        model.scale.set(10, 10, 10);
+        model.position.y = -11;
+                
+        scene.add(model);
+        
+
+
+				mixer = new THREE.AnimationMixer(model);
+
+				let clips = fileAnimations.filter(val => val.name !== 'Sphere.003Action');
+				possibleAnims = clips.map(val => {
+				let clip = THREE.AnimationClip.findByName(clips, val.name);
+				clip = mixer.clipAction(clip);
+				return clip;
+				});
+				let anim1Main = THREE.AnimationClip.findByName(fileAnimations, 'Sphere.003Action');
+				anim1 = mixer.clipAction(anim1Main);
+				//idle.timeScale = 1/10;
+				anim1.play();
+
+
+				let clips2 = fileAnimations.filter(val => val.name !== 'Circle.006Action');
+				possibleAnims = clips2.map(val => {
+				let clip2 = THREE.AnimationClip.findByName(clips2, val.name);
+				clip2 = mixer.clipAction(clip2);
+				return clip2;
+				});
+				let anim2Main = THREE.AnimationClip.findByName(fileAnimations, 'Circle.006Action');
+				anim2 = mixer.clipAction(anim2Main);
+				//idle.timeScale = 1/10;
+				anim2.play();
+
+				let clips3 = fileAnimations.filter(val => val.name !== 'Cube.031Action');
+				possibleAnims = clips3.map(val => {
+				let clip3 = THREE.AnimationClip.findByName(clips3, val.name);
+				clip3 = mixer.clipAction(clip3);
+				return clip3;
+				});
+				let anim3Main = THREE.AnimationClip.findByName(fileAnimations, 'Cube.031Action');
+				anim3 = mixer.clipAction(anim3Main);
+				//idle.timeScale = 1/10;
+				anim3.play();
+
+				let clips4 = fileAnimations.filter(val => val.name !== 'Cube.004Action');
+				possibleAnims = clips4.map(val => {
+				let clip4 = THREE.AnimationClip.findByName(clips4, val.name);
+				clip4 = mixer.clipAction(clip4);
+				return clip4;
+				});
+				let anim4Main = THREE.AnimationClip.findByName(fileAnimations, 'Cube.004Action');
+				anim4 = mixer.clipAction(anim4Main);
+				//idle.timeScale = 1/10;
+				anim4.play();
+
+				let clips5 = fileAnimations.filter(val => val.name !== 'Circle.003Action');
+				possibleAnims = clips5.map(val => {
+				let clip5 = THREE.AnimationClip.findByName(clips5, val.name);
+				clip5 = mixer.clipAction(clip5);
+				return clip5;
+				});
+				let anim5Main = THREE.AnimationClip.findByName(fileAnimations, 'Circle.003Action');
+				anim5 = mixer.clipAction(anim5Main);
+				//idle.timeScale = 1/10;
+				anim5.play();
+
+				let clips6 = fileAnimations.filter(val => val.name !== 'Circle.002Action');
+				possibleAnims = clips6.map(val => {
+				let clip6 = THREE.AnimationClip.findByName(clips6, val.name);
+				clip6 = mixer.clipAction(clip6);
+				return clip6;
+				});
+				let anim6Main = THREE.AnimationClip.findByName(fileAnimations, 'Circle.002Action');
+				anim6 = mixer.clipAction(anim6Main);
+				//idle.timeScale = 1/10;
+				anim6.play();
+
+				let clips7 = fileAnimations.filter(val => val.name !== 'Circle.004Action.002');
+				possibleAnims = clips7.map(val => {
+				let clip7 = THREE.AnimationClip.findByName(clips7, val.name);
+				clip7 = mixer.clipAction(clip7);
+				return clip7;
+				});
+				let anim7Main = THREE.AnimationClip.findByName(fileAnimations, 'Circle.004Action.002');
+				anim7 = mixer.clipAction(anim7Main);
+				//idle.timeScale = 1/10;
+				anim7.play();
+
+      },
+      undefined, // We don't need this function
+      function(error) {
+        console.error(error);
+      }
+    );
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		const anchorMat = new THREE.MeshBasicMaterial({
+		transparent: true, opacity: 0,
+		});
+
+
+
+		const boxWidth = 0.5;
+		const boxHeight = 0.5;
+		const boxDepth = 0.5;
+		const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+
+		const anchor1 = new THREE.Mesh(geometry, anchorMat);
+    anchor1.position.x = -2;
+    anchor1.position.z = -6.5;
+    anchor1.position.y = -6.5;
+		elem.textContent = '';
+		labelContainerElem.appendChild(elem);
+
+		const anchor2 = new THREE.Mesh(geometry, anchorMat);
+    anchor2.position.x = -1.8;
+    anchor2.position.y = -9.5;
+    anchor2.position.z = -1.5;
+		elem2.textContent = '';
+		labelContainerElem2.appendChild(elem2);
+
+		const anchor3 = new THREE.Mesh(geometry, anchorMat);
+    anchor3.position.x = 6.7;
+    anchor3.position.y = -5.1;
+    anchor3.position.z = -0.8;
+		elem3.textContent = '';
+		labelContainerElem3.appendChild(elem3);
+
+		const anchor4 = new THREE.Mesh(geometry, anchorMat);
+    anchor4.position.x = -7.7;
+    anchor4.position.y = -8.4;
+    anchor4.position.z = 4;
+		elem4.textContent = '';
+		labelContainerElem4.appendChild(elem4);
+
+		const anchor5 = new THREE.Mesh(geometry, anchorMat);
+    anchor5.position.x = 2;
+    anchor5.position.y = -10;
+    anchor5.position.z = 6.8;
+		elem5.textContent = '';
+		labelContainerElem5.appendChild(elem5);
+
+
+
+
+
+		function label1_1_close() {
+		elem1_1.style.display = "none"
+		}
+
+		function label1_1_open() {
+		elem1_1.style.display = "block"
+		}
+
+		const anchor1_1 = new THREE.Mesh(geometry, anchorMat);
+    anchor1_1.position.x = -2;
+    anchor1_1.position.z = -6.5;
+    anchor1_1.position.y = -6.5;
+		elem1_1.innerHTML = '<div align="left" style="width:11em;"><p style="font-family:arial,sans-serif;font-weight:bolder;color:#ee3292;letter-spacing: 0.01em; font-size:1.5em;margin-top:-0em;"><b>Home</b></p><div onclick="label1_1_close()" style="position:absolute;top:0.8em;right:0.8em; font-size:1em;opacity:0.7; cursor: pointer;">×</div><p style="letter-spacing: 0px;">El mundo ha cambiado y nosotros también </br></p><a href="index3.html">Ver más</a></div>';
+		elem1_1.style.fontWeight = 'bold';
+		labelContainerElem1_1.appendChild(elem1_1);
+
+
+		function label2_1_close() {
+		elem2_1.style.display = "none"
+		}
+
+		function label2_1_open() {
+		elem2_1.style.display = "block"
+		}
+
+		const anchor2_1 = new THREE.Mesh(geometry, anchorMat);
+    anchor2_1.position.x = -1.8;
+    anchor2_1.position.y = -9.5;
+    anchor2_1.position.z = -1.5;
+		elem2_1.innerHTML = '<div align="left" style="width:11em;"><p style="font-family:arial,sans-serif;font-weight:bolder;color:#4169E1;letter-spacing: 0.01em; font-size:1.5em;margin-top:-0em;"><b>Nosotros</b></p><div onclick="label2_1_close()" style="position:absolute;top:0.8em;right:0.8em; font-size:1em;opacity:0.7; cursor: pointer;">×</div><p style="letter-spacing: 0px;">Vivimos en la era de las historias </br></p><a href="index6.html">Ver más</a></div>';
+		elem2_1.style.fontWeight = 'bold';
+		labelContainerElem2_1.appendChild(elem2_1);
+
+
+
+		function label3_1_close() {
+		elem3_1.style.display = "none"
+		}
+
+		function label3_1_open() {
+		elem3_1.style.display = "block"
+		}
+
+		const anchor3_1 = new THREE.Mesh(geometry, anchorMat);
+    anchor3_1.position.x = 6.7;
+    anchor3_1.position.y = -5.1;
+    anchor3_1.position.z = -0.8;
+		elem3_1.innerHTML = '<div align="left" style="width:11em;"><p style="font-family:arial,sans-serif;font-weight:bolder;color:yellow;letter-spacing: 0.01em; font-size:1.5em;margin-top:-0em;"><b>Servicios</b></p><div onclick="label3_1_close()" style="position:absolute;top:0.8em;right:0.8em; font-size:1em;opacity:0.7; cursor: pointer;">×</div><p style="letter-spacing: 0px;">Elige un empleo. Elige una carrera. Elige una familia. Elige la salud, colesterol bajo y seguros dentales. Elige pagar hipotecas a interés ﬁjo… </br></p><a href="index4.html">Ver más</a></div>';
+		elem3_1.style.fontWeight = 'bold';
+		labelContainerElem3_1.appendChild(elem3_1);
+
+
+
+		function label4_1_close() {
+		elem4_1.style.display = "none"
+		}
+
+		function label4_1_open() {
+		elem4_1.style.display = "block"
+		}
+
+		const anchor4_1 = new THREE.Mesh(geometry, anchorMat);
+    anchor4_1.position.x = -7.7;
+    anchor4_1.position.y = -8.4;
+    anchor4_1.position.z = 4;
+		elem4_1.innerHTML = '<div align="left" style="width:11em;"><p style="font-family:arial,sans-serif;font-weight:bolder;color:#008B8B;letter-spacing: 0.01em; font-size:1.5em;margin-top:-0em;"><b>Portafolio</b></p><div onclick="label4_1_close()" style="position:absolute;top:0.8em;right:0.8em; font-size:1em;opacity:0.7; cursor: pointer;">×</div><p style="letter-spacing: 0px;">BulldogAd Hits! </br></p><a href="index2.html">Ver más</a></div>';
+		elem4_1.style.fontWeight = 'bold';
+		labelContainerElem4_1.appendChild(elem4_1);
+
+
+
+		function label5_1_close() {
+		elem5_1.style.display = "none"
+		}
+
+		function label5_1_open() {
+		elem5_1.style.display = "block"
+		}
+
+		const anchor5_1 = new THREE.Mesh(geometry, anchorMat);
+    anchor5_1.position.x = 2;
+    anchor5_1.position.y = -10;
+    anchor5_1.position.z = 6.8;
+		elem5_1.innerHTML = '<div align="left" style="width:11em;"><p style="font-family:arial,sans-serif;font-weight:bolder;color:red;letter-spacing: 0.01em; font-size:1.5em;margin-top:-0em;"><b>Contacto</b></p><div onclick="label5_1_close()" style="position:absolute;top:0.8em;right:0.8em; font-size:1em;opacity:0.7; cursor: pointer;">×</div><p style="letter-spacing: 0px;">Queremos escucharte </br></p><a href="index5.html">Ver más</a></div>';
+		elem5_1.style.fontWeight = 'bold';
+		labelContainerElem5_1.appendChild(elem5_1);
+
+
+
+		scene.add(anchor1, anchor2, anchor3, anchor4, anchor5, anchor1_1,anchor2_1,anchor3_1,anchor4_1,anchor5_1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Add lights
+    let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.81);
+    hemiLight.position.set(0, 90, 0);
+    // Add hemisphere light to scene
+    scene.add(hemiLight);
+
+    let d = 8.25;
+    let dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
+    dirLight.position.set(-8, 12, 8);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+    dirLight.shadow.camera.near = 0.1;
+    dirLight.shadow.camera.far = 1500;
+    dirLight.shadow.camera.left = d * -1;
+    dirLight.shadow.camera.right = d;
+    dirLight.shadow.camera.top = d;
+    dirLight.shadow.camera.bottom = d * -1;
+    // Add directional Light to scene
+    scene.add(dirLight);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function update() {
+
+ 
+		if (anchor1) {
+			anchor1.updateWorldMatrix(true, false);
+			anchor1.getWorldPosition(tempVLEFT); 
+			tempVLEFT.project(camera);
+			const x = (tempVLEFT.x * .5 + .5) * canvas.clientWidth;
+			const y = (tempVLEFT.y * -.5 + .5) * canvas.clientHeight;
+			elem.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
+		}
+
+
+		if (anchor2) {
+			anchor2.updateWorldMatrix(true, false);
+			anchor2.getWorldPosition(tempVLEFT2); 
+			tempVLEFT2.project(camera);
+			const x2 = (tempVLEFT2.x * .5 + .5) * canvas.clientWidth;
+			const y2 = (tempVLEFT2.y * -.5 + .5) * canvas.clientHeight;
+			elem2.style.transform = `translate(-50%, -50%) translate(${x2}px,${y2}px)`;
+		}
+
+		if (anchor3) {
+			anchor3.updateWorldMatrix(true, false);
+			anchor3.getWorldPosition(tempVLEFT3); 
+			tempVLEFT3.project(camera);
+			const x3 = (tempVLEFT3.x * .5 + .5) * canvas.clientWidth;
+			const y3 = (tempVLEFT3.y * -.5 + .5) * canvas.clientHeight;
+			elem3.style.transform = `translate(-50%, -50%) translate(${x3}px,${y3}px)`;
+		}
+
+		if (anchor4) {
+			anchor4.updateWorldMatrix(true, false);
+			anchor4.getWorldPosition(tempVLEFT4); 
+			tempVLEFT4.project(camera);
+			const x4 = (tempVLEFT4.x * .5 + .5) * canvas.clientWidth;
+			const y4 = (tempVLEFT4.y * -.5 + .5) * canvas.clientHeight;
+			elem4.style.transform = `translate(-50%, -50%) translate(${x4}px,${y4}px)`;
+		}
+
+
+		if (anchor5) {
+			anchor5.updateWorldMatrix(true, false);
+			anchor5.getWorldPosition(tempVLEFT5); 
+			tempVLEFT5.project(camera);
+			const x5 = (tempVLEFT5.x * .5 + .5) * canvas.clientWidth;
+			const y5 = (tempVLEFT5.y * -.5 + .5) * canvas.clientHeight;
+			elem5.style.transform = `translate(-50%, -50%) translate(${x5}px,${y5}px)`;
+		}
+
+
+		if (anchor1_1) {
+			anchor1_1.updateWorldMatrix(true, false);
+			anchor1_1.getWorldPosition(tempVLEFT1_1); 
+			tempVLEFT1_1.project(camera);
+			const x1_1 = (tempVLEFT1_1.x * .5 + .5) * canvas.clientWidth;
+			const y1_1 = (tempVLEFT1_1.y * -.5 + .5) * canvas.clientHeight;
+			elem1_1.style.transform = `translate(-50%, -50%) translate(${x1_1}px,${y1_1}px)`;
+		}
+
+
+		if (anchor2_1) {
+			anchor2_1.updateWorldMatrix(true, false);
+			anchor2_1.getWorldPosition(tempVLEFT2_1); 
+			tempVLEFT2_1.project(camera);
+			const x2_1 = (tempVLEFT2_1.x * .5 + .5) * canvas.clientWidth;
+			const y2_1 = (tempVLEFT2_1.y * -.5 + .5) * canvas.clientHeight;
+			elem2_1.style.transform = `translate(-50%, -50%) translate(${x2_1}px,${y2_1}px)`;
+		}
+
+
+		if (anchor3_1) {
+			anchor3_1.updateWorldMatrix(true, false);
+			anchor3_1.getWorldPosition(tempVLEFT3_1); 
+			tempVLEFT3_1.project(camera);
+			const x3_1 = (tempVLEFT3_1.x * .5 + .5) * canvas.clientWidth;
+			const y3_1 = (tempVLEFT3_1.y * -.5 + .5) * canvas.clientHeight;
+			elem3_1.style.transform = `translate(-50%, -50%) translate(${x3_1}px,${y3_1}px)`;
+		}
+
+
+		if (anchor4_1) {
+			anchor4_1.updateWorldMatrix(true, false);
+			anchor4_1.getWorldPosition(tempVLEFT4_1); 
+			tempVLEFT4_1.project(camera);
+			const x4_1 = (tempVLEFT4_1.x * .5 + .5) * canvas.clientWidth;
+			const y4_1 = (tempVLEFT4_1.y * -.5 + .5) * canvas.clientHeight;
+			elem4_1.style.transform = `translate(-50%, -50%) translate(${x4_1}px,${y4_1}px)`;
+		}
+
+
+		if (anchor5_1) {
+			anchor5_1.updateWorldMatrix(true, false);
+			anchor5_1.getWorldPosition(tempVLEFT5_1); 
+			tempVLEFT5_1.project(camera);
+			const x5_1 = (tempVLEFT5_1.x * .5 + .5) * canvas.clientWidth;
+			const y5_1 = (tempVLEFT5_1.y * -.5 + .5) * canvas.clientHeight;
+			elem5_1.style.transform = `translate(-50%, -50%) translate(${x5_1}px,${y5_1}px)`;
+
+		}
+		
+    if (mixer) {
+      mixer.update(clock.getDelta());
+
+    }
+    
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+    
+
+	//	updateLight();
+		controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(update);
+
+	  //console.log(camera.position.x, camera.position.y, camera.position.z)
+  }
+
+
+
+  
+
+
+
+
+
+
+   function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let canvasPixelWidth = canvas.width / window.devicePixelRatio;
+    let canvasPixelHeight = canvas.height / window.devicePixelRatio;
+
+    const needResize =
+      canvasPixelWidth !== width || canvasPixelHeight !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
+  
+
+
+
+update();
+
+
+
+
+function nightVersion() {
+stacy_mtl.map = oct_n;
+   document.body.style.background = "#333333";
+ 
+}
+
+
+
+function dayVersion() {
+stacy_mtl.map = stacy_txt;
+   document.body.style.background = "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)";
+body.style.animation ="gradient 25s ease infinite"
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+<script>
+
+
+
+
+
+$(document).ready(function() {
+//Preloader
+preloaderFadeOutTime = 13000;
+function hidePreloader() {
+var preloader = $('.spinner-wrapper');
+preloader.fadeOut(preloaderFadeOutTime);
+}
+hidePreloader();
+});
+
+
+function openAdditionalImageWindow() {
+overlayZ.style.display = "block";
+overlayZ.style.animation = 'animationName 1s';
+}
+
+
+
+
+function closeAdditionalImageWindow() {
+overlayZ.style.display = "none";
+}
+
+</script>
+
+
+
+<script type="text/javascript"> // RELOADS WEBPAGE WHEN MOBILE ORIENTATION CHANGES  
+    window.onorientationchange = function() { 
+        var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0:
+                case 90:
+                case -90: window.location.reload(); 
+                break; } 
+    };
+
+</script>
+
+
+
