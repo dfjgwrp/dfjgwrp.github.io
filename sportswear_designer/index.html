@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html><head>
+<!-- <meta http-equiv="content-type" content="text/html; charset=UTF-8"> -->
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<title>Hemero Teamwear 3D Configurator</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="mobile.css" />
+
+
+
+</head>
+<body>
+
+<script src="./fabric.min.js"></script>
+<script type="module" src="gl.js"></script>
+
+<script src="./jquery.min.js"></script>
+
+<style>
+	.preloader {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+background: #fff;
+z-index: 9999;
+color: grey;
+font-family:sans-serif;
+font-size:1.7em;
+text-align: center;
+}	
+.preloader-icon
+{
+position: relative;
+width: 100%;
+height: 100%;
+animation: shake 7.5s infinite;
+}	@keyframes shake
+{
+0% { transform: translate(1px, -1px) rotate(0deg);}
+10% { transform: translate(1px, -3px) rotate(-1deg);}
+20% { transform: translate(1px, -5px) rotate(-3deg);}
+30% { transform: translate(1px, -7px) rotate(0deg);}
+40% { transform: translate(1px, -9px) rotate(1deg);}
+50% { transform: translate(1px, -11px) rotate(3deg);}
+60% { transform: translate(1px, -9px) rotate(0deg);}
+70% { transform: translate(1px, -7px) rotate(-1deg);}
+80% { transform: translate(1px, -5px) rotate(-3deg);}
+90% { transform: translate(1px, -3px) rotate(0deg);}
+100% { transform: translate(1px, -1px) rotate(-1deg);}
+}
+</style>
+
+<script>
+	setTimeout(function(){document.querySelector(".preloader").style.display = "none";},1000);
+</script>
+<div class="preloader">Loading...<br>
+</div> 
+
+
+<div class="gline"></div>
+
+
+<div id="TopRightPanel">
+	<div class="gline"></div>
+	<div id="top_NameProduct">
+		MENS SET #1
+	</div>
+	<div id="top_PriceProduct">	
+			$45.00
+	</div>
+	<div class="hline"></div>
+	<div id="top_Details" onclick="openDetails()">
+		Details
+		<div class="expand-icon" id="expandDetails">+</div>
+	</div>
+</div>
+
+
+<div id="SecondRightPanel">
+	<div class="gline"></div>
+	<div id="ColorsIconMenu" onclick="openColors()">
+		<div id="ColorTitle">
+			Colors
+		</div>
+		<div id="BoldLineColors"> </div>
+	</div> 
+
+	<div id="TextIconMenu" onclick="openText()">
+		<div id="TextTitle">
+			Text / #
+		</div>
+		<div id="BoldLineText"> </div>
+	</div> 
+
+	<div id="LogosIconMenu" onclick="openLogos()">
+		<div id="LogosTitle">
+			Logos
+		</div>
+		<div id="BoldLineLogos"> </div>
+	</div> 
+
+	<div id="SummaryIconMenu" onclick="openSummary()">
+		<div id="SummaryTitle">
+			Summary
+		</div>
+		<div id="BoldLineSummary"> </div>
+	</div> 
+</div>
+
+
+
+
+
+
+
+
+<div id="ColorsMenu" class="scrollbar overflow">
+	<div class="JerseyMenu">
+		<div class="expand-icon" id="expandJersey" onclick="openJerseyColors()">+</div>
+		<div class="ObjectTitle" onclick="openJerseyColors()">
+			JERSEY
+		</div>	
+	</div>
+	<div class="ColorsSelectorMenu" id="BaseJerseyBlock">
+		<div class="TypeColorTitle">
+			BASE
+			<div class="NameSelectedColor" id="BaseJerseyNameColor">
+				Choose Color
+			</div>
+		</div>	
+		<div class="SelectedColor" id="SelectedColorJerseyBase"></div>	
+		<div class="cross-icon" id="CrossIconBaseJersey" onclick="openJerseyBaseColors()">+</div>
+	</div>
+
+	<div id="ColorJerseyBase">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackJerseyBase" title="Black" onclick="ApplyBlackJerseyBase()"></div>
+			<div class="cell cell-2" id="WhiteJerseyBase" title="White" onclick="ApplyWhiteJerseyBase()"></div>
+			<div class="cell cell-3" id="GraphiteJerseyBase" title="Graphite" onclick="ApplyGraphiteJerseyBase()"></div>
+			<div class="cell cell-4" id="GreyJerseyBase" title="Grey" onclick="ApplyGreyJerseyBase()"></div>
+			<div class="cell cell-5" id="MaroonJerseyBase" title="Maroon" onclick="ApplyMaroonJerseyBase()"></div>
+			<div class="cell cell-6" id="CardinalJerseyBase" title="Cardinal" onclick="ApplyCardinalJerseyBase()"></div>
+			<div class="cell cell-7" id="BrownJerseyBase" title="Brown" onclick="ApplyBrownJerseyBase()"></div>
+			<div class="cell cell-8" id="BurntOrangeJerseyBase" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyBase()"></div>
+			<div class="cell cell-9" id="ScarletJerseyBase" title="Scarlet" onclick="ApplyScarletJerseyBase()"></div>
+			<div class="cell cell-10" id="DarkOrangeJerseyBase" title="Dark Orange" onclick="ApplyDarkOrangeJerseyBase()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeJerseyBase" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyBase()"></div>
+			<div class="cell cell-12" id="GoldJerseyBase" title="Gold" onclick="ApplyGoldJerseyBase()"></div>
+			<div class="cell cell-13" id="TaxiJerseyBase" title="Taxi" onclick="ApplyTaxiJerseyBase()"></div>
+			<div class="cell cell-14" id="VegasGoldJerseyBase" title="Vegas Gold" onclick="ApplyVegasGoldJerseyBase()"></div>
+			<div class="cell cell-15" id="FluorescentYellowJerseyBase" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyBase()"></div>
+			<div class="cell cell-16" id="PinkJerseyBase" title="Pink" onclick="ApplyPinkJerseyBase()"></div>
+			<div class="cell cell-17" id="FluorescentPinkJerseyBase" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyBase()"></div>
+			<div class="cell cell-18" id="PurpleJerseyBase" title="Purple" onclick="ApplyPurpleJerseyBase()"></div>
+			<div class="cell cell-19" id="SkyBlueJerseyBase" title="Sky Blue" onclick="ApplySkyBlueJerseyBase()"></div> 
+			<div class="cell cell-20" id="CarpiJerseyBase" title="Carpi" onclick="ApplyCarpiJerseyBase()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenJerseyBase" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyBase()"></div>
+			<div class="cell cell-22" id="TealJerseyBase" title="Teal" onclick="ApplyTealJerseyBase()"></div>
+			<div class="cell cell-23" id="FluorescentGreenJerseyBase" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyBase()"></div>
+			<div class="cell cell-24" id="KellyGreenJerseyBase" title="Kelly Green" onclick="ApplyKellyGreenJerseyBase()"></div>
+			<div class="cell cell-25" id="ForestGreenJerseyBase" title="Forest Green" onclick="ApplyForestGreenJerseyBase()"></div>
+			<div class="cell cell-26" id="RoyalJerseyBase" title="Royal" onclick="ApplyRoyalJerseyBase()"></div>
+			<div class="cell cell-27" id="NavyJerseyBase" title="Navy" onclick="ApplyNavyJerseyBase()"></div>
+		</div>
+	</div>		
+
+
+	<div class="ColorsSelectorMenu" id="Accent1JerseyBlock">
+		<div class="TypeColorTitle">
+			ACCENT 1
+			<div class="NameSelectedColor" id="Accent1JerseyNameColor">
+				Choose Color
+			</div>	
+		</div>	
+		<div class="SelectedColor" id="SelectedColorJerseyAccent1"></div>	
+		<div class="cross-icon" id="CrossIconAccent1Jersey" onclick="openJerseyAccent1Colors()">+</div>
+	</div>
+
+	<div id="ColorJerseyAccent1">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackJerseyAccent1" title="Black" onclick="ApplyBlackJerseyAccent1()"></div>
+			<div class="cell cell-2" id="WhiteJerseyAccent1" title="White" onclick="ApplyWhiteJerseyAccent1()"></div>
+			<div class="cell cell-3" id="GraphiteJerseyAccent1" title="Graphite" onclick="ApplyGraphiteJerseyAccent1()"></div>
+			<div class="cell cell-4" id="GreyJerseyAccent1" title="Grey" onclick="ApplyGreyJerseyAccent1()"></div>
+			<div class="cell cell-5" id="MaroonJerseyAccent1" title="Maroon" onclick="ApplyMaroonJerseyAccent1()"></div>
+			<div class="cell cell-6" id="CardinalJerseyAccent1" title="Cardinal" onclick="ApplyCardinalJerseyAccent1()"></div>
+			<div class="cell cell-7" id="BrownJerseyAccent1" title="Brown" onclick="ApplyBrownJerseyAccent1()"></div>
+			<div class="cell cell-8" id="BurntOrangeJerseyAccent1" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyAccent1()"></div>
+			<div class="cell cell-9" id="ScarletJerseyAccent1" title="Scarlet" onclick="ApplyScarletJerseyAccent1()"></div>
+			<div class="cell cell-10" id="DarkOrangeJerseyAccent1" title="Dark Orange" onclick="ApplyDarkOrangeJerseyAccent1()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeJerseyAccent1" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyAccent1()"></div>
+			<div class="cell cell-12" id="GoldJerseyAccent1" title="Gold" onclick="ApplyGoldJerseyAccent1()"></div>
+			<div class="cell cell-13" id="TaxiJerseyAccent1" title="Taxi" onclick="ApplyTaxiJerseyAccent1()"></div>
+			<div class="cell cell-14" id="VegasGoldJerseyAccent1" title="Vegas Gold" onclick="ApplyVegasGoldJerseyAccent1()"></div>
+			<div class="cell cell-15" id="FluorescentYellowJerseyAccent1" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyAccent1()"></div>
+			<div class="cell cell-16" id="PinkJerseyAccent1" title="Pink" onclick="ApplyPinkJerseyAccent1()"></div>
+			<div class="cell cell-17" id="FluorescentPinkJerseyAccent1" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyAccent1()"></div>
+			<div class="cell cell-18" id="PurpleJerseyAccent1" title="Purple" onclick="ApplyPurpleJerseyAccent1()"></div>
+			<div class="cell cell-19" id="SkyBlueJerseyAccent1" title="Sky Blue" onclick="ApplySkyBlueJerseyAccent1()"></div> 
+			<div class="cell cell-20" id="CarpiJerseyAccent1" title="Carpi" onclick="ApplyCarpiJerseyAccent1()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenJerseyAccent1" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyAccent1()"></div>
+			<div class="cell cell-22" id="TealJerseyAccent1" title="Teal" onclick="ApplyTealJerseyAccent1()"></div>
+			<div class="cell cell-23" id="FluorescentGreenJerseyAccent1" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyAccent1()"></div>
+			<div class="cell cell-24" id="KellyGreenJerseyAccent1" title="Kelly Green" onclick="ApplyKellyGreenJerseyAccent1()"></div>
+			<div class="cell cell-25" id="ForestGreenJerseyAccent1" title="Forest Green" onclick="ApplyForestGreenJerseyAccent1()"></div>
+			<div class="cell cell-26" id="RoyalJerseyAccent1" title="Royal" onclick="ApplyRoyalJerseyAccent1()"></div>
+			<div class="cell cell-27" id="NavyJerseyAccent1" title="Navy" onclick="ApplyNavyJerseyAccent1()"></div>
+		</div>
+	</div>		
+
+	<div class="ColorsSelectorMenu" id="Accent2JerseyBlock">
+		<div class="TypeColorTitle">
+			ACCENT 2
+			<div class="NameSelectedColor" id="Accent2JerseyNameColor">
+				Choose Color
+			</div>	
+		</div>	
+		<div class="SelectedColor" id="SelectedColorJerseyAccent2"></div>	
+		<div class="cross-icon" id="CrossIconAccent2Jersey" onclick="openJerseyAccent2Colors()">+</div>
+	</div>
+
+	<div id="ColorJerseyAccent2">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackJerseyAccent2" title="Black" onclick="ApplyBlackJerseyAccent2()"></div>
+			<div class="cell cell-2" id="WhiteJerseyAccent2" title="White" onclick="ApplyWhiteJerseyAccent2()"></div>
+			<div class="cell cell-3" id="GraphiteJerseyAccent2" title="Graphite" onclick="ApplyGraphiteJerseyAccent2()"></div>
+			<div class="cell cell-4" id="GreyJerseyAccent2" title="Grey" onclick="ApplyGreyJerseyAccent2()"></div>
+			<div class="cell cell-5" id="MaroonJerseyAccent2" title="Maroon" onclick="ApplyMaroonJerseyAccent2()"></div>
+			<div class="cell cell-6" id="CardinalJerseyAccent2" title="Cardinal" onclick="ApplyCardinalJerseyAccent2()"></div>
+			<div class="cell cell-7" id="BrownJerseyAccent2" title="Brown" onclick="ApplyBrownJerseyAccent2()"></div>
+			<div class="cell cell-8" id="BurntOrangeJerseyAccent2" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyAccent2()"></div>
+			<div class="cell cell-9" id="ScarletJerseyAccent2" title="Scarlet" onclick="ApplyScarletJerseyAccent2()"></div>
+			<div class="cell cell-10" id="DarkOrangeJerseyAccent2" title="Dark Orange" onclick="ApplyDarkOrangeJerseyAccent2()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeJerseyAccent2" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyAccent2()"></div>
+			<div class="cell cell-12" id="GoldJerseyAccent2" title="Gold" onclick="ApplyGoldJerseyAccent2()"></div>
+			<div class="cell cell-13" id="TaxiJerseyAccent2" title="Taxi" onclick="ApplyTaxiJerseyAccent2()"></div>
+			<div class="cell cell-14" id="VegasGoldJerseyAccent2" title="Vegas Gold" onclick="ApplyVegasGoldJerseyAccent2()"></div>
+			<div class="cell cell-15" id="FluorescentYellowJerseyAccent2" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyAccent2()"></div>
+			<div class="cell cell-16" id="PinkJerseyAccent2" title="Pink" onclick="ApplyPinkJerseyAccent2()"></div>
+			<div class="cell cell-17" id="FluorescentPinkJerseyAccent2" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyAccent2()"></div>
+			<div class="cell cell-18" id="PurpleJerseyAccent2" title="Purple" onclick="ApplyPurpleJerseyAccent2()"></div>
+			<div class="cell cell-19" id="SkyBlueJerseyAccent2" title="Sky Blue" onclick="ApplySkyBlueJerseyAccent2()"></div> 
+			<div class="cell cell-20" id="CarpiJerseyAccent2" title="Carpi" onclick="ApplyCarpiJerseyAccent2()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenJerseyAccent2" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyAccent2()"></div>
+			<div class="cell cell-22" id="TealJerseyAccent2" title="Teal" onclick="ApplyTealJerseyAccent2()"></div>
+			<div class="cell cell-23" id="FluorescentGreenJerseyAccent2" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyAccent2()"></div>
+			<div class="cell cell-24" id="KellyGreenJerseyAccent2" title="Kelly Green" onclick="ApplyKellyGreenJerseyAccent2()"></div>
+			<div class="cell cell-25" id="ForestGreenJerseyAccent2" title="Forest Green" onclick="ApplyForestGreenJerseyAccent2()"></div>
+			<div class="cell cell-26" id="RoyalJerseyAccent2" title="Royal" onclick="ApplyRoyalJerseyAccent2()"></div>
+			<div class="cell cell-27" id="NavyJerseyAccent2" title="Navy" onclick="ApplyNavyJerseyAccent2()"></div>
+		</div>
+	</div>		
+
+	<div class="ShortsMenu">
+		<div class="expand-icon" id="expandShorts" onclick="openShortsColors()">+</div>
+		<div class="ObjectTitle" onclick="openShortsColors()">
+			SHORTS
+		</div>	
+	</div>
+
+	<div class="ColorsSelectorMenu" id="BaseShortsBlock">
+		<div class="TypeColorTitle">
+			BASE
+			<div class="NameSelectedColor" id="BaseShortsNameColor">
+				Choose Color
+			</div>
+		</div>	
+		<div class="SelectedColor" id="SelectedColorShortsBase"></div>	
+		<div class="cross-icon" id="CrossIconBaseShorts" onclick="openShortsBaseColors()">+</div>
+	</div>
+
+	<div id="ColorShortsBase">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackShortsBase" title="Black" onclick="ApplyBlackShortsBase()"></div>
+			<div class="cell cell-2" id="WhiteShortsBase" title="White" onclick="ApplyWhiteShortsBase()"></div>
+			<div class="cell cell-3" id="GraphiteShortsBase" title="Graphite" onclick="ApplyGraphiteShortsBase()"></div>
+			<div class="cell cell-4" id="GreyShortsBase" title="Grey" onclick="ApplyGreyShortsBase()"></div>
+			<div class="cell cell-5" id="MaroonShortsBase" title="Maroon" onclick="ApplyMaroonShortsBase()"></div>
+			<div class="cell cell-6" id="CardinalShortsBase" title="Cardinal" onclick="ApplyCardinalShortsBase()"></div>
+			<div class="cell cell-7" id="BrownShortsBase" title="Brown" onclick="ApplyBrownShortsBase()"></div>
+			<div class="cell cell-8" id="BurntOrangeShortsBase" title="Burnt Orange" onclick="ApplyBurntOrangeShortsBase()"></div>
+			<div class="cell cell-9" id="ScarletShortsBase" title="Scarlet" onclick="ApplyScarletShortsBase()"></div>
+			<div class="cell cell-10" id="DarkOrangeShortsBase" title="Dark Orange" onclick="ApplyDarkOrangeShortsBase()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeShortsBase" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeShortsBase()"></div>
+			<div class="cell cell-12" id="GoldShortsBase" title="Gold" onclick="ApplyGoldShortsBase()"></div>
+			<div class="cell cell-13" id="TaxiShortsBase" title="Taxi" onclick="ApplyTaxiShortsBase()"></div>
+			<div class="cell cell-14" id="VegasGoldShortsBase" title="Vegas Gold" onclick="ApplyVegasGoldShortsBase()"></div>
+			<div class="cell cell-15" id="FluorescentYellowShortsBase" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowShortsBase()"></div>
+			<div class="cell cell-16" id="PinkShortsBase" title="Pink" onclick="ApplyPinkShortsBase()"></div>
+			<div class="cell cell-17" id="FluorescentPinkShortsBase" title="Fluorescent Pink" onclick="ApplyFluorescentPinkShortsBase()"></div>
+			<div class="cell cell-18" id="PurpleShortsBase" title="Purple" onclick="ApplyPurpleShortsBase()"></div>
+			<div class="cell cell-19" id="SkyBlueShortsBase" title="Sky Blue" onclick="ApplySkyBlueShortsBase()"></div> 
+			<div class="cell cell-20" id="CarpiShortsBase" title="Carpi" onclick="ApplyCarpiShortsBase()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenShortsBase" title="Seafoam Green" onclick="ApplySeafoamGreenShortsBase()"></div>
+			<div class="cell cell-22" id="TealShortsBase" title="Teal" onclick="ApplyTealShortsBase()"></div>
+			<div class="cell cell-23" id="FluorescentGreenShortsBase" title="Fluorescent Green" onclick="ApplyFluorescentGreenShortsBase()"></div>
+			<div class="cell cell-24" id="KellyGreenShortsBase" title="Kelly Green" onclick="ApplyKellyGreenShortsBase()"></div>
+			<div class="cell cell-25" id="ForestGreenShortsBase" title="Forest Green" onclick="ApplyForestGreenShortsBase()"></div>
+			<div class="cell cell-26" id="RoyalShortsBase" title="Royal" onclick="ApplyRoyalShortsBase()"></div>
+			<div class="cell cell-27" id="NavyShortsBase" title="Navy" onclick="ApplyNavyShortsBase()"></div>
+		</div>
+	</div>		
+
+	<div class="ColorsSelectorMenu" id="Accent1ShortsBlock">
+		<div class="TypeColorTitle">
+			ACCENT 1
+			<div class="NameSelectedColor" id="Accent1ShortsNameColor">
+				Choose Color
+			</div>	
+		</div>	
+		<div class="SelectedColor" id="SelectedColorShortsAccent1"></div>	
+		<div class="cross-icon" id="CrossIconAccent1Shorts" onclick="openShortsAccent1Colors()">+</div>
+	</div>
+
+	<div id="ColorShortsAccent1">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackShortsAccent1" title="Black" onclick="ApplyBlackShortsAccent1()"></div>
+			<div class="cell cell-2" id="WhiteShortsAccent1" title="White" onclick="ApplyWhiteShortsAccent1()"></div>
+			<div class="cell cell-3" id="GraphiteShortsAccent1" title="Graphite" onclick="ApplyGraphiteShortsAccent1()"></div>
+			<div class="cell cell-4" id="GreyShortsAccent1" title="Grey" onclick="ApplyGreyShortsAccent1()"></div>
+			<div class="cell cell-5" id="MaroonShortsAccent1" title="Maroon" onclick="ApplyMaroonShortsAccent1()"></div>
+			<div class="cell cell-6" id="CardinalShortsAccent1" title="Cardinal" onclick="ApplyCardinalShortsAccent1()"></div>
+			<div class="cell cell-7" id="BrownShortsAccent1" title="Brown" onclick="ApplyBrownShortsAccent1()"></div>
+			<div class="cell cell-8" id="BurntOrangeShortsAccent1" title="Burnt Orange" onclick="ApplyBurntOrangeShortsAccent1()"></div>
+			<div class="cell cell-9" id="ScarletShortsAccent1" title="Scarlet" onclick="ApplyScarletShortsAccent1()"></div>
+			<div class="cell cell-10" id="DarkOrangeShortsAccent1" title="Dark Orange" onclick="ApplyDarkOrangeShortsAccent1()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeShortsAccent1" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeShortsAccent1()"></div>
+			<div class="cell cell-12" id="GoldShortsAccent1" title="Gold" onclick="ApplyGoldShortsAccent1()"></div>
+			<div class="cell cell-13" id="TaxiShortsAccent1" title="Taxi" onclick="ApplyTaxiShortsAccent1()"></div>
+			<div class="cell cell-14" id="VegasGoldShortsAccent1" title="Vegas Gold" onclick="ApplyVegasGoldShortsAccent1()"></div>
+			<div class="cell cell-15" id="FluorescentYellowShortsAccent1" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowShortsAccent1()"></div>
+			<div class="cell cell-16" id="PinkShortsAccent1" title="Pink" onclick="ApplyPinkShortsAccent1()"></div>
+			<div class="cell cell-17" id="FluorescentPinkShortsAccent1" title="Fluorescent Pink" onclick="ApplyFluorescentPinkShortsAccent1()"></div>
+			<div class="cell cell-18" id="PurpleShortsAccent1" title="Purple" onclick="ApplyPurpleShortsAccent1()"></div>
+			<div class="cell cell-19" id="SkyBlueShortsAccent1" title="Sky Blue" onclick="ApplySkyBlueShortsAccent1()"></div> 
+			<div class="cell cell-20" id="CarpiShortsAccent1" title="Carpi" onclick="ApplyCarpiShortsAccent1()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenShortsAccent1" title="Seafoam Green" onclick="ApplySeafoamGreenShortsAccent1()"></div>
+			<div class="cell cell-22" id="TealShortsAccent1" title="Teal" onclick="ApplyTealShortsAccent1()"></div>
+			<div class="cell cell-23" id="FluorescentGreenShortsAccent1" title="Fluorescent Green" onclick="ApplyFluorescentGreenShortsAccent1()"></div>
+			<div class="cell cell-24" id="KellyGreenShortsAccent1" title="Kelly Green" onclick="ApplyKellyGreenShortsAccent1()"></div>
+			<div class="cell cell-25" id="ForestGreenShortsAccent1" title="Forest Green" onclick="ApplyForestGreenShortsAccent1()"></div>
+			<div class="cell cell-26" id="RoyalShortsAccent1" title="Royal" onclick="ApplyRoyalShortsAccent1()"></div>
+			<div class="cell cell-27" id="NavyShortsAccent1" title="Navy" onclick="ApplyNavyShortsAccent1()"></div>
+		</div>
+	</div>		
+
+
+
+	<div class="ColorsSelectorMenu" id="Accent2ShortsBlock">
+		<div class="TypeColorTitle">
+			ACCENT 2
+			<div class="NameSelectedColor" id="Accent2ShortsNameColor">
+				Choose Color
+			</div>	
+		</div>	
+		<div class="SelectedColor" id="SelectedColorShortsAccent2"></div>	
+		<div class="cross-icon" id="CrossIconAccent2Shorts" onclick="openShortsAccent2Colors()">+</div>
+	</div>
+
+	<div id="ColorShortsAccent2">
+		<div class="ColorsPalette">
+			<div class="cell cell-1" id="BlackShortsAccent2" title="Black" onclick="ApplyBlackShortsAccent2()"></div>
+			<div class="cell cell-2" id="WhiteShortsAccent2" title="White" onclick="ApplyWhiteShortsAccent2()"></div>
+			<div class="cell cell-3" id="GraphiteShortsAccent2" title="Graphite" onclick="ApplyGraphiteShortsAccent2()"></div>
+			<div class="cell cell-4" id="GreyShortsAccent2" title="Grey" onclick="ApplyGreyShortsAccent2()"></div>
+			<div class="cell cell-5" id="MaroonShortsAccent2" title="Maroon" onclick="ApplyMaroonShortsAccent2()"></div>
+			<div class="cell cell-6" id="CardinalShortsAccent2" title="Cardinal" onclick="ApplyCardinalShortsAccent2()"></div>
+			<div class="cell cell-7" id="BrownShortsAccent2" title="Brown" onclick="ApplyBrownShortsAccent2()"></div>
+			<div class="cell cell-8" id="BurntOrangeShortsAccent2" title="Burnt Orange" onclick="ApplyBurntOrangeShortsAccent2()"></div>
+			<div class="cell cell-9" id="ScarletShortsAccent2" title="Scarlet" onclick="ApplyScarletShortsAccent2()"></div>
+			<div class="cell cell-10" id="DarkOrangeShortsAccent2" title="Dark Orange" onclick="ApplyDarkOrangeShortsAccent2()"></div> 
+			<div class="cell cell-11" id="FluorescentOrangeShortsAccent2" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeShortsAccent2()"></div>
+			<div class="cell cell-12" id="GoldShortsAccent2" title="Gold" onclick="ApplyGoldShortsAccent2()"></div>
+			<div class="cell cell-13" id="TaxiShortsAccent2" title="Taxi" onclick="ApplyTaxiShortsAccent2()"></div>
+			<div class="cell cell-14" id="VegasGoldShortsAccent2" title="Vegas Gold" onclick="ApplyVegasGoldShortsAccent2()"></div>
+			<div class="cell cell-15" id="FluorescentYellowShortsAccent2" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowShortsAccent2()"></div>
+			<div class="cell cell-16" id="PinkShortsAccent2" title="Pink" onclick="ApplyPinkShortsAccent2()"></div>
+			<div class="cell cell-17" id="FluorescentPinkShortsAccent2" title="Fluorescent Pink" onclick="ApplyFluorescentPinkShortsAccent2()"></div>
+			<div class="cell cell-18" id="PurpleShortsAccent2" title="Purple" onclick="ApplyPurpleShortsAccent2()"></div>
+			<div class="cell cell-19" id="SkyBlueShortsAccent2" title="Sky Blue" onclick="ApplySkyBlueShortsAccent2()"></div> 
+			<div class="cell cell-20" id="CarpiShortsAccent2" title="Carpi" onclick="ApplyCarpiShortsAccent2()"></div> 
+			<div class="cell cell-21" id="SeafoamGreenShortsAccent2" title="Seafoam Green" onclick="ApplySeafoamGreenShortsAccent2()"></div>
+			<div class="cell cell-22" id="TealShortsAccent2" title="Teal" onclick="ApplyTealShortsAccent2()"></div>
+			<div class="cell cell-23" id="FluorescentGreenShortsAccent2" title="Fluorescent Green" onclick="ApplyFluorescentGreenShortsAccent2()"></div>
+			<div class="cell cell-24" id="KellyGreenShortsAccent2" title="Kelly Green" onclick="ApplyKellyGreenShortsAccent2()"></div>
+			<div class="cell cell-25" id="ForestGreenShortsAccent2" title="Forest Green" onclick="ApplyForestGreenShortsAccent2()"></div>
+			<div class="cell cell-26" id="RoyalShortsAccent2" title="Royal" onclick="ApplyRoyalShortsAccent2()"></div>
+			<div class="cell cell-27" id="NavyShortsAccent2" title="Navy" onclick="ApplyNavyShortsAccent2()"></div>
+		</div>
+	</div>		
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="TextMenu" class="scrollbar" class="overflow">
+	<div class="JerseyMenu">
+		<div class="expand-icon" id="expandJerseyText" onclick="openJerseyText()">+</div>
+		<div class="ObjectTitle" onclick="openJerseyText()">
+			JERSEY
+		</div>	
+	</div>
+	<div  id="FrontObjectMenu">
+		<div class="expand-icon" id="expandJerseyTextFront" onclick="openJerseyTextFront()">+</div>
+		<div id="FrontTextTitle" onclick="openJerseyTextFront()">
+			FRONT
+		</div>	
+	</div>
+	<div id="FrontTextMenu">
+		<div class="SectionTextJersey">
+			CHOOSE YOUR LAYOUT
+			<div class="LayOutTextJerseyType">
+				<img src="icons/Type1.png" id="TypeLayOut1" class="ImgType"
+				onclick="ChooseFrontLayOutType1()">	
+				<img src="icons/Type2.png" id="TypeLayOut2" class="ImgType" onclick="ChooseFrontLayOutType2()">	
+				<img src="icons/Type3.png" id="TypeLayOut3" class="ImgType" onclick="ChooseFrontLayOutType3()">	
+				<img src="icons/Type4.png" id="TypeLayOut4" class="ImgType" onclick="ChooseFrontLayOutType4()">	
+			</div>
+		</div>
+
+		<div class="SectionTextJersey">
+			TEAM NAME
+
+			<canvas id="textCanvasJerseyFrontTeamName1" style="z-index:999; display:none"></canvas>
+			<canvas id="textCanvasJerseyBackTeamName1" style="z-index:999; display:none"></canvas>
+			<div class="UploadSectionLogos">
+				<textarea type="text" maxlength="12" placeholder="Input up to 12 symbols" id="Line1TeamName" class="LinesTeamName" onchange="Line1TeamNameInput()"></textarea>
+				<div class="image-upload ButtonUpload" id="ApplyLine1TeamName">
+					Apply
+					<img class="ImgMini" id="ApplyLine1TeamNameImg" src="icons/apply.png">
+				</div>
+			</div>
+
+			<!---->
+			<canvas id="textCanvasJerseyFrontTeamName2" style="z-index:999; display:none"></canvas>
+			<canvas id="textCanvasJerseyBackTeamName2" style="z-index:999; display:none"></canvas>
+			<div class="UploadSectionLogos" id="Line2TeamNameField" >
+				<textarea type="text" maxlength="12" placeholder="Input up to 12 symbols" id="Line2TeamName" class="LinesTeamName"
+					onchange="Line2TeamNameInput()"></textarea>
+				<div class="image-upload ButtonUpload" id="ApplyLine2TeamName">
+					Apply
+					<img class="ImgMini" id="ApplyLine2TeamNameImg" src="icons/apply.png">
+				</div>
+			</div>
+		</div>
+
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle">
+				FONT STYLE
+				<div class="NameSelectedColor" id="FontTeamNameJersey">CocogooseProItalic</div>
+			</div>	
+			<div class="cross-icon" id="CrossIconFontJerseyText" onclick="openJerseyTextFonts()">+</div>
+		</div>
+
+		<div id="FontListRoll">
+			<div class="TypeFontTitle COCOGOOSE" id="COCOGOOSETeamName" onclick="FontTeamNameCOCOGOOSE()">
+				COCOGOOSE PRO ITALIC
+			</div>
+
+			<div class="TypeFontTitle CANTERBURY" id="CANTERBURYTeamName" onclick="FontTeamNameCANTERBURY()">
+				CANTERBURY
+			</div>
+			
+			<div class="TypeFontTitle COLLEGE" id="COLLEGETeamName" onclick="FontTeamNameCOLLEGE()">
+				COLLEGE BOLD
+			</div>
+			<div class="TypeFontTitle DEFTONE" id="DEFTONETeamName" onclick="FontTeamNameDEFTONE()">
+				DEFTONE STYLUS
+			</div>
+			<div class="TypeFontTitle EMILIO" id="EMILIOTeamName" onclick="FontTeamNameEMILIO()">
+				EMILIO 19
+			</div>
+			<div class="TypeFontTitle LEAGUESPARTAN" id="LEAGUESPARTANTeamName" onclick="FontTeamNameLEAGUESPARTAN()">
+				LEAGUE SPARTAN BOLD
+			</div>
+			<div class="TypeFontTitle MONOTON" id="MONOTONTeamName" onclick="FontTeamNameMONOTON()">
+				MONOTON
+			</div>
+			<div class="TypeFontTitle MONTSERRAT" id="MONTSERRATTeamName" onclick="FontTeamNameMONTSERRAT()">
+				MONTSERRAT 
+			</div>
+			<div class="TypeFontTitle PUBLICENEMY" id="PUBLICENEMYTeamName" onclick="FontTeamNamePUBLICENEMY()">
+				PUBLIC ENEMY
+			</div>
+			<div class="TypeFontTitle SPORTJERSEY" id="SPORTJERSEYTeamName" onclick="FontTeamNameSPORTJERSEY()">
+				SPORTJERSEY
+			</div>
+		</div>
+
+
+		<div id="FontListRollCurved1">
+			<div class="TypeFontTitle COCOGOOSE" id="COCOGOOSETeamNameCurved1" onclick="FontTeamNameCOCOGOOSE()">
+				COCOGOOSE PRO ITALIC
+			</div>
+
+			<div class="TypeFontTitle CANTERBURY" id="CANTERBURYTeamNameCurved1" onclick="FontTeamNameCANTERBURY()">
+				CANTERBURY
+			</div>
+		
+			<div class="TypeFontTitle COLLEGE" id="COLLEGETeamNameCurved1" onclick="FontTeamNameCOLLEGE()">
+				COLLEGE BOLD
+			</div>
+			<div class="TypeFontTitle DEFTONE" id="DEFTONETeamNameCurved1" onclick="FontTeamNameDEFTONE()">
+				DEFTONE STYLUS
+			</div>
+			<div class="TypeFontTitle EMILIO" id="EMILIOTeamNameCurved1" onclick="FontTeamNameEMILIO()">
+				EMILIO 19
+			</div>
+			<div class="TypeFontTitle LEAGUESPARTAN" id="LEAGUESPARTANTeamNameCurved1" onclick="FontTeamNameLEAGUESPARTAN()">
+				LEAGUE SPARTAN BOLD
+			</div>
+			<div class="TypeFontTitle MONOTON" id="MONOTONTeamNameCurved1" onclick="FontTeamNameMONOTON()">
+				MONOTON
+			</div>
+			<div class="TypeFontTitle MONTSERRAT" id="MONTSERRATTeamNameCurved1" onclick="FontTeamNameMONTSERRAT()">
+				MONTSERRAT
+			</div>
+			<div class="TypeFontTitle PUBLICENEMY" id="PUBLICENEMYTeamNameCurved1" onclick="FontTeamNamePUBLICENEMY()">
+				PUBLIC ENEMY
+			</div>
+			<div class="TypeFontTitle SPORTJERSEY" id="SPORTJERSEYTeamNameCurved1" onclick="FontTeamNameSPORTJERSEY()">
+				SPORTJERSEY
+			</div>
+		</div>
+
+		<div id="FontListRollCurved2">
+
+			<div class="TypeFontTitle COCOGOOSE" id="COCOGOOSETeamNameCurved2" onclick="FontTeamNameCOCOGOOSE()">
+				COCOGOOSE PRO ITALIC
+			</div>
+
+			<div class="TypeFontTitle CANTERBURY" id="CANTERBURYTeamNameCurved2" onclick="FontTeamNameCANTERBURY()">
+				CANTERBURY
+			</div>
+		
+			<div class="TypeFontTitle COLLEGE" id="COLLEGETeamNameCurved2" onclick="FontTeamNameCOLLEGE()">
+				COLLEGE BOLD
+			</div>
+			<div class="TypeFontTitle DEFTONE" id="DEFTONETeamNameCurved2" onclick="FontTeamNameDEFTONE()">
+				DEFTONE STYLUS
+			</div>
+			<div class="TypeFontTitle EMILIO" id="EMILIOTeamNameCurved2" onclick="FontTeamNameEMILIO()">
+				EMILIO 19
+			</div>
+			<div class="TypeFontTitle LEAGUESPARTAN" id="LEAGUESPARTANTeamNameCurved2" onclick="FontTeamNameLEAGUESPARTAN()">
+				LEAGUE SPARTAN BOLD
+			</div>
+			<div class="TypeFontTitle MONOTON" id="MONOTONTeamNameCurved2" onclick="FontTeamNameMONOTON()">
+				MONOTON
+			</div>
+			<div class="TypeFontTitle MONTSERRAT" id="MONTSERRATTeamNameCurved2" onclick="FontTeamNameMONTSERRAT()">
+				MONTSERRAT
+			</div>
+			<div class="TypeFontTitle PUBLICENEMY" id="PUBLICENEMYTeamNameCurved2" onclick="FontTeamNamePUBLICENEMY()">
+				PUBLIC ENEMY
+			</div>
+			<div class="TypeFontTitle SPORTJERSEY" id="SPORTJERSEYTeamNameCurved2" onclick="FontTeamNameSPORTJERSEY()">
+				SPORTJERSEY
+			</div>
+		</div>
+
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle">
+				TEXT - MAIN COLOR
+				<div class="NameSelectedColor" id="TextJerseyNameColor">
+					Black
+				</div>
+			</div>	
+			<div class="SelectedColor" id="SelectedColorJerseyText"></div>	
+			<div class="cross-icon" id="CrossIconColorsJerseyText" onclick="openJerseyTextColors()">+</div>
+		</div>
+
+		<div id="ColorJerseyText">
+			<div class="ColorsPalette">
+				<div class="cell cell-1" id="BlackJerseyText" title="Black" onclick="ApplyBlackJerseyText()"></div>
+				<div class="cell cell-2" id="WhiteJerseyText" title="White" onclick="ApplyWhiteJerseyText()"></div>
+				<div class="cell cell-3" id="GraphiteJerseyText" title="Graphite" onclick="ApplyGraphiteJerseyText()"></div>
+				<div class="cell cell-4" id="GreyJerseyText" title="Grey" onclick="ApplyGreyJerseyText()"></div>
+				<div class="cell cell-5" id="MaroonJerseyText" title="Maroon" onclick="ApplyMaroonJerseyText()"></div>
+				<div class="cell cell-6" id="CardinalJerseyText" title="Cardinal" onclick="ApplyCardinalJerseyText()"></div>
+				<div class="cell cell-7" id="BrownJerseyText" title="Brown" onclick="ApplyBrownJerseyText()"></div>
+				<div class="cell cell-8" id="BurntOrangeJerseyText" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyText()"></div>
+				<div class="cell cell-9" id="ScarletJerseyText" title="Scarlet" onclick="ApplyScarletJerseyText()"></div>
+				<div class="cell cell-10" id="DarkOrangeJerseyText" title="Dark Orange" onclick="ApplyDarkOrangeJerseyText()"></div> 
+				<div class="cell cell-11" id="FluorescentOrangeJerseyText" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyText()"></div>
+				<div class="cell cell-12" id="GoldJerseyText" title="Gold" onclick="ApplyGoldJerseyText()"></div>
+				<div class="cell cell-13" id="TaxiJerseyText" title="Taxi" onclick="ApplyTaxiJerseyText()"></div>
+				<div class="cell cell-14" id="VegasGoldJerseyText" title="Vegas Gold" onclick="ApplyVegasGoldJerseyText()"></div>
+				<div class="cell cell-15" id="FluorescentYellowJerseyText" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyText()"></div>
+				<div class="cell cell-16" id="PinkJerseyText" title="Pink" onclick="ApplyPinkJerseyText()"></div>
+				<div class="cell cell-17" id="FluorescentPinkJerseyText" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyText()"></div>
+				<div class="cell cell-18" id="PurpleJerseyText" title="Purple" onclick="ApplyPurpleJerseyText()"></div>
+				<div class="cell cell-19" id="SkyBlueJerseyText" title="Sky Blue" onclick="ApplySkyBlueJerseyText()"></div> 
+				<div class="cell cell-20" id="CarpiJerseyText" title="Carpi" onclick="ApplyCarpiJerseyText()"></div> 
+				<div class="cell cell-21" id="SeafoamGreenJerseyText" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyText()"></div>
+				<div class="cell cell-22" id="TealJerseyText" title="Teal" onclick="ApplyTealJerseyText()"></div>
+				<div class="cell cell-23" id="FluorescentGreenJerseyText" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyText()"></div>
+				<div class="cell cell-24" id="KellyGreenJerseyText" title="Kelly Green" onclick="ApplyKellyGreenJerseyText()"></div>
+				<div class="cell cell-25" id="ForestGreenJerseyText" title="Forest Green" onclick="ApplyForestGreenJerseyText()"></div>
+				<div class="cell cell-26" id="RoyalJerseyText" title="Royal" onclick="ApplyRoyalJerseyText()"></div>
+				<div class="cell cell-27" id="NavyJerseyText" title="Navy" onclick="ApplyNavyJerseyText()"></div>
+			</div>
+		</div>		
+
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle">
+				TEXT - OUTLINE COLOR
+				<div class="NameSelectedColor" id="TextOutlineJerseyNameColor">None</div>
+			</div>	
+			<div class="SelectedColor" id="SelectedColorJerseyTextOutline"></div>	
+			<div class="cross-icon" id="CrossIconColorsJerseyTextOutline" onclick="openJerseyTextOutlineColors()">+</div>
+		</div>
+
+		<div id="ColorJerseyTextOutline">
+			<div class="ColorsPalette">
+				<div class="cell cell-1" id="BlackJerseyTextOutline" title="Black" onclick="ApplyBlackJerseyTextOutline()"></div>
+				<div class="cell cell-2" id="WhiteJerseyTextOutline" title="White" onclick="ApplyWhiteJerseyTextOutline()"></div>
+				<div class="cell cell-3" id="GraphiteJerseyTextOutline" title="Graphite" onclick="ApplyGraphiteJerseyTextOutline()"></div>
+				<div class="cell cell-4" id="GreyJerseyTextOutline" title="Grey" onclick="ApplyGreyJerseyTextOutline()"></div>
+				<div class="cell cell-5" id="MaroonJerseyTextOutline" title="Maroon" onclick="ApplyMaroonJerseyTextOutline()"></div>
+				<div class="cell cell-6" id="CardinalJerseyTextOutline" title="Cardinal" onclick="ApplyCardinalJerseyTextOutline()"></div>
+				<div class="cell cell-7" id="BrownJerseyTextOutline" title="Brown" onclick="ApplyBrownJerseyTextOutline()"></div>
+				<div class="cell cell-8" id="BurntOrangeJerseyTextOutline" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyTextOutline()"></div>
+				<div class="cell cell-9" id="ScarletJerseyTextOutline" title="Scarlet" onclick="ApplyScarletJerseyTextOutline()"></div>
+				<div class="cell cell-10" id="DarkOrangeJerseyTextOutline" title="Dark Orange" onclick="ApplyDarkOrangeJerseyTextOutline()"></div> 
+				<div class="cell cell-11" id="FluorescentOrangeJerseyTextOutline" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyTextOutline()"></div>
+				<div class="cell cell-12" id="GoldJerseyTextOutline" title="Gold" onclick="ApplyGoldJerseyTextOutline()"></div>
+				<div class="cell cell-13" id="TaxiJerseyTextOutline" title="Taxi" onclick="ApplyTaxiJerseyTextOutline()"></div>
+				<div class="cell cell-14" id="VegasGoldJerseyTextOutline" title="Vegas Gold" onclick="ApplyVegasGoldJerseyTextOutline()"></div>
+				<div class="cell cell-15" id="FluorescentYellowJerseyTextOutline" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyTextOutline()"></div>
+				<div class="cell cell-16" id="PinkJerseyTextOutline" title="Pink" onclick="ApplyPinkJerseyTextOutline()"></div>
+				<div class="cell cell-17" id="FluorescentPinkJerseyTextOutline" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyTextOutline()"></div>
+				<div class="cell cell-18" id="PurpleJerseyTextOutline" title="Purple" onclick="ApplyPurpleJerseyTextOutline()"></div>
+				<div class="cell cell-19" id="SkyBlueJerseyTextOutline" title="Sky Blue" onclick="ApplySkyBlueJerseyTextOutline()"></div> 
+				<div class="cell cell-20" id="CarpiJerseyTextOutline" title="Carpi" onclick="ApplyCarpiJerseyTextOutline()"></div> 
+				<div class="cell cell-21" id="SeafoamGreenJerseyTextOutline" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyTextOutline()"></div>
+				<div class="cell cell-22" id="TealJerseyTextOutline" title="Teal" onclick="ApplyTealJerseyTextOutline()"></div>
+				<div class="cell cell-23" id="FluorescentGreenJerseyTextOutline" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyTextOutline()"></div>
+				<div class="cell cell-24" id="KellyGreenJerseyTextOutline" title="Kelly Green" onclick="ApplyKellyGreenJerseyTextOutline()"></div>
+				<div class="cell cell-25" id="ForestGreenJerseyTextOutline" title="Forest Green" onclick="ApplyForestGreenJerseyTextOutline()"></div>
+				<div class="cell cell-26" id="RoyalJerseyTextOutline" title="Royal" onclick="ApplyRoyalJerseyTextOutline()"></div>
+				<div class="cell cell-27" id="NavyJerseyTextOutline" title="Navy" onclick="ApplyNavyJerseyTextOutline()"></div>
+				<div class="cell cell-28" id="NoneJerseyTextOutline" title="None" onclick="ApplyNoneJerseyTextOutline()"> <div class="redline"></div></div>
+			</div>
+		</div>
+
+		
+
+
+
+
+
+
+
+
+
+		<div class="SectionTextJersey">
+			<div style="display:inline-block">
+				NUMBER	 <span style="color:firebrick; font-size: 0.7em; display:inline-block; font-family: BeVietnam_Regular"> (Sample only. Full roster will be entered in the cart.) </span>
+			</div>
+			<canvas id="textCanvasJerseyFrontNumber" style="z-index:999; display:none"></canvas>
+			<div class="UploadSectionLogos">
+				<textarea maxlength="2" type="number" placeholder="Number" id="LineNumber" class="LinesTeamName"></textarea>
+				<div class="image-upload ButtonUpload" id="ApplyLineNumber">
+					Apply
+					<img class="ImgMini" id="ApplyLineNumber" src="icons/apply.png">
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle" >
+				FONT STYLE
+				<div class="NameSelectedColor" id="FontNumberJersey">CocogooseProItalic</div>
+			</div>	
+			<div class="cross-icon" id="CrossIconFontJerseyTextNumber" onclick="openJerseyTextFontsNumber()">+</div>
+		</div>
+
+		<div id="FontListRollNumber">
+			<div class="TypeFontTitle COCOGOOSE" id="COCOGOOSENumber" onclick="FontNumberCOCOGOOSE()">
+				COCOGOOSE PRO ITALIC
+			</div>
+
+			<div class="TypeFontTitle CANTERBURY" id="CANTERBURYNumber" onclick="FontNumberCANTERBURY()">
+				CANTERBURY
+			</div>
+			<div class="TypeFontTitle COLLEGE" id="COLLEGENumber" onclick="FontNumberCOLLEGE()">
+				COLLEGE BOLD
+			</div>
+			<div class="TypeFontTitle DEFTONE" id="DEFTONENumber" onclick="FontNumberDEFTONE()">
+				DEFTONE STYLUS
+			</div>
+			<div class="TypeFontTitle EMILIO" id="EMILIONumber" onclick="FontNumberEMILIO()">
+				EMILIO 19
+			</div>
+			<div class="TypeFontTitle LEAGUESPARTAN" id="LEAGUESPARTANNumber" onclick="FontNumberLEAGUESPARTAN()">
+				LEAGUE SPARTAN BOLD
+			</div>
+			<div class="TypeFontTitle MONOTON" id="MONOTONNumber" onclick="FontNumberMONOTON()">
+				MONOTON
+			</div>
+			<div class="TypeFontTitle MONTSERRAT" id="MONTSERRATNumber" onclick="FontNumberMONTSERRAT()">
+				MONTSERRAT 
+			</div>
+			<div class="TypeFontTitle PUBLICENEMY" id="PUBLICENEMYNumber" onclick="FontNumberPUBLICENEMY()">
+				PUBLIC ENEMY
+			</div>
+			<div class="TypeFontTitle SPORTJERSEY" id="SPORTJERSEYNumber" onclick="FontNumberSPORTJERSEY()">
+				SPORTJERSEY
+			</div>
+		</div>
+
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle">
+				NUMBER - MAIN COLOR
+				<div class="NameSelectedColor" id="NumberJerseyNameColor">
+					Black
+				</div>
+			</div>	
+			<div class="SelectedColor" id="SelectedColorJerseyNumber"></div>	
+			<div class="cross-icon" id="CrossIconColorsJerseyNumber" onclick="openJerseyNumberColors()">+</div>
+		</div>
+		<div id="ColorJerseyNumber">
+			<div class="ColorsPalette">
+				<div class="cell cell-1" id="BlackJerseyNumber" title="Black" onclick="ApplyBlackJerseyNumber()"></div>
+				<div class="cell cell-2" id="WhiteJerseyNumber" title="White" onclick="ApplyWhiteJerseyNumber()"></div>
+				<div class="cell cell-3" id="GraphiteJerseyNumber" title="Graphite" onclick="ApplyGraphiteJerseyNumber()"></div>
+				<div class="cell cell-4" id="GreyJerseyNumber" title="Grey" onclick="ApplyGreyJerseyNumber()"></div>
+				<div class="cell cell-5" id="MaroonJerseyNumber" title="Maroon" onclick="ApplyMaroonJerseyNumber()"></div>
+				<div class="cell cell-6" id="CardinalJerseyNumber" title="Cardinal" onclick="ApplyCardinalJerseyNumber()"></div>
+				<div class="cell cell-7" id="BrownJerseyNumber" title="Brown" onclick="ApplyBrownJerseyNumber()"></div>
+				<div class="cell cell-8" id="BurntOrangeJerseyNumber" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyNumber()"></div>
+				<div class="cell cell-9" id="ScarletJerseyNumber" title="Scarlet" onclick="ApplyScarletJerseyNumber()"></div>
+				<div class="cell cell-10" id="DarkOrangeJerseyNumber" title="Dark Orange" onclick="ApplyDarkOrangeJerseyNumber()"></div> 
+				<div class="cell cell-11" id="FluorescentOrangeJerseyNumber" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyNumber()"></div>
+				<div class="cell cell-12" id="GoldJerseyNumber" title="Gold" onclick="ApplyGoldJerseyNumber()"></div>
+				<div class="cell cell-13" id="TaxiJerseyNumber" title="Taxi" onclick="ApplyTaxiJerseyNumber()"></div>
+				<div class="cell cell-14" id="VegasGoldJerseyNumber" title="Vegas Gold" onclick="ApplyVegasGoldJerseyNumber()"></div>
+				<div class="cell cell-15" id="FluorescentYellowJerseyNumber" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyNumber()"></div>
+				<div class="cell cell-16" id="PinkJerseyNumber" title="Pink" onclick="ApplyPinkJerseyNumber()"></div>
+				<div class="cell cell-17" id="FluorescentPinkJerseyNumber" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyNumber()"></div>
+				<div class="cell cell-18" id="PurpleJerseyNumber" title="Purple" onclick="ApplyPurpleJerseyNumber()"></div>
+				<div class="cell cell-19" id="SkyBlueJerseyNumber" title="Sky Blue" onclick="ApplySkyBlueJerseyNumber()"></div> 
+				<div class="cell cell-20" id="CarpiJerseyNumber" title="Carpi" onclick="ApplyCarpiJerseyNumber()"></div> 
+				<div class="cell cell-21" id="SeafoamGreenJerseyNumber" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyNumber()"></div>
+				<div class="cell cell-22" id="TealJerseyNumber" title="Teal" onclick="ApplyTealJerseyNumber()"></div>
+				<div class="cell cell-23" id="FluorescentGreenJerseyNumber" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyNumber()"></div>
+				<div class="cell cell-24" id="KellyGreenJerseyNumber" title="Kelly Green" onclick="ApplyKellyGreenJerseyNumber()"></div>
+				<div class="cell cell-25" id="ForestGreenJerseyNumber" title="Forest Green" onclick="ApplyForestGreenJerseyNumber()"></div>
+				<div class="cell cell-26" id="RoyalJerseyNumber" title="Royal" onclick="ApplyRoyalJerseyNumber()"></div>
+				<div class="cell cell-27" id="NavyJerseyNumber" title="Navy" onclick="ApplyNavyJerseyNumber()"></div>
+			</div>
+		</div>
+
+		<div class="ColorsSelectorMenu">
+			<div class="TypeColorTitle">
+				NUMBER - OUTLINE COLOR
+				<div class="NameSelectedColor" id="NumberOutlineJerseyNameColor">None</div>
+			</div>	
+			<div class="SelectedColor" id="SelectedColorJerseyNumberOutline"></div>	
+			<div class="cross-icon" id="CrossIconColorsJerseyNumberOutline" onclick="openJerseyNumberOutlineColors()">+</div>
+		</div>
+
+		<div id="ColorJerseyNumberOutline">
+			<div class="ColorsPalette">
+				<div class="cell cell-1" id="BlackJerseyNumberOutline" title="Black" onclick="ApplyBlackJerseyNumberOutline()"></div>
+				<div class="cell cell-2" id="WhiteJerseyNumberOutline" title="White" onclick="ApplyWhiteJerseyNumberOutline()"></div>
+				<div class="cell cell-3" id="GraphiteJerseyNumberOutline" title="Graphite" onclick="ApplyGraphiteJerseyNumberOutline()"></div>
+				<div class="cell cell-4" id="GreyJerseyNumberOutline" title="Grey" onclick="ApplyGreyJerseyNumberOutline()"></div>
+				<div class="cell cell-5" id="MaroonJerseyNumberOutline" title="Maroon" onclick="ApplyMaroonJerseyNumberOutline()"></div>
+				<div class="cell cell-6" id="CardinalJerseyNumberOutline" title="Cardinal" onclick="ApplyCardinalJerseyNumberOutline()"></div>
+				<div class="cell cell-7" id="BrownJerseyNumberOutline" title="Brown" onclick="ApplyBrownJerseyNumberOutline()"></div>
+				<div class="cell cell-8" id="BurntOrangeJerseyNumberOutline" title="Burnt Orange" onclick="ApplyBurntOrangeJerseyNumberOutline()"></div>
+				<div class="cell cell-9" id="ScarletJerseyNumberOutline" title="Scarlet" onclick="ApplyScarletJerseyNumberOutline()"></div>
+				<div class="cell cell-10" id="DarkOrangeJerseyNumberOutline" title="Dark Orange" onclick="ApplyDarkOrangeJerseyNumberOutline()"></div> 
+				<div class="cell cell-11" id="FluorescentOrangeJerseyNumberOutline" title="Fluorescent Orange" onclick="ApplyFluorescentOrangeJerseyNumberOutline()"></div>
+				<div class="cell cell-12" id="GoldJerseyNumberOutline" title="Gold" onclick="ApplyGoldJerseyNumberOutline()"></div>
+				<div class="cell cell-13" id="TaxiJerseyNumberOutline" title="Taxi" onclick="ApplyTaxiJerseyNumberOutline()"></div>
+				<div class="cell cell-14" id="VegasGoldJerseyNumberOutline" title="Vegas Gold" onclick="ApplyVegasGoldJerseyNumberOutline()"></div>
+				<div class="cell cell-15" id="FluorescentYellowJerseyNumberOutline" title="Fluorescent Yellow" onclick="ApplyFluorescentYellowJerseyNumberOutline()"></div>
+				<div class="cell cell-16" id="PinkJerseyNumberOutline" title="Pink" onclick="ApplyPinkJerseyNumberOutline()"></div>
+				<div class="cell cell-17" id="FluorescentPinkJerseyNumberOutline" title="Fluorescent Pink" onclick="ApplyFluorescentPinkJerseyNumberOutline()"></div>
+				<div class="cell cell-18" id="PurpleJerseyNumberOutline" title="Purple" onclick="ApplyPurpleJerseyNumberOutline()"></div>
+				<div class="cell cell-19" id="SkyBlueJerseyNumberOutline" title="Sky Blue" onclick="ApplySkyBlueJerseyNumberOutline()"></div> 
+				<div class="cell cell-20" id="CarpiJerseyNumberOutline" title="Carpi" onclick="ApplyCarpiJerseyNumberOutline()"></div> 
+				<div class="cell cell-21" id="SeafoamGreenJerseyNumberOutline" title="Seafoam Green" onclick="ApplySeafoamGreenJerseyNumberOutline()"></div>
+				<div class="cell cell-22" id="TealJerseyNumberOutline" title="Teal" onclick="ApplyTealJerseyNumberOutline()"></div>
+				<div class="cell cell-23" id="FluorescentGreenJerseyNumberOutline" title="Fluorescent Green" onclick="ApplyFluorescentGreenJerseyNumberOutline()"></div>
+				<div class="cell cell-24" id="KellyGreenJerseyNumberOutline" title="Kelly Green" onclick="ApplyKellyGreenJerseyNumberOutline()"></div>
+				<div class="cell cell-25" id="ForestGreenJerseyNumberOutline" title="Forest Green" onclick="ApplyForestGreenJerseyNumberOutline()"></div>
+				<div class="cell cell-26" id="RoyalJerseyNumberOutline" title="Royal" onclick="ApplyRoyalJerseyNumberOutline()"></div>
+				<div class="cell cell-27" id="NavyJerseyNumberOutline" title="Navy" onclick="ApplyNavyJerseyNumberOutline()"></div>
+				<div class="cell cell-28" id="NoneJerseyNumberOutline" title="None" onclick="ApplyNoneJerseyNumberOutline()"> <div class="redline"></div></div>
+			</div>
+		</div>		
+	</div>		
+	
+	<div  id="BackObjectMenu">
+		<div class="expand-icon" id="expandJerseyTextBack" onclick="openJerseyTextBack()">+</div>
+		<div id="BackTextTitle" onclick="openJerseyTextBack()">
+			BACK
+		</div>	
+	</div>
+
+	<div id="BackTextMenu">
+		
+		<div class="SectionTextJersey" id="TextBackTeamName" >
+			TEXT
+			<div class="checkbox" type="checkbox">
+				<label class="container">Player Name <span style="color:firebrick; font-size: 0.7em; display:inline-block"> (Sample only. Full roster will be entered in the
+					cart.) </span>
+					<input type="checkbox"  id="CheckBoxName" onclick="UncheckText()">
+					<span class="checkmark" ></span>
+					</label>
+					<label class="container">Fixed Text
+					<input type="checkbox" id="CheckBoxText" onclick="UncheckName()" >
+					<span class="checkmark"></span>
+					</label>
+			</div>
+
+			<canvas id="textCanvasJerseyNameTeamName" style="z-index:999; display:none"></canvas>
+			
+			<div class="UploadSectionLogos">
+				<textarea type="text" maxlength="18" placeholder="Input up to 18 symbols" id="TextTeamName" class="LinesTeamName"
+					onchange="Line2TeamNameInput()"></textarea>
+				<div class="image-upload ButtonUpload" id="ApplyLineName">
+					Apply
+					<img class="ImgMini" id="ApplyLineName" src="icons/apply.png">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+	
+
+
+
+
+
+
+
+<div id="LogosMenu" class="scrollbar" class="overflow">
+	<div class="JerseyMenu">
+		<div class="expand-icon" id="expandJerseyLogos" onclick="openJerseyLogos()">+</div>
+		<div class="ObjectTitle" onclick="openJerseyLogos()">
+			JERSEY
+		</div>	
+	</div>
+	<div id="LogosJerseyBlock">
+		<div class="SectionTextJersey LogosJerseyHLogo" >
+			“H” LOGO
+			<div class="checkbox">
+				<label class="container">Left Shoulder
+					<input type="radio" name="Hlogo" id="HLogoCheckboxLeftSholder" onclick="Change_HLogoRadio()" checked>
+					<span class="checkmark"></span>
+				</label>
+				<label class="container">Right Shoulder
+					<input type="radio" name="Hlogo" id="HLogoCheckboxRightSholder" onclick="Change_HLogoRadio()">
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label class="container">NFHS compliant
+					<input type="checkbox" id="HLogoNFHScomplientJersey" onclick="Change_HLogoNFHScomplientJersey()">
+					<span class="checkmark"></span>
+				</label>
+			</div>		
+		</div>
+
+		<div class="SectionTextJersey LogosTeamLogo" >
+			TEAM LOGO
+			<br>	<br>
+			
+			<div id="HelpPreviewTitle" class="popup">
+				Accepted File Types: <br>
+				.JPG | .JPEG | .PNG | .GIF | .BMP | .PDF
+			</div>
+			<br>
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameLeftSholder">Left Shoulder</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngLeftSholder" onclick="openFabricCanvasLeftShoulder()">
+						Show Grid
+					</div>
+					<div id="PreviewBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftShoulderPreview">
+							<label for="fileInputLeftShoulderPreview">
+								Upload
+								<img class="ImgMini"  id="ImgfileInputLeftShoulderPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputLeftShoulderPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedLeftShoulder">
+							Uploaded
+						</div>
+					</div>
+
+					<div id="PrintBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftShoulderPrint" onclick="ShowRemoveButtonLeftShoulder()">
+							Apply
+							<label for="fileInputLeftShoulderPrint">
+							<img class="ImgMini" id="ImgfileInputLeftShoulderPrint"src="icons/apply.png" >
+							</label>
+						</div>
+						<div class="image-upload ButtonUpload" id="RemoveLeftShoulderPrint" onclick="ShowApplyButtonLeftShoulder()">
+							Remove
+							<label for="fileInputLeftShoulderPrint">
+							<img class="ImgMini" id="ImgfileRemoveLeftShoulderPrint"src="icons/remove.png" >
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas2">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas2Input">	
+				</div>
+				<canvas id="fabricCanvas2" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasJersey7cm1"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+		
+			
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameRightSholder">Right Shoulder</div>
+
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngRightSholder" onclick="openFabricCanvasRightShoulder()">
+						Show Grid
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadRightShoulderPreview">
+						<label for="fileInputRightShoulderPreview">
+							Upload
+							<img class="ImgMini"  id="ImgfileInputRightShoulderPreview" src="icons/upload.png" >
+						</label>
+						<input id="fileInputRightShoulderPreview" type="file" />
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadedRightShoulder">
+						Uploaded
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadRightShoulderPrint" onclick="ShowRemoveButtonRightShoulder()">
+						Apply
+						<img class="ImgMini" id="ImgfileInputRightShoulderPrint"src="icons/apply.png" >
+					</div>
+					<div class="image-upload ButtonUpload" id="RemoveRightShoulderPrint" onclick="ShowApplyButtonRightShoulder()">
+						Remove
+						<img class="ImgMini" id="ImgfileRemoveRightShoulderPrint"src="icons/remove.png" >
+					</div>
+				</div>
+			</div>
+			<div id="Canvas1">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvasInput1">
+				</div>
+				<canvas id="fabricCanvas" class="PlaceforFabric" width="300" height="300"></canvas>	
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasJersey7cm2"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+
+
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle">Back - Below Neck</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngBackBelowNeck" onclick="openFabricCanvasBackBelowNeck()">
+						Show Grid
+					</div>
+						<div class="image-upload ButtonUpload" id="UploadBackBelowNeckPreview">
+							<label for="fileInputBackBelowNeckPreview">
+								Upload
+								<img class="ImgMini"  id="ImgfileInputBackBelowNeckPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputBackBelowNeckPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedBackBelowNeck">
+							Uploaded
+						</div>
+					<div class="image-upload ButtonUpload" id="UploadBackBelowNeckPrint" onclick="ShowRemoveButtonBackBelowNeck()">
+						Apply
+						<label for="fileInputBackBelowNeckPrint">
+						<img class="ImgMini" id="ImgfileInputBackBelowNeckPrint"src="icons/apply.png" >
+						</label>
+					</div>
+					<div class="image-upload ButtonUpload" id="RemoveBackBelowNeckPrint" onclick="ShowApplyButtonBackBelowNeck()">
+						Remove
+						<label for="fileInputBackBelowNeckPrint">
+						<img class="ImgMini" id="ImgfileRemoveBackBelowNeckPrint"src="icons/remove.png" >
+						</label>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas3">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas3Input">	
+				</div>
+				<canvas id="fabricCanvas3" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas5cm"></div>
+				<div id="BackgroundCanvas5cm"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+
+
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle">Back - Under Number</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngBackUnderNumber" onclick="openFabricCanvasBackUnderNumber()">
+						Show Grid
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadBackUnderNumberPreview">
+						<label for="fileInputBackUnderNumberPreview">
+						Upload
+						<img class="ImgMini"  id="ImgfileInputBackUnderNumberPreview" src="icons/upload.png" >
+						</label>
+						<input id="fileInputBackUnderNumberPreview" type="file" />
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadedBackUnderNumber">
+						Uploaded
+					</div>
+					<div class="image-upload ButtonUpload" id="UploadBackUnderNumberPrint" onclick="ShowRemoveButtonBackUnderNumber()">
+						Apply
+						<label for="fileInputBackUnderNumberPrint">
+						<img class="ImgMini" id="ImgfileInputBackUnderNumberPrint"src="icons/apply.png" >
+						</label>
+					</div>
+					<div class="image-upload ButtonUpload" id="RemoveBackUnderNumberPrint" onclick="ShowApplyButtonBackUnderNumber()">
+						Remove
+						<label for="fileInputBackUnderNumberPrint">
+						<img class="ImgMini" id="ImgfileRemoveBackUnderNumberPrint"src="icons/remove.png" >
+						</label>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas4">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas4Input">	
+				</div>
+				<canvas id="fabricCanvas4" class="PlaceforFabric2" width="430" height="90"></canvas>
+				<div class="GridCanvas28cm"></div>
+				<div id="BackgroundCanvas28cm"></div>
+				<div class="CanvasNote2">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ShortsMenu">
+		<div class="expand-icon" id="expandShortsLogos" onclick="openShortsLogos()">+</div>
+		<div class="ObjectTitle" onclick="openShortsLogos()">
+			SHORTS
+		</div>	
+	</div>
+
+	<div id="LogosShortsBlock">
+		<div class="SectionTextJersey LogosShortsHLogo" >
+			“H” LOGO
+			<div class="checkbox">
+				<label class="container">Left - Upper
+					<input type="radio" name="HlogoShorts" id="HLogoLeftUpper" onclick="Change_HLogoShortsRadio()">
+					<span class="checkmark"></span>
+				</label>
+				<label class="container">Left - Lower
+					<input type="radio" name="HlogoShorts" id="HLogoLeftLower" onclick="Change_HLogoShortsRadio()">
+					<span class="checkmark"></span>
+				</label>
+			</div>
+
+			<div class="checkbox">
+				<label class="container">Right - Upper
+					<input type="radio" name="HlogoShorts" id="HLogoRightUpper" onclick="Change_HLogoShortsRadio()">
+					<span class="checkmark"></span>
+				</label>
+				<label class="container">Right - Lower
+					<input type="radio" name="HlogoShorts" id="HLogoRightLower" onclick="Change_HLogoShortsRadio()" checked>
+					<span class="checkmark"></span>
+				</label>
+			</div>
+		</div>
+
+		<div class="SectionTextJersey LogosTeamLogo">
+			TEAM LOGO
+			<br>	<br>
+			<div id="HelpPreviewTitle" class="popup">
+				Accepted File Types: <br>
+				.JPG | .JPEG | .PNG | .GIF | .BMP | .PDF
+			</div>
+			<br>
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameLeftUpperShorts">Left - Upper</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngLeftUpper" onclick="openFabricCanvasLeftUpper()">
+						Show Grid
+					</div>
+					<div id="PreviewBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftUpperPreview">
+							<label for="fileInputLeftUpperPreview">
+								Upload
+								<img class="ImgMini"  id="ImgfileInputLeftUpperPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputLeftUpperPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedLeftUpper">
+							Uploaded
+						</div>
+					</div>
+
+					<div id="PrintBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftUpperPrint" onclick="ShowRemoveButtonLeftUpper()">
+							Apply
+							<label for="fileInputLeftUpperPrint">
+							<img class="ImgMini" id="ImgfileInputLeftUpperPrint"src="icons/apply.png" >
+							</label>
+						</div>
+						<div class="image-upload ButtonUpload" id="RemoveLeftUpperPrint" onclick="ShowApplyButtonLeftUpper()">
+							Remove
+							<label for="fileInputLeftUpperPrint">
+							<img class="ImgMini" id="ImgfileRemoveLeftUpperPrint"src="icons/remove.png" >
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas5">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas5Input">	
+				</div>
+				<canvas id="fabricCanvas5" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasShorts7cm1"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameLeftLowerShorts">Left - Lower</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngLeftLower" onclick="openFabricCanvasLeftLower()">
+						Show Grid
+					</div>
+					<div id="PreviewBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftLowerPreview">
+							<label for="fileInputLeftLowerPreview">
+							Upload
+								<img class="ImgMini"  id="ImgfileInputLeftLowerPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputLeftLowerPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedLeftLower">
+							Uploaded
+						</div>
+					</div>
+
+					<div id="PrintBlock">
+						<div class="image-upload ButtonUpload" id="UploadLeftLowerPrint" onclick="ShowRemoveButtonLeftLower()">
+							Apply
+							<label for="fileInputLeftLowerPrint">
+							<img class="ImgMini" id="ImgfileInputLeftLowerPrint"src="icons/apply.png" >
+							</label>
+						</div>
+						<div class="image-upload ButtonUpload" id="RemoveLeftLowerPrint" onclick="ShowApplyButtonLeftLower()">
+							Remove
+							<label for="fileInputLeftLowerPrint">
+							<img class="ImgMini" id="ImgfileRemoveLeftLowerPrint"src="icons/remove.png" >
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas6">	
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas6Input">	
+				</div>
+				<canvas id="fabricCanvas6" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasShorts7cm2"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameRightUpperShorts">Right - Upper</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngRightUpper" onclick="openFabricCanvasRightUpper()">
+						Show Grid
+					</div>
+					<div id="PreviewBlock">
+						<div class="image-upload ButtonUpload" id="UploadRightUpperPreview">
+							<label for="fileInputRightUpperPreview">
+								Upload
+								<img class="ImgMini"  id="ImgfileInputRightUpperPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputRightUpperPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedRightUpper">
+							Uploaded
+						</div>
+					</div>
+
+					<div id="PrintBlock">
+						<div class="image-upload ButtonUpload" id="UploadRightUpperPrint" onclick="ShowRemoveButtonRightUpper()">
+							Apply
+							<label for="fileInputRightUpperPrint">
+							<img class="ImgMini" id="ImgfileInputRightUpperPrint"src="icons/apply.png" >
+							</label>
+						</div>
+						<div class="image-upload ButtonUpload" id="RemoveRightUpperPrint" onclick="ShowApplyButtonRightUpper()">
+							Remove
+							<label for="fileInputRightUpperPrint">
+							<img class="ImgMini" id="ImgfileRemoveRightUpperPrint"src="icons/remove.png" >
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas7">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas7Input">	
+				</div>
+				<canvas id="fabricCanvas7" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasShorts7cm3"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+
+
+			<div class="UploadSectionLogos">
+				<div  class="LogosTeamNameTitle" id="TeamNameRightLowerShorts">Right - Lower</div>
+				<div  class="ButtonsLogos">
+					<div class="image-upload ButtonUpload" id="ScaleAndMovePngRightLower" onclick="openFabricCanvasRightLower()">
+						Show Grid
+					</div>
+					<div id="PreviewBlock">
+						<div class="image-upload ButtonUpload" id="UploadRightLowerPreview">
+							<label for="fileInputRightLowerPreview">
+								Upload
+								<img class="ImgMini"  id="ImgfileInputRightLowerPreview" src="icons/upload.png" >
+							</label>
+							<input id="fileInputRightLowerPreview" type="file" />
+						</div>
+						<div class="image-upload ButtonUpload" id="UploadedRightLower">
+							Uploaded
+						</div>
+					</div>
+
+					<div id="PrintBlock">
+						<div class="image-upload ButtonUpload" id="UploadRightLowerPrint" onclick="ShowRemoveButtonRightLower()">
+							Apply
+							<label for="fileInputRightLowerPrint">
+							<img class="ImgMini" id="ImgfileInputRightLowerPrint"src="icons/apply.png" >
+							</label>
+						</div>
+						<div class="image-upload ButtonUpload" id="RemoveRightLowerPrint" onclick="ShowApplyButtonRightLower()">
+							Remove
+							<label for="fileInputRightLowerPrint">
+							<img class="ImgMini" id="ImgfileRemoveRightLowerPrint"src="icons/remove.png" >
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Canvas8">
+				<div style="display:none">
+					<img src="img/0.png" id="fabricCanvas8Input">	
+				</div>
+				<canvas id="fabricCanvas8" class="PlaceforFabric" width="300" height="300"></canvas>
+				<div class="GridCanvas7cm"></div>
+				<div id="BackgroundCanvasShorts7cm4"></div>
+				<div class="CanvasNote">
+					Note: Any part of your logo that falls outside the grid will not be printed.
+				</div>
+			</div>
+		</div>
+		<div id="ShortTextMenu">
+			<div id="SectionNumberSHorts">
+				NUMBER
+				<div class="checkbox">
+					<label class="container" id="LeftUpperNumber">Left - Upper
+						<input type="checkbox" id="LeftUpperCheckboxNumber">
+						<span class="checkmark"></span>
+					</label>
+					<label class="container" id="LeftLowerNumber">Left - Lower
+						<input type="checkbox" id="LeftLowerCheckboxNumber">
+						<span class="checkmark"></span>
+					</label>
+				</div>
+	
+				<div class="checkbox">
+					<label class="container" id="RightUpperNumber">Right - Upper
+						<input type="checkbox" id="RightUpperCheckboxNumber">
+						<span class="checkmark"></span>
+					</label>
+					<label class="container" id="RightLowerNumber">Right - Lower
+						<input type="checkbox" id="RightLowerCheckboxNumber">
+						<span class="checkmark"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div id="SummaryMenu" class="scrollbar" class="overflow">
+
+	<br><br>
+
+	<div class="SummaryBlock" id="BaseColorSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Base Color
+		</div>	
+		<div class="SummaryUserChosen" id="BaseColorValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Accent1ColorSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Accent 1 Color
+		</div>	
+		<div class="SummaryUserChosen" id="Accent1ColorValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Accent2ColorSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Accent 2 Color
+		</div>	
+		<div class="SummaryUserChosen" id="Accent2ColorValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="JerseyFrontTeamNameSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Front Team Name
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="LayoutFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Layout
+		</div>	
+		<div class="SummaryUserChosen">
+			<img src="icons/Type1.png" class="ImgMiniSummary" id="LayoutFrontJerseyValue">
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Line1FrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Line 1
+		</div>	
+		<div class="SummaryUserChosen" id="Line1FrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Line2FrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Line 2
+		</div>	
+		<div class="SummaryUserChosen" id="Line2FrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="FontFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Font
+		</div>	
+		<div class="SummaryUserChosen" id="FontFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="MainColorFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Text Main Color
+		</div>	
+		<div class="SummaryUserChosen" id="MainColorFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="OutlineColorFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Text Outline Color
+		</div>	
+		<div class="SummaryUserChosen" id="OutlineColorFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="NumberFontFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Font Number
+		</div>	
+		<div class="SummaryUserChosen" id="NumberFontFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="NumberMainColorFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Number Main Color
+		</div>	
+		<div class="SummaryUserChosen" id="NumberMainColorFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="NumberOutlineColorFrontJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Number Outline Color
+		</div>	
+		<div class="SummaryUserChosen" id="NumberOutlineColorFrontJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="JerseyBackTeamNameSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Back Team Name
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="LayoutBackJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Layout
+		</div>	
+		<div class="SummaryUserChosen">
+			<img src="icons/Type1.png" class="ImgMiniSummary" id="LayoutBackJerseyValue">
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="TextBackJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Text
+		</div>	
+		<div class="SummaryUserChosen" id="TextBackJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="PlayerNameBackJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Player Name
+		</div>	
+		<div class="SummaryUserChosen" id="PlayerNameBackJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="JerseyLogoSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Jersey Logo
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="HLogoJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			“H” logo
+		</div>	
+		<div class="SummaryUserChosen" id="LHLogoJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="NFHSComplientJerseySummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			NFHS Complient
+		</div>	
+		<div class="SummaryUserChosen" id="NFHSComplientJerseyValue">
+			No choose
+		</div>	
+	</div>
+
+	<div id="TeamLogoLeftShoulderJerseySummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoLeftShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoLeftShoulderJerseyValue">
+				Left Shoulder
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoLeftShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoLeftShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoLeftShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoLeftShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoLeftShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoLeftShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoRightShoulderJerseySummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoRightShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoRightShoulderJerseyValue">
+				Right Shoulder
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoRightShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoRightShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoRightShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoRightShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoRightShoulderJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoRightShoulderJerseyValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoBackBelowNeckJerseySummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoBackBelowNeckPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoBackBelowNeckJerseyValue">
+				Back Below Neck
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoBackBelowNeckJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoBackBelowNeckJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoBackBelowNeckJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoBackBelowNeckJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoBackBelowNeckJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoBackBelowNeckJerseyValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoBackUnderNumberJerseySummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoBackUnderNumberPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoBackUnderNumberJerseyValue">
+				Back Under Number
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoBackUnderNumberJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoBackUnderNumberJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoBackUnderNumberJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoBackUnderNumberJerseyValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoBackUnderNumberJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoBackUnderNumberJerseyValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div class="SummaryBlock" id="BaseColorShortsSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Shorts Base Color
+		</div>	
+		<div class="SummaryUserChosen" id="BaseColorShortsValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Accent1ColorShortsSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Shorts Accent 1 Color
+		</div>	
+		<div class="SummaryUserChosen" id="Accent1ColorShortsValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="Accent2ColorShortsSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Shorts Accent 2 Color
+		</div>	
+		<div class="SummaryUserChosen" id="Accent2ShortsColorValue">
+			No choose
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="ShortsLogoSummaryBlock">
+		<div class="SummaryTypeTitle" >
+			Shorts Logo
+		</div>	
+	</div>
+
+	<div class="SummaryBlock" id="HLogoShortsSummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			“H” logo
+		</div>	
+		<div class="SummaryUserChosen" id="HLogoShortsValue">
+			No choose
+		</div>	
+	</div>
+
+	<div id="TeamLogoLeftUpperShortsSummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoLeftShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoLeftUpperShortsValue">
+				Left Upper
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoLeftUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoLeftUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoLeftUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoLeftUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoLeftUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoLeftUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoLeftLowerShortsSummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoLeftShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoLeftLowerShortsValue">
+				Left Lower
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoLeftLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoLeftLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoLeftLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoLeftLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoLeftLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoLeftLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoRightUpperShortsSummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoRightShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoRightUpperShortsValue">
+				Right Upper
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoRightUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoRightUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoRightUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoRightUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoRightUpperShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoRightUpperShortsValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div id="TeamLogoRightLowerShortsSummaryBlock">
+		<div class="SummaryBlock" id="TeamLogoRightShoulderPositionJerseySummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Team Logo
+			</div>	
+			<div class="SummaryUserChosen" id="TeamLogoRightLowerShortsValue">
+				Right Lower
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PreviewTeamLogoRightLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Preview
+			</div>	
+			<div class="SummaryUserChosen" id="PreviewTeamLogoRightLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="PrintTeamLogoRightLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Print
+			</div>	
+			<div class="SummaryUserChosen" id="PrintTeamLogoRightLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+
+		<div class="SummaryBlock" id="DimensionsTeamLogoRightLowerShortsSummaryBlock">
+			<div class="SummarySubTypeTitle" >
+				Dimensions (inch) W*H
+			</div>	
+			<div class="SummaryUserChosen" id="DimensionsTeamLogoRightLowerShortsValue">
+				No choose
+			</div>	
+		</div>
+	</div>
+
+	<div class="SummaryBlock" id="NumberShortsSummaryBlock">
+		<div class="SummarySubTypeTitle" >
+			Shorts Number
+		</div>	
+		<div class="SummaryUserChosen" id="NumberShortsValue">
+			No choose
+		</div>	
+	</div>	
+
+</div>
+
+
+
+
+<div id="DetailsMenu" class="scrollbar" class="overflow">
+
+	<br><br>
+	<div id="DetailsBlock">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt accumsan volutpat. Duis nec ante et quam mattis dignissim. Nunc erat sem, laoreet quis mauris at, iaculis pharetra sem. Fusce ultricies dignissim feugiat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce mollis, nisl nec fermentum blandit, ipsum ex lobortis diam, a gravida velit lectus sit amet velit. Cras in neque ac justo tempus placerat ut non quam. Sed quis est vel ex sodales luctus. Sed id lacus et tellus pharetra rhoncus. Integer vel laoreet nunc. Pellentesque ornare tincidunt pellentesque. Nullam turpis tellus, molestie vel ex vel, interdum vehicula justo.
+
+	Vivamus facilisis sem sit amet euismod blandit. Nullam interdum feugiat leo in mollis. Quisque vitae erat sit amet risus euismod aliquam. Suspendisse non luctus ante. Maecenas vel est finibus nibh consectetur volutpat. Nunc id rhoncus mauris. Donec tempor blandit libero, non volutpat velit tincidunt id. Nunc ac elit ut erat fringilla aliquet sed quis ante. Mauris porta, felis nec rutrum varius, ligula enim elementum elit, sit amet iaculis odio velit vitae purus. Sed congue vulputate viverra. Donec fringilla sem vel risus efficitur euismod. Praesent laoreet neque massa. Quisque nisl odio, consectetur ac condimentum nec, blandit id justo. Aliquam tincidunt massa in nunc feugiat fermentum nec non eros. Donec iaculis nunc ac ipsum tempor imperdiet.
+	</div>
+
+</div>
+
+
+
+<div id="container">  
+
+	<div id="Pannel3D">
+		<div id="View360">
+			<img src="icons/360viewBlack.png"
+			class="img3dview" id="View360img" onclick="openView360Various()">
+			<div id="Button_Spin">
+				Start Spin
+			</div>	
+		</div>
+
+		<div id="Button_Front" class="GreyButtons" onclick="viewVariousFront()">
+			Front 
+		</div>	
+		<div id="Button_Back" class="GreyButtons" onclick="viewVariousBack()">
+			Back 
+		</div>	
+		<div id="Button_Right" class="GreyButtons" onclick="viewVariousRight()">
+			Right 
+		</div>	
+		<div id="Button_Left" class="GreyButtons" onclick="viewVariousLeft()">
+			Left 
+		</div>	
+
+		<div id="LeftIcon">
+			<div id="FullScreenIcon" onclick="Fullscreen()">
+				<img src="icons/FullScreen.png"
+				class="img3dview" id="FullScreenIconImg">	
+			</div>
+			<div id="ShareIcon">
+				<img src="icons/Share.png"
+				class="img3dview" id="ShareIconImg">	
+			</div>
+		</div>
+	</div>
+
+	<div id="DisplayView">	
+		<div id="DisplayTitle">
+			Display:
+		</div>
+		<div id="VariosDisplayView">
+			<div id="Button_Untucked" class="GreyButtons" onclick="openDisplayVariousForUntucked()">
+				Jersey + Shorts (untucked) 
+			</div>	
+			<div id="Button_Tucked" class="GreyButtons" onclick="openDisplayVariousForTucked()">
+				Jersey + Shorts (tucked) 
+			</div>	
+			<div id="Button_Jersey" class="GreyButtons" onclick="openDisplayVariousForJersey()">
+				Jersey 
+			</div>	
+			<div id="Button_Shorts" class="GreyButtons" onclick="openDisplayVariousForShorts()">
+				Shorts 
+			</div>	
+		</div>
+	</div>
+	
+    <canvas id="c"></canvas>
+
+</div>
+
+
+
+
+
+<div id="SwitchBlock">
+	Backgound
+	<label class="switch">
+			<input type="checkbox" id="background_Black">
+			<span class="slider roundCheck" onclick="ChangeBackground()"></span>
+	</label>
+</div>
+
+	
+
+<div id="BottomRightPanel">
+	<div class="gline"></div>
+	<div id="Button_SaveForLater">
+		Save For Later 
+	</div>
+	<div id="Button_Complete">
+		Complete
+	</div>
+</div>
+
+
+
+<script src="ui.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,4937 @@
+
+
+
+@media screen and (max-width: 769px) {
+
+  @font-face {
+      font-family: CocogooseProItalic;
+      src: url('fonts/CocogooseProItalic.ttf');
+  }
+  body.custom_font{
+      font-family: CocogooseProItalic; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: BabasNeue;
+    src: url('fonts/BebasNeue-Regular.ttf');
+  }
+  body.custom_font{
+    font-family: BabasNeue; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: BigNoodleTitling;
+    src: url('fonts/BigNoodleTitling-Regular.otf');
+  }
+  body.custom_font{
+    font-family: BabasBigNoodleTitlingNeue; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: BeVietnam_Bold;
+    src: url('fonts/BeVietnam-Bold.ttf');
+  }
+  body.custom_font{
+    font-family: BeVietnam_Bold; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: BeVietnam_Regular;
+    src: url('fonts/BeVietnam-Regular.ttf');
+  }
+  body.custom_font{
+    font-family: BeVietnam_Regular; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: BeVietnam_BoldItalic;
+    src: url('fonts/BeVietnam-BoldItalic.ttf');
+  }
+  body.custom_font{
+    font-family: BeVietnam_BoldItalic; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Canterbury;
+    src: url('fonts/Canterbury.ttf');
+  }
+  body.custom_font{
+    font-family: Canterbury; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: College_Bold;
+    src: url('fonts/college.bold.ttf');
+  }
+  body.custom_font{
+    font-family: College_Bold; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Deftone_Stylus;
+    src: url('fonts/deftone_stylus.ttf');
+  }
+  body.custom_font{
+    font-family: Deftone_Stylus; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Emilio_19_Regular;
+    src: url('fonts/emilio-19.regular.ttf');
+  }
+  body.custom_font{
+    font-family: Emilio_19_Regular; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: LeagueSpartan_Bold;
+    src: url('fonts/LeagueSpartan-Bold.otf');
+  }
+  body.custom_font{
+    font-family: LeagueSpartan_Bold; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Monoton_Regular;
+    src: url('fonts/monoton.regular.ttf');
+  }
+  body.custom_font{
+    font-family: Monoton_Regular; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Montserrat_Regular;
+    src: url('fonts/montserrat.regular.ttf');
+  }
+  body.custom_font{
+    font-family: Montserrat_Regular; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Public_Enemy_Regular;
+    src: url('fonts/public-enemy.regular.ttf');
+  }
+  body.custom_font{
+    font-family: Public_Enemy_Regular; /* no .ttf */
+  }
+
+  @font-face {
+    font-family: Sportsjersey;
+    src: url('fonts/Sportsjersey.ttf');
+  }
+  body.custom_font{
+    font-family: Sportsjersey; /* no .ttf */
+  }
+
+
+
+
+
+  /* total width */
+  .scrollbar::-webkit-scrollbar {
+      background-color:#fff;
+      width:16px
+  }
+
+  /* background of the scrollbar except button or resizer */
+  .scrollbar::-webkit-scrollbar-track {
+      background-color:#fff
+  }
+  .scrollbar::-webkit-scrollbar-track:hover {
+      background-color:#f4f4f4
+  }
+
+  /* scrollbar itself */
+  .scrollbar::-webkit-scrollbar-thumb {
+      background-color:#babac0;
+      border-radius:16px;
+      border:5px solid #fff
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color:#a0a0a5;
+      border:4px solid #f4f4f4
+  }
+
+  /* set button(top and bottom of the scrollbar) */
+  .scrollbar::-webkit-scrollbar-button {display:none}
+
+  /* div box */
+  body{background-color:#babac0}
+  .scrollbar {
+      height: 75vh;
+      width: 25vw;
+      min-width: 150px;
+      background: #fff;
+      overflow-y: scroll}
+  .overflow{min-height: 100vh}
+
+
+
+  .spinner-wrapper {
+    position: fixed;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+
+  
+  
+
+  html {
+  overflow: scroll;
+  overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+  background: #FF0000;
+  }
+
+  body {
+  font-family: arial;
+  overflow: hidden;
+  margin: 0 0 0 0;
+  background-color: #ffffff;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+  }
+
+
+
+  #c {
+  position: relative;	  
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin-top: 0em;
+  overflow: hidden;
+  }
+
+  #container {
+  position: fixed;
+  width: 100%;
+  left: 0em;
+  right: auto;
+  height: 57.3vh;
+  overflow: hidden;
+  z-index: 100;
+  background: radial-gradient(circle, rgba(242,242,242,1) 0%, rgba(255,255,255,1) 100%);
+  top: 0;
+  }
+
+
+
+  .img3dview {
+  width: 60%;
+  cursor: pointer;
+  }
+
+
+
+  #TopRightPanel {
+  display: flex;
+  height: 2.7em;
+  width: 100%;
+  position: fixed;
+  bottom: 2.7em;
+  right: 0em;
+  background: rgb(255, 255, 255);
+  z-index: 103;
+  top: auto;
+  }
+
+
+  #top_NameProduct {
+  position: sticky;
+  width: 10em;
+  height: 1em;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 8%;
+  color: rgb(0, 0, 0);
+  font-size: 100%;
+  font-family: BabasNeue;
+  letter-spacing: 0em;
+  line-height: 1.2em;
+  }
+
+
+  #top_PriceProduct {
+  position: static;
+  width: 4em;
+  height: 1em;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 0em;
+  margin-left: auto;
+  color: rgb(0, 0, 0);
+  font-size: 100%;
+  font-family: BabasNeue;
+  letter-spacing: 0.04em;
+  }
+
+
+  .hline { 
+  position: static;
+  width: 0.05em;
+  height: 50%;
+  background: #e0e0e0;
+  margin-top: auto;
+  margin-bottom: auto;
+  }
+
+
+  .gline { 
+  position: absolute;
+  width: 100%;
+  height: 0.07em;
+  background: #e0e0e0;
+  margin-top: auto;
+  z-index: 999;
+  }
+
+  #top_Details {
+  position: static;
+  width: 4em;
+  height: 2em;
+  margin-top: 1.5em;
+  margin-right: 2em;
+  margin-left: 2em;
+  color: rgb(0, 0, 0);
+  font-size: 55%;
+  font-family: BeVietnam_Regular;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: auto;
+  }
+
+  #triangle {
+  position: static;
+  border-color: black transparent transparent transparent;
+  border-style: solid;
+  border-width:  0.4em 0.4em 0em 0.4em;
+  height: 0em;
+  width: 0em;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+
+  #expandDetails{
+    margin-top: 0.2em;
+    font-size: 1.4em;
+    margin-left: 0.3em;
+    position: static;
+  }
+
+
+
+
+
+  #SecondRightPanel {
+  display: flex;
+  height: 5%;
+  width: 100%;
+  position: fixed;
+  top: 57.3vh;
+  right: 0em;
+  background: rgb(255, 255, 255);
+  z-index: 100;
+  }
+
+  #ColorsIconMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 0em;
+  top: 0em;
+  cursor: pointer;
+  width: 25%;
+  height: 100%;
+  font-size: 0.5em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  opacity: 1;
+  }
+
+  #ColorTitle {
+  position: static;
+  width: 100%;
+  height: 1em;
+  text-align: center;
+  padding: 0;
+  margin-bottom: auto;
+  margin-top: auto;
+  }
+
+  #BoldLineColors {
+  position: static;
+  width: 100%;
+  height: 0.2em;
+  background: #000000;
+  margin-top: auto;
+  margin-bottom: 0em;
+  opacity: 1;
+  }
+
+
+  #TextIconMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 25%;
+  top: 0em;
+  cursor: pointer;
+  width: 25%;
+  height: 100%;
+  font-size: 0.5em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  opacity: 0.2;
+  }
+
+  #TextTitle {
+  position: static;
+  width: 100%;
+  height: 1em;
+  text-align: center;
+  padding: 0;
+  margin-bottom: auto;
+  margin-top: auto;
+  }
+
+  #BoldLineText {
+  position: static;
+  width: 100%;
+  height: 0.2em;
+  background: #000000;
+  margin-top: auto;
+  margin-bottom: 0em;
+  opacity: 0.2;
+  }
+      
+  #LogosIconMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  top: 0em;
+  cursor: pointer;
+  width: 25%;
+  height: 100%;
+  font-size: 0.5em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  opacity: 0.2;
+  }
+
+  #LogosTitle {
+  position: static;
+  width: 100%;
+  height: 1em;
+  padding: 0;
+  margin-bottom: auto;
+  margin-top: auto;
+  text-align: center;
+  }
+
+  #BoldLineLogos {
+  position: static;
+  width: 100%;
+  height: 0.2em;
+  background: #000000;
+  margin-top: auto;
+  margin-bottom: 0em;
+  opacity: 0.2;
+  }
+
+  #SummaryIconMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 75%;
+  top: 0em;
+  cursor: pointer;
+  width: 25%;
+  height: 100%;
+  font-size: 0.5em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  opacity: 0.2;
+  }
+
+  #SummaryTitle {
+  position: static;
+  width: 100%;
+  height: 1em;
+  padding: 0;
+  margin-bottom: auto;
+  margin-top: auto;
+  text-align: center;
+  }
+
+  #BoldLineSummary {
+  position: static;
+  width: 100%;
+  height: 0.2em;
+  background: #000000;
+  margin-top: auto;
+  margin-bottom: 0em;
+  opacity: 0.2;
+  }
+
+
+
+
+
+  #Pannel3D {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 1.3em;
+  width: 100%;
+  position: absolute;
+  top: auto;
+  bottom: 1%;
+  background: rgba(255, 255, 255, 0);
+  z-index: 101;
+  line-height: 1.3em;
+  }
+
+  #LeftIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 3.7em;
+    width: 7em;
+    margin-right: -5.5em;
+    margin-top: -2em;
+  }
+
+
+  #DisplayView {
+  position: absolute;
+  top: auto;
+  bottom: 1.5%;
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  height: 1.3em;
+  text-align: center;
+  margin-left: 35%;
+  margin-right: 30%;
+  z-index: 101;
+  line-height: 1.3em;
+  }
+
+  #DisplayTitle {
+  position: static;
+  height: 2.3em;
+  text-align: center;
+  font-size: 7.2px;
+  color: #000000;
+  font-family: BeVietnam_Regular;
+  line-height: 2.3em;
+  width: 4em;
+  }
+
+
+  #VariosDisplayView {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  position: relative;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  margin-left: 0.1em;
+  line-height: 2em;
+  bottom: 1em;
+  }
+
+
+  .GreyButtons {
+  position: absolute;
+  background-color: #EDEEEE;
+  height: 1.8em;
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-size: 6px;
+  font-family: BeVietnam_Bold;
+  color: #ababab;
+  text-align: center;
+  line-height: 1.8;
+  margin: 0.2em;
+  }
+
+
+  #Button_Jersey {
+  bottom: 6.4em;
+  width: 15em;
+  position: static;
+  display: none;
+  z-index: 103;
+  }
+
+  #Button_Shorts {
+  bottom: 10.5em;
+  width: 15em;
+  position: static;
+  display: none;
+  z-index: 103;
+  }
+
+
+  #Button_Tucked {
+  bottom: 2.3em;
+  width: 15em;
+  position: static;
+  display: none;
+  z-index: 103;
+  }
+
+
+  #Button_Untucked {
+  bottom: 5em;
+  width: 15em;
+  position: static;
+  display: block;
+  color: #000000;
+  z-index: 103;
+  }
+
+
+  #View360 {
+    width: 3.6em;
+    position: relative;
+    left: 2%;
+    cursor: pointer;
+    margin-top: -1.8em;
+    display: flex;
+    flex-direction: column;
+    height: 5em;
+    align-items: center;
+    margin-left: 0.7em;
+  }
+
+  #Button_Spin {
+    position: static;
+    height: 2.3em;
+    text-align: center;
+    font-size: 1em;
+    color: #000000;
+    font-family: BeVietnam_Regular;
+    width: 5em;
+    line-height: 0.3em;
+    margin-bottom: 6.3em;
+    margin-left: 0.3em;
+  }
+
+
+  #Button_Front {
+  margin-left: 5.5em;
+  bottom: 7.5em;
+  width: 5em;
+  display: none;
+  }
+
+
+  #Button_Back {
+  margin-left: 5.5em;
+  bottom: 10em;
+  width: 5em;
+  display: none;
+  }
+
+
+  #Button_Right {
+  margin-left: 5.5em;
+  bottom: 12.5em;
+  width: 5em;
+  display: none;
+  }
+
+
+  #Button_Left {
+  margin-left: 5.5em;
+  bottom: 15em;
+  width: 5em;
+  display: none;
+  }
+
+  .ImgType {
+  width: 4em;
+  height: 4em;
+  cursor: pointer;
+  margin-top: 0.8em;
+  }
+
+  .ImgMini {
+  width: 3em;
+  height: 3em;
+  margin-top: -0.3em;
+  margin-right: -1.3em;
+  }
+
+  .ImgMiniSummary {
+  width: 3em;
+  height: auto;
+  margin-top: -1em;
+  cursor: pointer;
+  }
+
+
+  .ImgInfo {
+  width: 1em;
+  height: auto;
+  margin-top: -0.4em;
+  cursor: pointer;
+  }
+
+  #HelpIcon {
+  width: 33%;
+  position: static;
+  right: 1em;
+  cursor: pointer;
+  margin-right: -2em;
+  }
+
+  #FullScreenIcon {
+  width: 33%;
+  position: static;
+  right: 1em;
+  cursor: pointer;
+  margin-right: -2em;
+  }
+
+  #ShareIcon {
+  width: 33%;
+  position: static;
+  right: 1em;
+  cursor: pointer;
+  }
+
+
+
+
+  #BottomPanel {
+  display: flex;
+  height: 4%;
+  width: 100%;
+  position: fixed;
+  top: auto;
+  bottom: 0em;
+  left: 0em;
+  background: rgb(255, 255, 255);
+  z-index: 999;
+  }
+
+  #BottomRightPanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 2.7em;
+  line-height: 2.7em;
+  width: 100%;
+  position: fixed;
+  top: auto;
+  bottom: 0em;
+  right: 0em;
+  background: rgba(255, 255, 255);
+  z-index: 999;
+  }
+
+  #Button_SaveForLater {
+    position: static;
+    margin: auto auto auto auto;
+    background-color: #000000;
+    height: 1.6em;
+    width: 40%;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-family: BeVietnam_Bold;
+    color: #ffffff;
+    padding: 0 0.3em;
+    text-align: center;
+    line-height: 1.4em;
+  }
+
+  #Button_Complete {
+  position: static;
+  margin: auto auto auto auto;
+  background-color: #2C9EE1;
+  height: 1.6em;
+  width: 40%;
+  border-radius: 0.3em;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-family: BeVietnam_Bold;
+  color: #ffffff;
+  padding: 0 0.3em;
+  text-align: center;
+  line-height: 1.4em;
+  }
+
+
+
+  #ColorsMenu {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: initial; 
+    width: 100%;
+    position: -webkit-sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    z-index: 66;
+    margin-top: 62.2vh;
+    margin-bottom: 5.4em;
+    min-height: min-content;
+  }
+
+
+
+  #TextMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: initial;  
+    width: 100%;
+    position: -webkit-sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    z-index: 66;
+    margin-top: 62.2vh;
+    margin-bottom: 5.4em;
+    min-height: min-content;
+  }
+
+
+  #LogosMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: initial; 
+    width: 100%;
+    position: -webkit-sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    z-index: 66;
+    margin-top: 62.2vh;
+    margin-bottom: 5.4em;
+    min-height: min-content;
+  }
+
+
+  #SummaryMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: initial; 
+    width: 100%;
+    position: -webkit-sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    z-index: 66;
+    margin-top: 62.2vh;
+    margin-bottom: 5.4em;
+    min-height: min-content;
+  }
+
+
+  #DetailsMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: initial; 
+    width: 100%;
+    position: -webkit-sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    z-index: 66;
+    margin-top: 62.2vh;
+    margin-bottom: 5.4em;
+    min-height: min-content;
+  }
+
+
+  .expand-icon {
+    height: 1em;
+    width: 1em;
+    position: relative;
+    margin: 0.27em 0.1em 0em 1em;
+    cursor: pointer;
+    font-size: 2.1em;
+    font-family: BeVietnam_Regular;
+    text-align: -webkit-center;
+    top: -0.3em;
+    line-height: 1em;
+  }
+
+
+  .ColorsSelectorMenu {
+  width: 80.7%;
+  margin: 1em auto 0em auto;
+  height: 4em;
+  top: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  }
+
+  .TypeColorTitle {
+  position: static;
+  height: 4em;
+  width: 16em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  margin-top: 0.8em;
+  }
+  
+  .MoveScaleImgfile{
+  	width: 2em;
+  	height: 2em;
+  	margin-top: 0.5em;
+  	margin-right: 0.5em;
+  }
+
+  .NameSelectedColor {
+  position: static;
+  height: 2em;
+  width: 13.4em;
+  border-radius: 0.3em;
+  font-size: 0.6em;
+  font-family: BeVietnam_Regular;
+  color: #000000;
+  margin-top: 0.2em;
+  }
+
+  .SelectedColor {
+  width: 8em;
+  height: 0.7em;
+  border-radius: 0.2em;
+  position: static;
+  margin: 1.1em 0em auto 3em;
+  }
+
+  #SelectedColorJerseyBase{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyAccent1{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyAccent2{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorShortsBase{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorShortsAccent1{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorShortsAccent2{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyText{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyTextOutline{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyNumber{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  #SelectedColorJerseyNumberOutline{
+  background-color: #2C9EE1;
+  background-image: url('icons/TransparentGrid.png');
+  background-size: 87%;
+  }
+
+  .cross-icon {
+  position: static;
+  height: 1.7em;
+  width: 0.6em;
+  cursor: pointer;
+  font-size: 1.7em;
+  font-family: BeVietnam_Regular;
+  color: #000000;
+  text-align: center;
+  margin-left: 0.5em;
+  /* -webkit-transform: rotate(45deg); */
+  }
+
+
+
+
+  .ColorsPalette {
+      width: 88%;
+      height: 11em;
+      position: sticky;
+      margin: 1em auto 1em 3.2em;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+      grid-gap: var();
+    }
+    .cell {
+      border-radius: 0.2em;
+      height: 1em;
+      width: 1em;
+      cursor: pointer;
+    }
+    .cell-1 {
+      background: rgb(0, 0, 0);
+    }
+    .cell-2 {
+      background: rgb(255, 255, 255);
+      border: 1px solid #000000;
+    }
+    .cell-3 {
+      background: #676767;
+    }
+    .cell-4 {
+      background: #C4C5C7;
+    }
+    .cell-5 {
+      background: #4F1719;
+    }
+    .cell-6 {
+      background: #5E070C;
+    }
+    .cell-7 {
+      background: #5E3013;
+    }
+    .cell-8 {
+      background: #C06628;
+    }
+    .cell-9 {
+      background: #B72025;
+    }
+    .cell-10 {
+      background: #DD6426;
+    }
+    .cell-11 {
+      background: #F6923C;
+    }
+    .cell-12 {
+      background: #ECAD1F;
+    }
+    .cell-13 {
+      background: #FFCC05;
+    }
+    .cell-14 {
+      background: #D5BC6C;
+    }
+    .cell-15 {
+      background: #DDE11D;
+    }
+    .cell-16 {
+      background: #EEBCD6;
+    }
+    .cell-17 {
+      background: #EC228F;
+    }
+    .cell-18 {
+      background: #5D2A77;
+    }
+    .cell-19 {
+      background: #7C9FD3;
+    }
+    .cell-20 {
+      background: #0098CC;
+    }
+    .cell-21 {
+      background: #9DD4B6;
+    }
+    .cell-22 {
+      background: #177269;
+    }
+    .cell-23 {
+      background: #69BC45;
+    }
+    .cell-24 {
+      background: #3A6D34;
+    }
+    .cell-25 {
+      background: #1A2C17;
+    }
+    .cell-26 {
+      background: #283A88;
+    }
+    .cell-27 {
+      background: #1E3160;
+    }
+    .cell-28 {
+    background: rgb(255, 255, 255);
+    border: 1px solid #000000;
+    }
+
+
+  .JerseyMenu {
+  width: 100%;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.4em;
+  }
+
+  .ObjectTitle {
+  position: static;
+  height: 2em;
+  width: 3.3em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  font-size: 1.4em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 1.3em;
+  }
+
+
+  #ColorJerseyBase{
+  display: none;
+  }
+
+  #ColorJerseyAccent1{
+  display: none;
+  }
+      
+  #ColorJerseyAccent2{
+  display: none;
+  }
+
+  #ColorJerseyText{
+  display: none;
+  }
+
+  #ColorJerseyTextOutline{
+  display: none;
+  }
+
+  #ColorJerseyNumber{
+  display: none;
+  }
+
+  #ColorJerseyNumberOutline{
+  display: none;
+  }
+
+  #BaseJerseyBlock{
+  display: none;
+  }
+
+  #Accent1JerseyBlock{
+  display: none;
+  }
+      
+  #Accent2JerseyBlock{
+  display: none;
+  }
+
+
+  .ShortsMenu {
+  width: 100%;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+  }
+
+  #ShortsTitle {
+  position: static;
+  height: 2em;
+  width: 3.3em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  font-size: 1.4em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  text-align: center;
+  margin-top: 1.3em;
+  }
+
+
+  #ColorShortsBase{
+  display: none;
+  }
+
+  #ColorShortsAccent1{
+  display: none;
+  }
+      
+  #ColorShortsAccent2{
+  display: none;
+  }
+
+
+  #BaseShortsBlock{
+  display: none;
+  }
+
+  #Accent1ShortsBlock{
+  display: none;
+  }
+      
+  #Accent2ShortsBlock{
+  display: none;
+  }
+
+
+
+
+
+
+
+
+
+  #FrontObjectMenu{
+  position: static;
+  height: 3em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  display: none;
+  flex-direction: row;
+  margin-top: 2.7em;
+  }
+
+  #expandJerseyTextFront{
+  margin: -0.06em 0em 0em 1.9em;
+  font-size: 1.7em;
+  }
+
+
+  .SectionTextJersey{
+  width: 80.7%;
+  margin: 0em auto 1em auto;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  font-size: 0.9em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  }
+
+  .LayOutTextJerseyType{
+  width: 90%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  }
+
+  #TypeLayOut1{
+  border: 0.2em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut2{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut3{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut4{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut1Back{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut2Back{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut3Back{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut4Back{
+  border: 0em solid;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  #TypeLayOut5Back{
+  border: 0.2em solid #000000;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  }
+
+  .LinesTeamName{
+  height: 1.7em;
+  margin: 0.5em;
+  border: 0.2em solid #000000;
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  padding: 0.8em;
+  width: 80%;
+  line-height: 0.4em;
+  resize: none;
+  }
+
+  #FontTeamName{
+  height: 3em;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  }
+
+
+  #FontNumber{
+  height: 3em;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  }
+
+
+  #BackObjectMenu{
+  position: static;
+  height: 2em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  display: none;
+  flex-direction: row;
+  margin-top: 1em;
+  }
+
+  #FrontTextTitle{
+  margin-top: -0.4em;
+  }
+  #BackTextTitle{
+  margin-top: -0.4em;
+  }
+
+  #expandJerseyTextBack{
+  margin: -0.06em 0em 0em 1.9em;
+  font-size: 1.7em;
+  }
+
+
+  .checkbox{
+  margin: 2em auto 0em 0em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 1em;
+  font-family: BeVietnam_Regular;
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  }
+
+
+  /* Customize the label (the container) */
+  .container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      width: 15em;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Hide the browser's default checkbox */
+    .container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0.3em;
+      left: 0.6em;
+      height: 0.9em;
+      width: 0.9em;
+      background-color: #fff;
+      border: 0.1em solid #000000;
+      border-radius: 0.3em;
+    }
+    
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+      background-color: #EDEEEE;
+    }
+    
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+      background-color: #ffffff;
+    }
+    
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+    
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+      left: 0.3em;
+      top: -0.1em;
+      width: 2.8px;
+      height: 10px;
+      border: solid rgb(0, 0, 0);
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+
+
+  #FrontTextMenu{
+  display: none;
+  flex-direction: column;
+  }
+
+  #BackTextMenu{
+  display: none;
+  flex-direction: column;
+  }
+
+
+  #ShortTextMenu{
+  flex-direction: column;
+  }
+
+
+  #SectionNumberSHorts{
+  width: 80.7%;
+  margin: 2em auto 1em auto;
+  display: flex;
+  flex-direction: column;
+  height: 8em;
+  font-size: 0.9em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  }
+
+
+  #TextBackTeamName{
+  height: 13em;
+  }
+      
+
+  .UploadSectionLogos{
+  width: 100%;
+  margin: 1em auto 1em auto;
+  display: flex;
+  flex-direction: row;
+  height: 3em;
+  font-size: 0.75em;
+  font-family: BeVietnam_Regular;
+  color: #000000;
+  text-align: center;
+  }
+
+  .ButtonUpload {
+  margin: 0.2em;
+  background-color: #EDEEEE;
+  height: 2.4em;
+  width: 6.8em;
+  border-radius: 0.3em;
+  text-align: center;
+  font-family: BeVietnam_Bold;
+  line-height: 2.2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 998;
+  }
+  
+  
+  #UploadedRightShoulder {
+    position: relative;
+    margin-left: -7em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+  }
+  #UploadedLeftShoulder {
+    position: relative;
+    margin-left: 0.2em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+    margin-top: -2.6em;
+  }
+  #UploadedBackBelowNeck {
+    position: relative;
+    margin-left: -7em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+  }
+  #UploadedBackUnderNumber {
+    position: relative;
+    margin-left: -7em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+  }
+  #UploadedRightUpper {
+    position: relative;
+    margin-left: 0.2em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+    margin-top: -2.6em;
+  }
+  #UploadedRightLower {
+    position: relative;
+    margin-left: -7em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+  }
+  #UploadedLeftUpper {
+    position: relative;
+    margin-left: 0.2em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+    margin-top: -2.6em;
+  }
+  #UploadedLeftLower {
+    position: relative;
+    margin-left: 0.2em;
+    display: none;
+    z-index: 999;
+    color: #b5b5b5;
+    margin-top: -2.6em;
+  }
+
+
+
+label{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+cursor: pointer;
+}
+
+  #UploadLeftShoulderPreview{
+    cursor:pointer;
+  }
+  #UploadLeftShoulderPrint{
+    cursor:pointer;
+  }
+  #RemoveLeftShoulderPrint{
+    cursor:pointer;
+  }
+
+  #UploadRightShoulderPreview{
+    cursor:pointer;
+  }
+  #UploadRightShoulderPrint{
+    cursor:pointer;
+  }
+  #RemoveRightShoulderPrint{
+    cursor:pointer;
+  }
+
+  #UploadBackBelowNeckPreview{
+    cursor:pointer;
+  }
+  #UploadBackBelowNeckPrint{
+    cursor:pointer;
+  }
+  #RemoveBackBelowNeckPrint{
+    cursor:pointer;
+  }
+
+  #UploadBackUnderNumberPreview{
+    cursor:pointer;
+  }
+  #UploadBackUnderNumberPrint{
+    cursor:pointer;
+  }
+  #RemoveBackUnderNumberPrint{
+    cursor:pointer;
+  }
+
+  #UploadRightUpperPreview{
+    cursor:pointer;
+  }
+  #UploadRightUpperPrint{
+    cursor:pointer;
+  }
+  #RemoveRightUpperPrint{
+    cursor:pointer;
+  }
+
+  #UploadLeftUpperPreview{
+    cursor:pointer;
+  }
+  #UploadLeftUpperPrint{
+    cursor:pointer;
+  }
+  #RemoveLeftUpperPrint{
+    cursor:pointer;
+  }
+
+  #UploadRightLowerPreview{
+    cursor:pointer;
+  }
+  #UploadRightLowerPrint{
+    cursor:pointer;
+  }
+  #RemoveRightLowerPrint{
+    cursor:pointer;
+  }
+
+  #UploadLeftLowerPreview{
+    cursor:pointer;
+  }
+  #UploadLeftLowerPrint{
+    cursor:pointer;
+  }
+  #RemoveLeftLowerPrint{
+    cursor:pointer;
+  }
+
+
+  .DimensionLogos{
+  width: 2.6em;
+  height: 1em;
+  margin: 0.2em;
+  border: 0.2em solid #000000;
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  padding: 0.8em;
+  }
+
+  .ButtonsLogos{
+  display: flex;
+  margin: -0.5em 0em 0em auto;
+  }
+
+  .DimensionsLogos{
+  display: flex;
+  margin: -0.5em 0em 0em auto;
+  }
+
+  .LogosTeamNameTitle{
+  width: 7.5em;
+  text-align: left;
+  }
+
+  .LogosTeamLogo{
+  }
+
+  .LogosJerseyHLogo{
+  height: 9em;
+  }
+
+  .LogosShortsHLogo{
+  height: 13em;
+  }
+
+	#ScaleAndMovePngLeftSholder {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngLeftSholder {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveLeftShoulderPrint {
+  display: none;
+  }
+  
+  #ScaleAndMovePngRightSholder {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngRightSholder {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveRightShoulderPrint {
+  display: none;
+  }
+  
+  #ScaleAndMovePngBackBelowNeck {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngBackBelowNeck {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveBackBelowNeckPrint {
+  display: none;
+  }
+    
+    
+  
+  #ScaleAndMovePngBackUnderNumber {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngBackUnderNumber {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveBackUnderNumberPrint {
+  display: none;
+  }
+
+
+  #ScaleAndMovePngLeftUpper {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngLeftUpper {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveLeftUpperPrint {
+  display: none;
+  }
+
+  #ScaleAndMovePngLeftLower {
+  cursor: pointer;
+  display: block;	
+  }
+  
+  #DisabledScaleAndMovePngLeftLower {
+  display: none;	
+  opacity: 0.3;
+  }
+
+  #RemoveLeftLowerPrint {
+  display: none;
+  }
+
+
+  #ScaleAndMovePngRightUpper {
+    cursor: pointer;
+    display: block;	
+  }
+    
+  #DisabledScaleAndMovePngRightUpper {
+    display: none;	
+    opacity: 0.3;
+  }
+  
+  #RemoveRightUpperPrint {
+    display: none;
+  }
+  
+  
+  #ScaleAndMovePngRightLower {
+    cursor: pointer;
+    display: block;	
+  }
+  
+  #DisabledScaleAndMovePngRightLower {
+    display: none;	
+    opacity: 0.3;
+  }
+
+  #RemoveRightLowerPrint {
+    display: none;
+  }
+
+
+
+  .PlaceforFabric{
+  position: relative;
+  z-index: 999;
+  border: 0.2em solid;
+  border-radius: 0.3em;
+  width: 15em;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  .PlaceforFabric2{
+	position: sticky;
+	z-index: 999;
+	border: 0.2em solid;
+	border-radius: 0.3em;
+	width: 30em;
+	margin-left: auto;
+	margin-right: auto;
+  }
+  
+.GridCanvas7cm{
+	position: relative;
+	width: 477px;
+	height: 437px;
+	margin-left: -7.1em;
+	margin-right: auto;
+	background-image: url("icons/grid_7_5SM.png");
+	background-size: 97.2%;
+	margin-top: -24.6em;
+	z-index: 2;
+}
+
+
+#BackgroundCanvasJersey7cm1{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+#BackgroundCanvasJersey7cm2{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+
+#BackgroundCanvasShorts7cm1{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+#BackgroundCanvasShorts7cm2{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+#BackgroundCanvasShorts7cm3{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+#BackgroundCanvasShorts7cm4{
+	position: relative;
+	width: 303px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -26.5em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 3em;
+}
+
+.GridCanvas5cm{
+	position: relative;
+	width: 475.6px;
+	height: 443px;
+	margin-left: -7.7em;
+	margin-right: auto;
+	background-image: url("icons/grid_5SM.png");
+	background-size: 98%;
+	margin-top: -24.4em;
+	z-index: 2;
+}
+
+
+#BackgroundCanvas5cm{
+	position: relative;
+	width: 304px;
+	height: 304px;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -27.2em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 6em;
+}
+
+.GridCanvas28cm{
+	position: absolute;
+	width: 33.2em;
+	margin-left: -1.97em;
+	margin-right: auto;
+	background-image: url("icons/grid_28SM.png");
+	background-size: 100%;
+	margin-top: -7.14em;
+	z-index: 2;
+	height: 9.6em;
+}
+
+#BackgroundCanvas28cm{
+	position: absolute;
+	width: 30.1em;
+	height: 6.4em;
+	margin-left: 0em;
+	margin-right: auto;
+	background-color: white;
+	margin-top: -6.2em;
+	z-index: 1;
+	border-radius: 0.3em;
+	margin-bottom: 4em;
+}
+
+.CanvasNote{
+	width: 36em;
+	font-size: 0.8em;
+	margin-left: -6em;
+	font-family: BeVietnam_Regular;
+	margin-bottom: 2em;
+	margin-top: 6em;
+}
+
+.CanvasNote2{
+	width: 36em;
+	font-size: 0.8em;
+	font-family: BeVietnam_Regular;
+	margin-bottom: 0em;
+	margin-top: 4em;
+}
+  
+  #Canvas1{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas2{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas3{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 16.7em;
+  }
+  #Canvas4{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #Canvas5{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas6{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas7{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas8{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  
+
+  #HelpDimensionsTitle{
+  width: 10em;
+  height: 2em;
+  font-size: 0.6em;
+  font-family: BeVietnam_BoldItalic;
+  text-align: center;
+  position: relative;
+  top: -0.6em; 
+  line-height: 0.9em;
+  }
+
+  #HelpPrintTitle{
+  width: 100%;
+  height: 2em;
+  font-size: 0.6em;
+  font-family: BeVietnam_BoldItalic;
+  text-align: center;
+  position: relative;
+  }
+
+  #HelpPreviewTitle{
+  width: 100%;
+  height: 2em;
+  font-size: 0.5em;
+  font-family: BeVietnam_BoldItalic;
+  text-align: center;
+  position: relative;
+  top: -1em;
+  }
+
+
+  #DimensionsBlock{
+  margin: -1.55em 0em 0em 0em;
+  }
+
+  #PrintBlock{
+	display: -webkit-flex;
+	flex-direction: column;
+	align-content: flex-end;
+	align-items: flex-end;
+  }
+
+  #PreviewBlock{
+    }
+
+  #LogosJerseyBlock{
+  display: none;
+  flex-direction: column;
+  }
+
+  #LogosShortsBlock{
+  display: none;
+  flex-direction: column;
+  }
+
+
+
+
+  .switch {
+    position: sticky;
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 10px;
+    margin-left: 0.6em;
+    }
+
+    .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    .roundCheck {
+    border: 0px solid #fff;
+    width: 2.3em;
+    height: 1.18em;
+    }
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 0.9em;
+    width: 0.9em;
+    left: 2.5px;
+    bottom: 0.14em;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #B5B5B5;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px rgb(130, 130, 130);
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+    }
+
+    /* Rounded sliders */
+    .slider.roundCheck {
+    border-radius: 4em;
+    }
+
+    .slider.roundCheck:before {
+    border-radius: 50%;
+    }
+
+    #SwitchBlock {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.4em;
+    margin-bottom: 10px;
+    z-index: 101;
+    top: 0.6em;
+    left: 1.2em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    }
+
+
+  .SummaryTypeTitle{
+  position: static;
+  height: 1.8em;
+  width: 16em;
+  border-radius: 0.3em;
+  font-size: 1em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  }
+
+  .SummarySubTypeTitle{
+  position: static;
+  height: 1.8em;
+  width: 16em;
+  border-radius: 0.3em;
+  font-size: 1em;
+  font-family: BeVietnam_Bold;
+  color: #000000;
+  margin-left: 1em;
+  }
+
+  .SummaryUserChosen{
+  position: static;
+  height: 1.8em;
+  width: 16em;
+  font-size: 0.9em;
+  font-family: BeVietnam_Regular;
+  color: #000000;
+  text-align: right;
+  margin-top: 0.4em;
+  }
+
+  .SummaryBlock{
+  width: 80%;
+  margin: 0.5em auto 0em auto;
+  display: flex;
+  flex-direction: row;
+  }
+
+  #DetailsBlock{
+  width: 80%;
+  margin: -1.7em auto 0em auto;
+  display: flex;
+  font-size: 0.9em;
+  font-family: BeVietnam_Regular;
+  text-align: justify;
+  }
+
+  #FontListRoll {
+  width: 80.7%;
+  margin: 0em auto 0em auto;
+  top: 4em;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: BeVietnam_Bold;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  }
+
+
+  #FontListRollCurved1 {
+  width: 80.7%;
+  margin: 0em auto 0em auto;
+  top: 4em;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: BeVietnam_Bold;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  }
+
+  #FontListRollCurved2 {
+  width: 80.7%;
+  margin: 0em auto 0em auto;
+  top: 4em;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: BeVietnam_Bold;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  }
+
+  #FontListRollNumber {
+  width: 80.7%;
+  margin: 0em auto 0em auto;
+  top: 4em;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: BeVietnam_Bold;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  }
+
+  .TypeFontTitle{
+  cursor: pointer;
+  width: 100%;
+  margin: 0.6em auto 0em auto;
+  height: 2em;
+  text-align: left;
+  line-height: 2em;
+  padding-left: 1em;
+  }
+
+  .TypeFontTitle:hover  {
+    background-color: #EDEEEE;
+  }
+
+  .CANTERBURY{
+  font-size: 1.3em;
+  font-family: Canterbury;
+  display: flex;
+  }
+
+  .COCOGOOSE{
+  font-size: 1.3em;
+  font-family: CocogooseProItalic;
+  display: flex;
+  }
+
+  .COLLEGE{
+  font-size: 1.3em;
+  font-family: College_Bold;
+  display: flex;
+  }
+
+  .DEFTONE{
+  font-size: 1.3em;
+  font-family: Deftone_Stylus;
+  display: flex;
+  }
+
+  .EMILIO{
+  font-size: 1.3em;
+  font-family: Emilio_19_Regular;
+  margin-bottom: 0.6em;
+  display: flex;
+  }
+
+  .LEAGUESPARTAN{
+  font-size: 1.3em;
+  font-family: LeagueSpartan_Bold;
+  display: flex;
+  }
+
+  .MONOTON{
+  font-size: 1.3em;
+  font-family: Monoton_Regular;
+  display: flex;
+  }
+
+  .MONTSERRAT{
+  font-size: 1.3em;
+  font-family: Montserrat_Regular;
+  display: flex;
+  }
+
+  .PUBLICENEMY{
+  font-size: 1.3em;
+  font-family: Public_Enemy_Regular;
+  display: flex;
+  }
+
+  .SPORTJERSEY{
+  font-size: 1.3em;
+  font-family: Sportsjersey;
+  display: flex;
+  }
+
+
+  #Line2TeamNameField{
+  display: none;
+  }
+  #ApplyLine2TeamName{
+  display: none;
+  }
+  
+
+  #Line2FrontJerseySummaryBlock{
+  display: none;
+  }
+
+  .redline{
+  margin-left: 0.1em;
+  margin-top: -0.3em;
+  width: 5.8px;
+  height: 21px;
+  border: solid #f00;
+  border-width: 0 2px 0px 0;
+  transform: rotate(45deg);
+  }
+
+
+  .image-upload>input {
+    display: none;
+  }
+
+
+  /* Popup container */
+  .popup {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* The actual popup (appears on top) */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  /* Toggle this class when clicking on the popup container (hide and show the popup) */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*MOBILE VERSION CSS*/
+
+
+
+@media screen and (min-width: 769px) {
+
+
+    @font-face {
+        font-family: BabasNeue;
+        src: url('fonts/BebasNeue-Regular.ttf');
+    }
+    body.custom_font{
+        font-family: BabasNeue; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: BeVietnam_Bold;
+        src: url('fonts/BeVietnam-Bold.ttf');
+    }
+    body.custom_font{
+        font-family: BeVietnam_Bold; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: BeVietnam_Regular;
+        src: url('fonts/BeVietnam-Regular.ttf');
+    }
+    body.custom_font{
+        font-family: BeVietnam_Regular; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: BeVietnam_BoldItalic;
+        src: url('fonts/BeVietnam-BoldItalic.ttf');
+    }
+    body.custom_font{
+        font-family: BeVietnam_BoldItalic; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Canterbury;
+        src: url('fonts/Canterbury.ttf');
+    }
+    body.custom_font{
+        font-family: Canterbury; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: College_Bold;
+        src: url('fonts/college.bold.ttf');
+    }
+    body.custom_font{
+        font-family: College_Bold; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Deftone_Stylus;
+        src: url('fonts/deftone_stylus.ttf');
+    }
+    body.custom_font{
+        font-family: Deftone_Stylus; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Emilio_19_Regular;
+        src: url('fonts/emilio-19.regular.ttf');
+    }
+    body.custom_font{
+        font-family: Emilio_19_Regular; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: LeagueSpartan_Bold;
+        src: url('fonts/LeagueSpartan-Bold.otf');
+    }
+    body.custom_font{
+        font-family: LeagueSpartan_Bold; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Monoton_Regular;
+        src: url('fonts/monoton.regular.ttf');
+    }
+    body.custom_font{
+        font-family: Monoton_Regular; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Montserrat_Regular;
+        src: url('fonts/montserrat.regular.ttf');
+    }
+    body.custom_font{
+        font-family: Montserrat_Regular; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Public_Enemy_Regular;
+        src: url('fonts/public-enemy.regular.ttf');
+    }
+    body.custom_font{
+        font-family: Public_Enemy_Regular; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: Sportsjersey;
+        src: url('fonts/Sportsjersey.ttf');
+    }
+    body.custom_font{
+        font-family: Sportsjersey; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: CocogooseProItalic;
+        src: url('fonts/CocogooseProItalic.ttf');
+    }
+    body.custom_font{
+        font-family: CocogooseProItalic; /* no .ttf */
+    }
+
+    @font-face {
+        font-family: BigNoodleTitling;
+        src: url('fonts/BigNoodleTitling-Regular.otf');
+    }
+    body.custom_font{
+        font-family: BigNoodleTitling; /* no .ttf */
+    }
+
+
+    @keyframes animationName {
+    /*  transition: all 0.4s ease-out;*/
+        0%   { opacity:0.2;}
+        100%  { opacity:1;}
+    }
+
+    @keyframes animationNameBack {
+        /*  transition: all 0.4s ease-out;*/
+        0%   { opacity:1;}
+        100%  { opacity:0.2;}
+        }
+
+
+    /* total width */
+    .scrollbar::-webkit-scrollbar {
+        background-color:#fff;
+        width:16px
+    }
+
+    /* background of the scrollbar except button or resizer */
+    .scrollbar::-webkit-scrollbar-track {
+        background-color:#fff
+    }
+    .scrollbar::-webkit-scrollbar-track:hover {
+        background-color:#f4f4f4
+    }
+
+    /* scrollbar itself */
+    .scrollbar::-webkit-scrollbar-thumb {
+        background-color:#babac0;
+        border-radius:16px;
+        border:5px solid #fff
+    }
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color:#a0a0a5;
+        border:4px solid #f4f4f4
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    .scrollbar::-webkit-scrollbar-button {display:none}
+
+    /* div box */
+    body{background-color:#babac0}
+    .scrollbar {
+        height: 75vh;
+        width: 25vw;
+        min-width: 150px;
+        background: #fff;
+        overflow-y: scroll}
+    .overflow{min-height: 100vh}
+
+
+
+    .spinner-wrapper {
+      position: fixed;
+      z-index: 50;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+    
+    
+    
+
+    html {
+    overflow: scroll;
+    overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+    background: #FF0000;
+    }
+
+    body {
+    font-family: arial;
+    overflow: hidden;
+    margin: 0 0 0 0;
+    background-color: #ffffff;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    }
+
+
+
+    #c {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin-top: 0em;
+    overflow: hidden;
+    position: relatives;
+    }
+
+
+
+
+    #container {
+    position: fixed;
+    width: 57%;
+    left: 0em;
+    right: auto;
+    height: 100%;
+    overflow: hidden;
+    z-index: 100;
+    background: radial-gradient(circle, rgba(242,242,242,1) 0%, rgba(255,255,255,1) 100%);
+    top: 0em;
+    }
+
+
+
+    .img3dview {
+    width: 100%;
+    cursor: pointer;
+    }
+
+
+
+    #TopRightPanel {
+    display: flex;
+    height: 5.3em;
+    width: 43%;
+    position: fixed;
+    top: 0em;
+    right: 0em;
+    background: rgb(255, 255, 255);
+    z-index: 100;
+    }
+
+
+    #top_NameProduct {
+    position: static;
+    width: 10em;
+    height: 1em;
+    margin-top: 0.9em;
+    margin-left: 1.25em;
+    color: rgb(0, 0, 0);
+    font-size: 1.8em;
+    font-family: BabasNeue;
+    letter-spacing: 0em;
+    }
+
+
+    #top_PriceProduct {
+    position: static;
+    width: 3em;
+    height: 1em;
+    margin-top: 0.9em;
+    margin-right: 0.4em;
+    margin-left: auto;
+    color: rgb(0, 0, 0);
+    font-size: 1.8em;
+    font-family: BabasNeue;
+    letter-spacing: 0.04em;
+    }
+
+
+    .hline { 
+    position: static;
+    width: 0.05em;
+    height: 50%;
+    background: #e0e0e0;
+    margin-top: auto;
+    margin-bottom: auto;
+    }
+
+
+    .gline { 
+    position: absolute;
+    width: 100%;
+    height: 0.07em;
+    background: #e0e0e0;
+    margin-top: 0em;
+    margin-bottom: auto;
+    z-index: 999;
+    }
+
+    #top_Details {
+    position: static;
+    width: 5em;
+    height: 1em;
+    margin-top: 3em;
+    margin-right: 2em;
+    margin-left: 2em;
+    color: rgb(0, 0, 0);
+    font-size: 0.7em;
+    font-family: BeVietnam_Regular;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    }
+
+    #triangle {
+    position: static;
+    border-color: black transparent transparent transparent;
+    border-style: solid;
+    border-width:  0.4em 0.4em 0em 0.4em;
+    height: 0em;
+    width: 0em;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+
+    #expandDetails{
+      margin-top: 0em;
+      font-size: 1.4em;
+      margin-left: 0.5em;
+      position: static;
+    }
+
+
+
+
+
+
+    #SecondRightPanel {
+    display: flex;
+    height: 3.2em;
+    width: 43%;
+    position: fixed;
+    top: 5.3em;
+    right: 0em;
+    background: rgb(255, 255, 255);
+    z-index: 100;
+    }
+
+    #ColorsIconMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0em;
+    top: 0em;
+    cursor: pointer;
+    width: 25%;
+    height: 100%;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    opacity: 1;
+    }
+
+    #ColorTitle {
+    position: static;
+    width: 100%;
+    height: 1em;
+    padding-top: 1em;
+    text-align: center;
+    }
+
+    #BoldLineColors {
+    position: static;
+    width: 100%;
+    height: 0.3em;
+    background: #000000;
+    margin-top: auto;
+    margin-bottom: 0em;
+    }
+
+
+    #TextIconMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 25%;
+    top: 0em;
+    cursor: pointer;
+    width: 25%;
+    height: 100%;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    opacity: 0.2;
+    }
+
+    #TextTitle {
+    position: static;
+    width: 100%;
+    height: 1em;
+    padding-top: 1em;
+    text-align: center;
+    }
+
+    #BoldLineText {
+    position: static;
+    width: 100%;
+    height: 0.3em;
+    background: #000000;
+    margin-top: auto;
+    margin-bottom: 0em;
+    opacity: 0.2;
+    }
+        
+    #LogosIconMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    top: 0em;
+    cursor: pointer;
+    width: 25%;
+    height: 100%;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    opacity: 0.2;
+    }
+
+    #LogosTitle {
+    position: static;
+    width: 100%;
+    height: 1em;
+    padding-top: 1em;
+    text-align: center;
+    }
+
+    #BoldLineLogos {
+    position: static;
+    width: 100%;
+    height: 0.3em;
+    background: #000000;
+    margin-top: auto;
+    margin-bottom: 0em;
+    opacity: 0.2;
+    }
+
+    #SummaryIconMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 75%;
+    top: 0em;
+    cursor: pointer;
+    width: 25%;
+    height: 100%;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    opacity: 0.2;
+    }
+
+    #SummaryTitle {
+    position: static;
+    width: 100%;
+    height: 1em;
+    padding-top: 1em;
+    text-align: center;
+    }
+
+    #BoldLineSummary {
+    position: static;
+    width: 100%;
+    height: 0.3em;
+    background: #000000;
+    margin-top: auto;
+    margin-bottom: 0em;
+    opacity: 0.2;
+    }
+
+
+
+
+
+    #Pannel3D {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height: 2.3em;
+      width: 100%;
+      position: absolute;
+      top: auto;
+      bottom: 0%;
+      background: rgba(255, 255, 255, 0);
+      z-index: 101;
+      line-height: 2.3em;
+    }
+
+    #LeftIcon {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      height: 1.3em;
+      width: 7em;
+      right: 0em;
+    }
+
+
+    #DisplayView {
+      position: absolute;
+      top: auto;
+      bottom: 0.5%;
+      display: flex;
+      flex-direction: row;
+      width: 35%;
+      height: 2.3em;
+      text-align: center;
+      margin-left: 35%;
+      margin-right: 35%;
+      z-index: 101;
+      line-height: 2.3em;
+    }
+
+    #DisplayTitle {
+    position: static;
+    height: 2.3em;
+    text-align: center;
+    font-size: 1em;
+    color: #000000;
+    font-family: BeVietnam_Regular;
+    line-height: 2.3em;
+    width: 5em;
+    }
+
+
+    #VariosDisplayView {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    position: static;
+    width: 12em;
+    height: 2em;
+    text-align: center;
+    margin-left: 1em;
+    line-height: 2em;
+    }
+
+
+    .GreyButtons {
+    position: fixed;
+    background-color: #EDEEEE;
+    height: 1.8em;
+    border-radius: 0.2em;
+    cursor: pointer;
+    font-size: 0.7em;
+    font-family: BeVietnam_Bold;
+    color: #ababab;
+    text-align: center;
+    line-height: 1.8;
+    margin: 0.2em;
+    }
+
+
+    #Button_Jersey {
+    bottom: 6.4em;
+    width: 15em;
+    position: static;
+    display: none;
+    z-index: 103;
+    }
+
+    #Button_Shorts {
+    bottom: 10.5em;
+    width: 15em;
+    position: static;
+    display: none;
+    z-index: 103;
+    }
+
+
+    #Button_Tucked {
+    bottom: 2.3em;
+    width: 15em;
+    position: static;
+    display: none;
+    z-index: 103;
+    }
+
+
+    #Button_Untucked {
+    bottom: 5em;
+    width: 15em;
+    position: static;
+    display: block;
+    color: #000000;
+    z-index: 103;
+    }
+
+
+    #View360 {
+      width: 3.6em;
+      position: relative;
+      left: 0.8em;
+      cursor: pointer;
+      margin-top: -2.8em;
+      display: flex;
+      flex-direction: column;
+      height: 5em;
+      align-items: center;
+      margin-left: 0.7em;
+    }
+
+    #Button_Spin {
+      position: static;
+      height: 2.3em;
+      text-align: center;
+      font-size: 1em;
+      color: #000000;
+      font-family: BeVietnam_Regular;
+      width: 5em;
+      line-height: 0.3em;
+      margin-bottom: 6.3em;
+      margin-left: 0.3em;
+    }
+
+    #Button_Front {
+    margin-left: 2.2em;
+    bottom: 6.7em;
+    width: 5em;
+    display: none;
+    }
+
+
+    #Button_Back {
+    margin-left: 2.2em;
+    bottom: 9.1em;
+    width: 5em;
+    display: none;
+    }
+
+
+    #Button_Right {
+    margin-left: 2.2em;
+    bottom: 11.5em;
+    width: 5em;
+    display: none;
+    }
+
+
+    #Button_Left {
+    margin-left: 2.2em;
+    bottom: 13.9em;
+    width: 5em;
+    display: none;
+    }
+
+    .ImgType {
+    width: 4em;
+    height: 4em;
+    cursor: pointer;
+    margin-top: 0.8em;
+    }
+
+    .ImgMini {
+    width: 3em;
+    height: 3em;
+    margin-top: -0.3em;
+	margin-right: -1.3em;
+    }
+
+    .ImgMiniSummary {
+    width: 3em;
+    height: auto;
+    margin-top: -1em;
+    cursor: pointer;
+    }
+	
+	.MoveScaleImgfile{
+		width: 2em;
+		height: 2em;
+		margin-top: 0.5em;
+		margin-right: 0.5em;
+	}
+
+    .ImgInfo {
+    width: 1em;
+    height: auto;
+    margin-top: -0.4em;
+    cursor: pointer;
+    }
+
+    #HelpIcon {
+    width: 33%;
+    position: static;
+    right: 1em;
+    cursor: pointer;
+    }
+
+    #FullScreenIcon {
+    width: 33%;
+    position: static;
+    right: 1em;
+    cursor: pointer;
+    }
+
+    #ShareIcon {
+    width: 33%;
+    position: static;
+    right: 1em;
+    cursor: pointer;
+    }
+
+
+
+
+    #BottomPanel {
+    display: flex;
+    height: 8.8%;
+    width: 100%;
+    position: fixed;
+    top: auto;
+    bottom: 0em;
+    left: 0em;
+    background: rgb(255, 255, 255);
+    z-index: 999;
+    }
+
+    #BottomRightPanel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 3.3em;
+    width: 43%;
+    position: fixed;
+    top: auto;
+    bottom: 0em;
+    right: 0em;
+    background: rgb(255, 255, 255);
+    z-index: 999;
+    }
+
+    #Button_SaveForLater {
+    position: static;
+    margin: auto auto auto auto;
+    background-color: #000000;
+    height: 1.7em;
+    width: 40%;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-family: BeVietnam_Bold;
+    color: #ffffff;
+    padding: 0 0.3em;
+    text-align: center;
+    }
+
+    #Button_Complete {
+    position: static;
+    margin: auto auto auto auto;
+    background-color: #2C9EE1;
+    height: 1.7em;
+    width: 40%;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-family: BeVietnam_Bold;
+    color: #ffffff;
+    padding: 0 0.3em;
+    text-align: center;
+    }
+
+
+
+    #ColorsMenu {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 88vh;
+    width: 43%;
+    position: sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-top: 8.3em;
+    margin-bottom: 3.6em;
+    z-index: 66;
+    }
+
+
+
+    #TextMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 88vh;
+    width: 43%;
+    position: sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-top: 8.3em;
+    margin-bottom: 3.6em;
+    z-index: 66;
+    }
+
+
+    #LogosMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 88vh;
+    width: 43%;
+    position: sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-top: 8.3em;
+    margin-bottom: 3.6em;
+    z-index: 66;
+    }
+
+
+    #SummaryMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 88vh;
+    width: 43%;
+    position: sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-top: 8.3em;
+    margin-bottom: 3.6em;
+    z-index: 66;
+    }
+
+
+    #DetailsMenu {
+    display: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 88vh;
+    width: 43%;
+    position: sticky;
+    margin-right: 0em;
+    background: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-top: 8.3em;
+    margin-bottom: 3.6em;
+    z-index: 66;
+    }
+
+
+    .expand-icon {
+    height: 1em;
+    width: 1em;
+    position: relative;
+    margin: 0.27em 0.1em 0em 1em;
+    cursor: pointer;
+    font-size: 2.1em;
+    font-family: BeVietnam_Regular;
+    text-align: -webkit-center;
+    top: 0.55em;
+    line-height: 1em;
+    }
+
+
+    .ColorsSelectorMenu {
+    width: 80.7%;
+    margin: 1em auto 0em auto;
+    height: 4em;
+    top: 4em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    }
+
+    .TypeColorTitle {
+    position: static;
+    height: 4em;
+    width: 16em;
+    border-radius: 0.3em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    margin-top: 0.8em;
+    }
+
+
+    .NameSelectedColor {
+    position: static;
+    height: 2em;
+    width: 13.4em;
+    border-radius: 0.3em;
+    font-size: 0.6em;
+    font-family: BeVietnam_Regular;
+    color: #000000;
+    margin-top: 0.2em;
+    }
+
+    .SelectedColor {
+    width: 8em;
+    height: 0.7em;
+    border-radius: 0.2em;
+    position: static;
+    margin: 1.1em 0em auto 3em;
+    }
+
+    #SelectedColorJerseyBase{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyAccent1{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyAccent2{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorShortsBase{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorShortsAccent1{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorShortsAccent2{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyText{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyTextOutline{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyNumber{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    #SelectedColorJerseyNumberOutline{
+    background-color: #2C9EE1;
+    background-image: url('icons/TransparentGrid.png');
+    background-size: 87%;
+    }
+
+    .cross-icon {
+    position: static;
+    height: 1.7em;
+    width: 0.6em;
+    cursor: pointer;
+    font-size: 1.7em;
+    font-family: BeVietnam_Regular;
+    color: #000000;
+    text-align: center;
+    margin-left: 0.5em;
+    /* -webkit-transform: rotate(45deg); */
+    }
+
+
+
+
+    .ColorsPalette {
+        width: 88%;
+        height: 11em;
+        position: sticky;
+        margin: 1em auto 1em 3.2em;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-gap: var();
+    }
+    .cell {
+        border-radius: 0.2em;
+        height: 1em;
+        width: 1em;
+        cursor: pointer;
+    }
+    .cell-1 {
+        background: rgb(0, 0, 0);
+    }
+    .cell-2 {
+        background: rgb(255, 255, 255);
+        border: 1px solid #000000;
+    }
+    .cell-3 {
+        background: #676767;
+    }
+    .cell-4 {
+        background: #C4C5C7;
+    }
+    .cell-5 {
+        background: #4F1719;
+    }
+    .cell-6 {
+        background: #5E070C;
+    }
+    .cell-7 {
+        background: #5E3013;
+    }
+    .cell-8 {
+        background: #C06628;
+    }
+    .cell-9 {
+        background: #B72025;
+    }
+    .cell-10 {
+        background: #DD6426;
+    }
+    .cell-11 {
+        background: #F6923C;
+    }
+    .cell-12 {
+        background: #ECAD1F;
+    }
+    .cell-13 {
+        background: #FFCC05;
+    }
+    .cell-14 {
+        background: #D5BC6C;
+    }
+    .cell-15 {
+        background: #DDE11D;
+    }
+    .cell-16 {
+        background: #EEBCD6;
+    }
+    .cell-17 {
+        background: #EC228F;
+    }
+    .cell-18 {
+        background: #5D2A77;
+    }
+    .cell-19 {
+        background: #7C9FD3;
+    }
+    .cell-20 {
+        background: #0098CC;
+    }
+    .cell-21 {
+        background: #9DD4B6;
+    }
+    .cell-22 {
+        background: #177269;
+    }
+    .cell-23 {
+        background: #69BC45;
+    }
+    .cell-24 {
+        background: #3A6D34;
+    }
+    .cell-25 {
+        background: #1A2C17;
+    }
+    .cell-26 {
+        background: #283A88;
+    }
+    .cell-27 {
+        background: #1E3160;
+    }
+    .cell-28 {
+    background: rgb(255, 255, 255);
+    border: 1px solid #000000;
+    }
+
+
+    .JerseyMenu {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.4em;
+    }
+
+    .ObjectTitle {
+    position: static;
+    height: 2em;
+    width: 3.3em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.4em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    margin-top: 1.3em;
+    }
+
+
+    #ColorJerseyBase{
+    display: none;
+    }
+
+    #ColorJerseyAccent1{
+    display: none;
+    }
+        
+    #ColorJerseyAccent2{
+    display: none;
+    }
+
+    #ColorJerseyText{
+    display: none;
+    }
+
+    #ColorJerseyTextOutline{
+    display: none;
+    }
+
+    #ColorJerseyNumber{
+    display: none;
+    }
+
+    #ColorJerseyNumberOutline{
+    display: none;
+    }
+
+    #BaseJerseyBlock{
+    display: none;
+    }
+
+    #Accent1JerseyBlock{
+    display: none;
+    }
+        
+    #Accent2JerseyBlock{
+    display: none;
+    }
+
+
+    .ShortsMenu {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+    }
+
+    #ShortsTitle {
+    position: static;
+    height: 2em;
+    width: 3.3em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.4em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    text-align: center;
+    margin-top: 1.3em;
+    }
+
+
+    #ColorShortsBase{
+    display: none;
+    }
+
+    #ColorShortsAccent1{
+    display: none;
+    }
+        
+    #ColorShortsAccent2{
+    display: none;
+    }
+
+
+    #BaseShortsBlock{
+    display: none;
+    }
+
+    #Accent1ShortsBlock{
+    display: none;
+    }
+        
+    #Accent2ShortsBlock{
+    display: none;
+    }
+
+
+
+
+
+
+
+
+
+    #FrontObjectMenu{
+    position: static;
+    height: 3em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    display: none;
+    flex-direction: row;
+    margin-top: 2.7em;
+    }
+
+    #expandJerseyTextFront{
+    margin: -0.86em 0em 0em 1.9em;
+    font-size: 1.7em;
+    }
+
+
+    .SectionTextJersey{
+    width: 80.7%;
+    margin: 0em auto 1em auto;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    font-size: 0.9em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    }
+
+    .LayOutTextJerseyType{
+    width: 90%;
+    margin: 1em auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    }
+
+    #TypeLayOut1{
+    border: 0.2em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut2{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut3{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut4{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut1Back{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut2Back{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut3Back{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut4Back{
+    border: 0em solid;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    #TypeLayOut5Back{
+    border: 0.2em solid #000000;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    }
+
+    .LinesTeamName{
+    height: 1.7em;
+    margin: 0.5em;
+    border: 0.2em solid #000000;
+    border-radius: 0.3em;
+    font-size: 0.8em;
+    padding: 0.8em;
+    width: 80%;
+    line-height: 0.4em;
+    resize: none;
+    }
+
+    #FontTeamName{
+    height: 3em;
+    background-color: rgb(255, 255, 255);
+    -webkit-appearance: none;
+    }
+
+
+    #FontNumber{
+    height: 3em;
+    background-color: rgb(255, 255, 255);
+    -webkit-appearance: none;
+    }
+
+
+    #BackObjectMenu{
+    position: static;
+    height: 2em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    display: none;
+    flex-direction: row;
+    margin-top: 1em;
+    }
+
+    #FrontTextTitle{
+      margin-top: -0.25em;
+    }
+    #BackTextTitle{
+      margin-top: -0.25em;
+    }
+
+    #expandJerseyTextBack{
+    margin: -0.86em 0em 0em 1.9em;
+    font-size: 1.7em;
+    }
+
+
+    .checkbox{
+    margin: 2em auto 0em 0em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1em;
+    font-family: BeVietnam_Regular;
+    color: #000000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+
+
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        width: 15em;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0.3em;
+        left: 0.6em;
+        height: 0.9em;
+        width: 0.9em;
+        background-color: #fff;
+        border: 0.1em solid #000000;
+        border-radius: 0.3em;
+    }
+    
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #EDEEEE;
+    }
+    
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #ffffff;
+    }
+    
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+    
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 0.3em;
+        top: -0.1em;
+        width: 2.8px;
+        height: 10px;
+        border: solid rgb(0, 0, 0);
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+
+
+    #FrontTextMenu{
+    display: none;
+    flex-direction: column;
+    }
+
+    #BackTextMenu{
+    display: none;
+    flex-direction: column;
+    }
+
+
+    #ShortTextMenu{
+    flex-direction: column;
+    }
+
+
+    #SectionNumberSHorts{
+    width: 80.7%;
+    margin: 2em auto 1em auto;
+    display: flex;
+    flex-direction: column;
+    height: 8em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    }
+
+
+    #TextBackTeamName{
+    height: 13em;
+    }
+        
+
+    .UploadSectionLogos{
+    width: 100%;
+    margin: 1em auto 1em auto;
+    display: flex;
+    flex-direction: row;
+    height: 3em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    color: #000000;
+    text-align: center;
+    }
+
+    .ButtonUpload {
+    margin: 0.2em;
+    background-color: #EDEEEE;
+    height: 2.4em;
+    width: 6.8em;
+    border-radius: 0.3em;
+    text-align: center;
+    font-family: BeVietnam_Bold;
+    line-height: 2.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 999;
+    }
+
+    #UploadedRightShoulder {
+      position: relative;
+      margin-left: -7em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+    }
+    #UploadedLeftShoulder {
+      position: relative;
+      margin-left: 0.2em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+      margin-top: -2.6em;
+    }
+    #UploadedBackBelowNeck {
+      position: relative;
+      margin-left: -7em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+    }
+    #UploadedBackUnderNumber {
+      position: relative;
+      margin-left: -7em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+    }
+    #UploadedRightUpper {
+      position: relative;
+      margin-left: 0.2em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+      margin-top: -2.6em;
+    }
+    #UploadedRightLower {
+      position: relative;
+      margin-left: -7em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+    }
+    #UploadedLeftUpper {
+      position: relative;
+      margin-left: 0.2em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+      margin-top: -2.6em;
+    }
+    #UploadedLeftLower {
+      position: relative;
+      margin-left: 0.2em;
+      display: none;
+      z-index: 999;
+      color: #b5b5b5;
+      margin-top: -2.6em;
+    }
+  
+
+
+    .DimensionLogos{
+    width: 3em;
+    height: 1em;
+    margin: 0.2em;
+    border: 0.2em solid #000000;
+    border-radius: 0.3em;
+    font-size: 0.8em;
+    padding: 0.8em;
+    }
+	
+	label{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	cursor: pointer;
+	}
+
+    #UploadLeftShoulderPreview{
+  	  cursor:pointer;
+    }
+    #UploadLeftShoulderPrint{
+  	  cursor:pointer;
+    }
+    #RemoveLeftShoulderPrint{
+  	  cursor:pointer;
+    }
+	
+    #UploadRightShoulderPreview{
+  	  cursor:pointer;
+    }
+    #UploadRightShoulderPrint{
+  	  cursor:pointer;
+    }
+    #RemoveRightShoulderPrint{
+  	  cursor:pointer;
+    }
+  
+    #UploadBackBelowNeckPreview{
+  	  cursor:pointer;
+    }
+    #UploadBackBelowNeckPrint{
+  	  cursor:pointer;
+    }
+    #RemoveBackBelowNeckPrint{
+  	  cursor:pointer;
+    }
+	
+    #UploadBackUnderNumberPreview{
+  	  cursor:pointer;
+    }
+    #UploadBackUnderNumberPrint{
+  	  cursor:pointer;
+    }
+    #RemoveBackUnderNumberPrint{
+  	  cursor:pointer;
+    }
+
+    #UploadRightUpperPreview{
+  	  cursor:pointer;
+    }
+    #UploadRightUpperPrint{
+  	  cursor:pointer;
+    }
+    #RemoveRightUpperPrint{
+  	  cursor:pointer;
+    }
+
+    #UploadLeftUpperPreview{
+  	  cursor:pointer;
+    }
+    #UploadLeftUpperPrint{
+  	  cursor:pointer;
+    }
+    #RemoveLeftUpperPrint{
+  	  cursor:pointer;
+    }
+
+    #UploadRightLowerPreview{
+  	  cursor:pointer;
+    }
+    #UploadRightLowerPrint{
+  	  cursor:pointer;
+    }
+    #RemoveRightLowerPrint{
+  	  cursor:pointer;
+    }
+
+    #UploadLeftLowerPreview{
+  	  cursor:pointer;
+    }
+    #UploadLeftLowerPrint{
+  	  cursor:pointer;
+    }
+    #RemoveLeftLowerPrint{
+  	  cursor:pointer;
+    }
+
+    .ButtonsLogos{
+    display: flex;
+	flex-direction: row;
+    margin: -0.5em 0em 0em auto;
+    }
+
+    .DimensionsLogos{
+    display: flex;
+    margin: -0.5em 0em 0em auto;
+    }
+
+    .LogosTeamNameTitle{
+    width: 9.3em;
+    text-align: left;
+    }
+
+    .LogosTeamLogo{
+    }
+
+    .LogosJerseyHLogo{
+    height: 9em;
+    }
+
+    .LogosShortsHLogo{
+    height: 13em;
+    }
+
+
+	#ScaleAndMovePngLeftSholder {
+	cursor: pointer;
+	display: block;	
+	}
+	
+	#DisabledScaleAndMovePngLeftSholder {
+	display: none;	
+	opacity: 0.3;
+	}
+
+	#RemoveLeftShoulderPrint {
+	display: none;
+	}
+	
+	#ScaleAndMovePngRightSholder {
+	cursor: pointer;
+	display: block;	
+	}
+	
+	#DisabledScaleAndMovePngRightSholder {
+	display: none;	
+	opacity: 0.3;
+	}
+
+	#RemoveRightShoulderPrint {
+	display: none;
+	}
+	
+	#ScaleAndMovePngBackBelowNeck {
+	cursor: pointer;
+	display: block;	
+	}
+	
+	#DisabledScaleAndMovePngBackBelowNeck {
+	display: none;	
+	opacity: 0.3;
+	}
+
+	#RemoveBackBelowNeckPrint {
+	display: none;
+	}
+	
+	
+	
+	#ScaleAndMovePngBackUnderNumber {
+	cursor: pointer;
+	display: block;	
+	}
+	
+	#DisabledScaleAndMovePngBackUnderNumber {
+	display: none;	
+	opacity: 0.3;
+	}
+
+	#RemoveBackUnderNumberPrint {
+	display: none;
+	}
+
+
+	#ScaleAndMovePngLeftUpper {
+	cursor: pointer;
+	display: block;	
+	}
+	
+	#DisabledScaleAndMovePngLeftUpper {
+	display: none;	
+	opacity: 0.3;
+	}
+
+	#RemoveLeftUpperPrint {
+	display: none;
+	}
+
+
+  #ScaleAndMovePngLeftLower {
+    cursor: pointer;
+    display: block;	
+  }
+  
+  #DisabledScaleAndMovePngLeftLower {
+    display: none;	
+    opacity: 0.3;
+  }
+
+  #RemoveLeftLowerPrint {
+    display: none;
+  }
+
+  #ScaleAndMovePngRightUpper {
+    cursor: pointer;
+    display: block;	
+  }
+    
+  #DisabledScaleAndMovePngRightUpper {
+    display: none;	
+    opacity: 0.3;
+  }
+  
+  #RemoveRightUpperPrint {
+    display: none;
+  }
+  
+  
+  #ScaleAndMovePngRightLower {
+    cursor: pointer;
+    display: block;	
+  }
+  
+  #DisabledScaleAndMovePngRightLower {
+    display: none;	
+    opacity: 0.3;
+  }
+
+  #RemoveRightLowerPrint {
+    display: none;
+  }
+
+
+	.PlaceforFabric{
+	position: relative;
+    z-index: 999;
+    border: 0.2em solid;
+    border-radius: 0.3em;
+    width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+	}
+    .PlaceforFabric2{
+	position: sticky;
+	z-index: 999;
+	border: 0.2em solid;
+	border-radius: 0.3em;
+	width: 30em;
+	margin-left: auto;
+	margin-right: auto;
+    }
+	
+	.GridCanvas7cm{
+		position: relative;
+		width: 477px;
+		height: 437px;
+		margin-left: -7.1em;
+		margin-right: auto;
+		background-image: url("icons/grid_7_5SM.png");
+		background-size: 97.2%;
+		margin-top: -24.6em;
+		z-index: 2;
+	}
+
+	#BackgroundCanvasJersey7cm1{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+	#BackgroundCanvasJersey7cm2{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+	
+	#BackgroundCanvasShorts7cm1{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+	#BackgroundCanvasShorts7cm2{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+	#BackgroundCanvasShorts7cm3{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+	#BackgroundCanvasShorts7cm4{
+		position: relative;
+		width: 303px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -26.5em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 3em;
+	}
+
+	.GridCanvas5cm{
+		position: relative;
+		width: 475.6px;
+		height: 443px;
+		margin-left: -7.7em;
+		margin-right: auto;
+		background-image: url("icons/grid_5SM.png");
+		background-size: 98%;
+		margin-top: -24.4em;
+		z-index: 2;
+	}
+
+
+	#BackgroundCanvas5cm{
+		position: relative;
+		width: 304px;
+		height: 304px;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -27.2em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 6em;
+	}
+
+
+	.GridCanvas28cm{
+		position: absolute;
+		width: 33.2em;
+		margin-left: -1.97em;
+		margin-right: auto;
+		background-image: url("icons/grid_28SM.png");
+		background-size: 100%;
+		margin-top: -7.14em;
+		z-index: 2;
+		height: 9.6em;
+	}
+
+	#BackgroundCanvas28cm{
+		position: absolute;
+		width: 30.1em;
+		height: 6.4em;
+		margin-left: 0em;
+		margin-right: auto;
+		background-color: white;
+		margin-top: -6.2em;
+		z-index: 1;
+		border-radius: 0.3em;
+		margin-bottom: 4em;
+	}
+	
+	.CanvasNote{
+		width: 36em;
+		font-size: 0.8em;
+		margin-left: -6em;
+		font-family: BeVietnam_Regular;
+		margin-bottom: 2em;
+		margin-top: 6em;
+	}
+	
+	.CanvasNote2{
+		width: 36em;
+		font-size: 0.8em;
+		font-family: BeVietnam_Regular;
+		margin-bottom: 0em;
+		margin-top: 4em;
+	}
+  
+  #Canvas1{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas2{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas3{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 16.7em;
+  }
+  #Canvas4{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #Canvas5{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas6{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas7{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  #Canvas8{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+	width: 18em;
+  }
+  
+	
+	
+    #HelpDimensionsTitle{
+    width: 10em;
+    height: 2em;
+    font-size: 0.7em;
+    font-family: BeVietnam_BoldItalic;
+    text-align: center;
+    position: relative;
+    top: -0.6em; 
+    }
+
+    #HelpPrintTitle{
+    width: 100%;
+    height: 2em;
+    font-size: 0.7em;
+    font-family: BeVietnam_BoldItalic;
+    text-align: center;
+    position: relative;
+	top: -1em;
+    }
+
+  #HelpPreviewTitle{
+	width: 20em;
+	height: 2em;
+	font-size: 0.7em;
+	font-family: BeVietnam_BoldItalic;
+	text-align: center;
+	position: relative;
+	margin-right: 5.6em;
+	margin-left: auto;
+	top: -1em;
+    }
+
+
+    #DimensionsBlock{
+    margin: -2.05em 0em 0em auto;
+    }
+
+    #PrintBlock{
+	display: -webkit-flex;
+	flex-direction: column;
+	align-content: flex-end;
+	align-items: flex-end;
+    }
+
+    #PreviewBlock{
+    }
+
+    #LogosJerseyBlock{
+    display: none;
+    flex-direction: column;
+    }
+
+    #LogosShortsBlock{
+    display: none;
+    flex-direction: column;
+    }
+
+    .switch {
+    position: sticky;
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 10px;
+    margin-left: 0.6em;
+    }
+
+    .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    .roundCheck {
+    border: 0px solid #fff;
+    width: 2.3em;
+    height: 1.18em;
+    }
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 0.9em;
+    width: 0.9em;
+    left: 2.5px;
+    bottom: 0.14em;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #B5B5B5;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px rgb(130, 130, 130);
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+    }
+
+    /* Rounded sliders */
+    .slider.roundCheck {
+    border-radius: 4em;
+    }
+
+    .slider.roundCheck:before {
+    border-radius: 50%;
+    }
+
+    #SwitchBlock {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.4em;
+    margin-bottom: 10px;
+    z-index: 101;
+    top: 0.6em;
+    left: 1.2em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    }
+
+
+    .SummaryTypeTitle{
+    position: static;
+    height: 1.8em;
+    width: 16em;
+    border-radius: 0.3em;
+    font-size: 1em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    }
+
+    .SummarySubTypeTitle{
+    position: static;
+    height: 1.8em;
+    width: 16em;
+    border-radius: 0.3em;
+    font-size: 1em;
+    font-family: BeVietnam_Bold;
+    color: #000000;
+    margin-left: 1em;
+    }
+
+    .SummaryUserChosen{
+    position: static;
+    height: 1.8em;
+    width: 16em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    color: #000000;
+    text-align: right;
+    margin-top: 0.4em;
+    }
+
+    .SummaryBlock{
+    width: 80%;
+    margin: 0.5em auto 0em auto;
+    display: flex;
+    flex-direction: row;
+    }
+
+    #DetailsBlock{
+    width: 80%;
+    margin: 0.5em auto 0em auto;
+    display: flex;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    text-align: justify;
+    }
+
+    #FontListRoll {
+    width: 80.7%;
+    margin: 0em auto 0em auto;
+    top: 4em;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    }
+
+    #FontListRollCurved1 {
+    width: 80.7%;
+    margin: 0em auto 0em auto;
+    top: 4em;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    }
+
+    #FontListRollCurved2 {
+    width: 80.7%;
+    margin: 0em auto 0em auto;
+    top: 4em;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    }
+
+    #FontListRollNumber {
+    width: 80.7%;
+    margin: 0em auto 0em auto;
+    top: 4em;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-family: BeVietnam_Bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    }
+
+    .TypeFontTitle{
+    cursor: pointer;
+    width: 100%;
+    margin: 0.6em auto 0em auto;
+    height: 2em;
+    text-align: left;
+    line-height: 2em;
+    padding-left: 1em;
+    }
+
+    .TypeFontTitle:hover  {
+    background-color: #EDEEEE;
+    }
+
+    .CANTERBURY{
+    font-size: 1.3em;
+    font-family: Canterbury;
+    display: flex;
+    }
+
+    .COCOGOOSE{
+    font-size: 1.3em;
+    font-family: CocogooseProItalic;
+    display: flex;
+    }
+
+    .COLLEGE{
+    font-size: 1.3em;
+    font-family: College_Bold;
+    display: flex;
+    }
+
+    .DEFTONE{
+    font-size: 1.3em;
+    font-family: Deftone_Stylus;
+    display: flex;
+    }
+
+    .EMILIO{
+    font-size: 1.3em;
+    font-family: Emilio_19_Regular;
+    margin-bottom: 0.6em;
+    display: flex;
+    }
+
+    .LEAGUESPARTAN{
+    font-size: 1.3em;
+    font-family: LeagueSpartan_Bold;
+    display: flex;
+    }
+
+    .MONOTON{
+    font-size: 1.3em;
+    font-family: Monoton_Regular;
+    display: flex;
+    }
+
+    .MONTSERRAT{
+    font-size: 1.3em;
+    font-family: Montserrat_Regular;
+    display: flex;
+    }
+
+    .PUBLICENEMY{
+    font-size: 1.3em;
+    font-family: Public_Enemy_Regular;
+    display: flex;
+    }
+
+    .SPORTJERSEY{
+    font-size: 1.3em;
+    font-family: Sportsjersey;
+    display: flex;
+    }
+
+
+    #Line2TeamNameField{
+    display: none;
+    }
+    #ApplyLine2TeamName{
+    display: none;
+    }
+
+    #Line2FrontJerseySummaryBlock{
+    display: none;
+    }
+
+    .redline{
+    margin-left: 0.1em;
+    margin-top: -0.3em;
+    width: 5.8px;
+    height: 21px;
+    border: solid #f00;
+    border-width: 0 2px 0px 0;
+    transform: rotate(45deg);
+    }
+
+
+    .image-upload>input {
+    display: none;
+    }
+
+
+    /* Popup container */
+    .popup {
+    position: relative;
+    display: inline-block;
+    }
+
+    /* The actual popup (appears on top) */
+    .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+    }
+
+    /* Popup arrow */
+    .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class when clicking on the popup container (hide and show the popup) */
+    .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+    }
+}
