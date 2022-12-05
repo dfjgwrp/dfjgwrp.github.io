@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>12141.net: 3D logotype (move) explosiong </title>
+	
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+
+	</head>
+	<body class="demo-ico loading">
+		<main>
+			<div id="container">
+			</div>
+			<div class="frame">
+				<div class="frame__title-wrap">
+				</div>
+			</div>
+		</main>
+		<script src="js/ico.js"></script>
+		<script>
+			let animation = new explosion.default(
+				'container', // id of DOM el
+				{
+					surface: '666666',
+					inside: '98e898',
+					background: '151616',
+					onLoad: () => {
+		                document.body.classList.remove('loading');
+		            }
+				}
+			);
+
+			let targetMouseX = 0, mouseX = 0, ta = 0;
+			const sign = function(n) { return n === 0 ? 1 : n/Math.abs(n); };
+			document.addEventListener('mousemove',(e) => {
+			  targetMouseX = 2*(e.clientX - animation.width/2)/animation.width;
+			});
+
+			document.addEventListener('touchmove',(e) => {
+			  targetMouseX = ( e.touches[0].clientX / animation.width ) * 2 - 1;
+			});
+
+			function draw(){
+				if(animation){
+					mouseX += (targetMouseX - mouseX)*0.05;
+					ta = Math.abs(mouseX);
+					animation.settings.progress = ta;
+					animation.scene.rotation.y = Math.PI/2 - ta*(2 - ta)*Math.PI * sign(mouseX);
+					animation.scene.rotation.z = Math.PI/2 - ta*(2 - ta)*Math.PI * sign(mouseX);
+				}
+				window.requestAnimationFrame(draw);
+			}
+			draw() 
+
+		</script>
+	</body>
+</html>
