@@ -1048,7 +1048,7 @@ function render() {
 	updateAnnotationOpacity7();
 
 
-
+	console.clear()
 	controls.update();
 	TWEEN.update();
 	//updateLight();
@@ -1488,4 +1488,3 @@ scene.remove(sign1,sign2,sign3,sign4,sign5);
 };
 
 
-console.clear()
