@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" user-scalable=true content="width=device-width, initial-scale=1">
+<title>Jetta 3D Early Version</title>
+<script src="../threejs/jquery.min.js"></script>
+<script src="modernizr.js"></script>
+<link rel="stylesheet" media="only screen and (max-width: 600px)" href="mobile.css" />
+<link rel="stylesheet" media="only screen and (min-width: 601px)" href="user_interface.css" />
+<!--<link href="images/webclip.png" rel="apple-touch-icon">-->
+</head>
+
+<body>
+ 
+<div class="se-pre-con">
+	<div class="flexbox_5">
+	<img width="350px" class="vertical-center" align="center" src="img/loader.gif">
+	</div>
+</div>
+
+<div id="overlayZ"></div>
+	<div class="flexbox_4">
+		<div id="afterScreenImages">
+			<img width="50%"  src="img/testimg.jpg">
+			<div onclick="closeAdditionalImageWindow()" align="right" style="font-size:22px; COLOR:#0074ff; margin-left: -0.7em;">
+				&times
+				</div>
+		</div>
+	</div>
+<div id="container">  
+	<canvas id="c"></canvas>
+	<a id="labels" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels2" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels3" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels4" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels5" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels6" onclick="openAdditionalImageWindow()"></a>
+	<a id="labels7" onclick="openAdditionalImageWindow()"></a>
+</div>
+<script src="../threejs/Tween.js"></script>
+
+<script src="../threejs/build_r132/build/three.min.js"></script>
+<script src="../threejs/build_r132/examples/js/controls/OrbitControls.js"></script>
+<script src="../threejs/build_r132/examples/js/loaders/GLTFLoader.js"></script>
+<script src="gl.js"></script>
+
+<div class="flexbox_1">
+	<div align="center" id="DefaultCustomizeTopBase" >
+		<img id="topMenuImg" src="img/topmenu1.png">
+		<div id="top1_titles" >		
+			<div id="top_default_title" onclick="topOpenDefault_1()">
+				Default
+			</div>
+			<div id="top_customize_title" onclick="topOpenCustomize_1()" value="unclicked">
+			Customize
+			</div>
+				<div id="top2_component_title" onclick="topOpenComponent1()" >
+				component
+				</div>
+					<div id="top2_1_component" onclick="componentOnCameraAnimation()"  >
+					Side Pedal   
+					</div>
+					<div id="top2_2_component"  onclick="backDecOnCameraAnimation()"  >
+					Back Deco
+					</div>
+					<div id="top2_3_component" onclick="openAdditionalImageWindow()" >
+					Door Deco
+					</div> 
+					<div id="top2_4_component" onclick="wingOnCameraAnimation()" >
+					Wing Sign
+					</div>		
+					<div id="top2_5_component"  onclick="badgeOnCameraAnimation()" >
+					Badge
+					</div>		
+					<div id="top2_6_component" onclick="componentOnCameraAnimation2()" >
+					Side Deco 
+					</div>	
+					
+				<div id="top2_carsign_title" onclick="topOpenCarSign1()">
+				car sign
+				</div>
+					<div id="top2_1_carsign" onclick="carSign1(); addSign1()">
+					Sign 01
+					</div>
+					<div id="top2_2_carsign" onclick="carSign2(); addSign2()">
+					Sign 02
+					</div>
+					<div id="top2_3_carsign" onclick="carSign3(); addSign3()">
+					Sign 03
+					</div>
+					<div id="top2_4_carsign" onclick="carSign4(); addSign4()">
+					Sign 04
+					</div>		
+					<div id="top2_5_carsign" onclick="carSign5(); addSign5()">
+					Sign 05
+					</div>		
+					
+				<div id="top2_technology_title" onclick="topOpenTechnology1()">
+				technology
+				</div>
+					<div id="top2_1_technology" onclick="openAdditionalImageWindowTech_LogoLight()">
+					1. logo light
+					</div>
+					<div id="top2_2_technology" onclick="openAdditionalImageWindowTech_control()">
+					2. control
+					</div>
+					<div id="top2_3_technology" onclick="openAdditionalImageWindowTech_360()">
+					3. 360 images
+					</div>
+					<div id="top2_4_technology" onclick="openAdditionalImageWindowTech_autodoor()">
+					4. auto-backdoor
+					</div>
+
+				<div id="top2_protection_title"  onclick="topOpenProtection1()">
+				protection
+				</div>
+					<div id="top2_1_protection" onclick="openAdditionalImageWindowProt_GuardPlane()">
+					1. guard plane
+					</div>
+					<div id="top2_2_protection" onclick="openAdditionalImageWindowProt_SolarFilm()">
+					2. solar film
+					</div>
+					<div id="top2_3_protection" onclick="openAdditionalImageWindowProt_SoundProof()">
+					3. soundproof
+					</div>
+		</div>
+	</div>
+</div>
+
+<div class="flexbox_2">
+	
+<div id="center-bottom-area">
+	<div id="circleWhiteContainer" onclick="highLightWhiteCircle()" value="unclicked">
+	<span id="circleWhite" onclick="funct1()"></span>
+	</div>
+	<div id="circleDarkRedContainer" onclick="highLightDarkRedCircle()" value="unclicked"> 
+	<span id="circleDarkRed" onclick="funct2()"></span>
+	</div>
+	<div id="circleDimBlueContainer" onclick="highLightDimBlueCircle()" value="clicked">
+	<span id="circleDimBlue" onclick="funct3()"></span>
+	</div>
+	<div id="circleSilverContainer" onclick="highLightSilverCircle()" value="unclicked">
+	<span id="circleSilver" onclick="funct4()"></span>
+	</div>
+	<div id="circleGreyContainer" onclick="highLightGreyCircle()" value="unclicked">
+	<span id="circleGrey" onclick="funct5()"></span>
+	</div>
+
+	<div id="center-bottom-areaTitle" >
+		<div align="left" id="circleWhiteTitle">
+			White
+		</div>
+		<div align="left" id="circleDarkRedTitle">
+			DarkRed
+		</div>
+		<div align="left" id="circleDimBlueTitle">
+			Blue
+		</div>
+		<div align="left" id="circleSilverTitle">
+			Silver
+		</div>
+		<div align="left" id="circleGreyrTitle">
+			Grey
+		</div>
+	</div>
+</div>
+
+</div>
+
+<div class="flexbox_3">
+	
+		<div align="center" id="menu_centerBack" onclick="offCameraAnimation();
+	topOpenCustomize_1()"  >
+			<div id="menu_centerBackText">
+			Back
+			</div>
+		</div>
+	
+</div>
+
+<script src="user_interface.js"></script>
+</body>
+
+</html>
