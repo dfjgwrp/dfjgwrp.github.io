@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="../threejs/Tween.js"></script>
+	<script src="../threejs/jquery.min.js"></script>
+	<script>
+		window.onload = function(){ document.querySelector(".preloader").style.display = "none"; }
+	</script>
+	<link type="text/css" rel="stylesheet" href="main.css">
+	<style>
+		#info > * {
+			max-width: 650px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.spinner-wrapper {
+			position: fixed;
+			left: 0em;
+			top: 0em;
+			width: 100%;
+			height: 100%;
+			background-color: #000000;
+			z-index: 999;
+			/*cursor:alias;*/
+		}
+
+		.vertical-center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			right: 50%;
+			font-family: sans-serif;
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		.spinner {
+			position: absolute;
+			/*-webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+			animation: sk-rotateplane 1.2s infinite ease-in-out;
+			*/
+		}
+
+		#textHint {
+			position: absolute;
+			z-index: 999;
+			width: 100%;
+			height: 1em;
+			color: #b1000b;
+			font-family: Academy Engraved LET;
+			font-style: italic;
+			font-size: 2em;
+			top: 2em;
+			bottom: auto;
+			line-height: 1em;
+			text-align: center;
+			opacity: 0;
+			display: block;
+			scale: 1;
+		}
+		
+		@-webkit-keyframes sk-rotateplane {
+			0% { -webkit-transform: perspective(120px) }
+			50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+			100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+		}
+		
+		@keyframes sk-rotateplane {
+			0% { 
+				transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+				-webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+			} 50% { 
+				transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+				-webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+			} 100% { 
+				transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+				-webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+			}
+		}
+		#sound1start {display:none}
+		#sound2startCoin {display:none}
+		#sound2startSwoosh {display:none}
+	</style>
+</head>
+<body>
+<div class="preloader"> <img class="preloader-icon" src="img/loading3.gif" alt="Loading...">
+</div>
+
+<div class="spinner-wrapper vertical-center">
+	<div class="spinner vertical-center" id="startDiv"><i style="cursor:alias"><b>Enter</b></i></div>
+</div>
+
+<div id="container"></div>
+
+<!-- 2May pop-up -->
+<!--
+<div class="scene scene--card">
+		<div class="card">
+			<div class="card__face card__face--front" ><img 
+					src="img/1.png" name="cardId"></div>
+			<div class="card__face card__face--back"><img 
+					src="img/Zoltar-card.png"  ></div>
+		</div>
+</div>
+-->
+<!--
+<div class="scene">
+		<div class="card">
+			<div class="card__face card__face--front" ><img 
+					src="img/1.png" name="cardId"></div>
+			<div class="card__face card__face--back"><img 
+					src="img/Zoltar-card.png"  ></div>
+		</div>
+</div>
+-->
+
+<div class="flip-card-container">
+    <div class="flip-card">
+      <div class="flip-card-front">
+			<img src="img/1.png">
+      </div>
+      <div class="flip-card-back">
+				
+					<img src="img/1.png" name="cardId" alt="Fortune Card">
+      </div>
+    </div>
+</div>
+	
+<div id="textHint">Zoltar wants to tell you something, try to press the red button</div>
+
+<!--<button id="TryAgain">Try again</button>-->
+
+
+<audio id="sound1start" src="audio/ithasbeenforseen.mp3" preload="auto" loop="true"></audio>
+<audio id="sound2startCoin" src="audio/coins.wav" preload="auto"></audio>
+<audio id="sound2startSwoosh" src="audio/doubleSwoosh.mp3" preload="auto"></audio>
+
+<script type="x-shader/x-vertex" id="vertexshader">
+	varying vec2 vUv;
+
+	void main() {
+
+		vUv = uv;
+
+		gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+	}
+</script>
+
+<script type="x-shader/x-fragment" id="fragmentshader">
+
+	uniform sampler2D baseTexture;
+	uniform sampler2D bloomTexture;
+
+	varying vec2 vUv;
+
+	void main() {
+
+		gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+	}
+</script>
+
+
+<script type="module">
+
+	import * as THREE from '../threejs/build_r132/build/three.module.js';
+	import { CubeTextureLoader } from '../threejs/build_r132/src/loaders/CubeTextureLoader.js';
+	import { GLTFLoader } from '../threejs/build_r132/examples/jsm/loaders/GLTFLoader.js';
+	import { TextureLoader } from '../threejs/build_r132/src/loaders/TextureLoader.js';
+	import { EffectComposer } from '../threejs/build_r132/examples/jsm/postprocessing/EffectComposer.js';
+	import { RenderPass } from '../threejs/build_r132/examples/jsm/postprocessing/RenderPass.js';
+	import { UnrealBloomPass } from '../threejs/build_r132/examples/jsm/postprocessing/UnrealBloomPass.js';
+	import { ShaderPass } from '../threejs/build_r132/examples/jsm/postprocessing/ShaderPass.js';
+	import {FilmPass} from '../threejs/build_r132/examples/jsm/postprocessing/FilmPass.js';
+
+	import { ParallaxBarrierEffect } from '../threejs/build_r132/examples/jsm/effects/ParallaxBarrierEffect.js';
+	import { Water } from '../threejs/build_r132/examples/jsm/objects/Water.js';
+	import { Sky } from '../threejs/build_r132/examples/jsm/objects/Sky.js';
+
+	const ENTIRE_SCENE = 0, BLOOM_SCENE = 1;
+
+	const bloomLayer = new THREE.Layers();
+	bloomLayer.set( BLOOM_SCENE );
+
+	const params = {
+		exposure: 0.7,
+	  bloomStrength: 2.5,
+		bloomThreshold: 0,
+		bloomRadius: 1,
+		scene: "Scene with Glow"
+	};
+	//var paramsBloomStrength = 2.5;
+
+
+
+	const darkMaterial = new THREE.MeshBasicMaterial( { color: "black" } );
+	const materials = {};
+
+	var head1, head_eyes, booth, lightPlastic, pmremGenerator, eyeMat, textureCube, boothTexture, boothMat, light, water, sun, mesh, waterGeometry, glass, sphere, boothMat_transparant, backPlate, curtains, lampsBack, magicanBody, magicanArms, beltBody, scarfBody, accessoriesBody, SkinMat, redBottons, redAnimMat, cardTexture, fortuneCard, FortuneCardMat, FortuneCardMatPosition, anim1PulseButtonStart, greenBottons, playTexture, repeatTexture, greenAnimMat, anim1PulseButtonRepeat;
+
+	var scene, camera, controls, pointLight;
+	var composer, renderer, mixer, loader;
+	var componentOnCameraAnimation;
+	var mouseX = 0;
+	var mouseY = 0;
+	var mouse = new THREE.Vector2();
+	var windowHalfX = window.innerWidth / 2;
+	var windowHalfY = window.innerHeight / 2;
+	var clock = new THREE.Clock();
+	var raycaster = new THREE.Raycaster();
+	var container = document.getElementById( 'container' );
+
+	renderer = new THREE.WebGLRenderer( { antialias: false } );
+	renderer.toneMappingExposure = Math.pow( 0.83, 1.0 ) 
+	renderer.autoClear = false;
+	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	container.appendChild( renderer.domElement );;
+
+	scene = new THREE.Scene();
+	scene.background = new THREE.Color( 0x000000 );
+
+	camera = new THREE.PerspectiveCamera( 150, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera.focalLength = 3;
+	camera.position.set(3,0,15.1);
+	camera.rotation.set(0,3,0)
+	scene.add(camera);
+
+
+	const renderScene = new RenderPass( scene, camera );
+
+	const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+	bloomPass.threshold = params.bloomThreshold;
+	bloomPass.strength = params.bloomStrength;
+	bloomPass.radius = params.bloomRadius;
+
+	const bloomComposer = new EffectComposer( renderer );
+	bloomComposer.renderToScreen = false;
+	bloomComposer.addPass( renderScene );
+	bloomComposer.addPass( bloomPass );
+
+	const finalPass = new ShaderPass(
+		new THREE.ShaderMaterial( {
+			uniforms: {
+				baseTexture: { value: null },
+				bloomTexture: { value: bloomComposer.renderTarget2.texture }
+			},
+			vertexShader: document.getElementById( 'vertexshader' ).textContent,
+			fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+			defines: {}
+		} ), "baseTexture"
+	);
+	finalPass.needsSwap = true;
+
+	const finalComposer = new EffectComposer( renderer );
+	finalComposer.addPass( renderScene );
+	finalComposer.addPass( finalPass );
+
+/*
+	const filmPass = new FilmPass( 
+      0.6,   // noise intensity
+      0.025,  // scanline intensity
+      648,    // scanline count
+      false,  // grayscale
+	);
+	filmPass.renderToScreen = true;
+	
+	const filmComposer = new EffectComposer(renderer);
+	filmComposer.addPass(filmPass);
+*/
+
+
+
+
+
+	sun = new THREE.Vector3();
+	waterGeometry = new THREE.PlaneGeometry( 1000, 1000 );
+	water = new Water(
+		waterGeometry,
+		{
+			textureWidth: 100,
+			textureHeight: 100,
+			waterNormals: new THREE.TextureLoader().load( 'img/waternormals.jpg', function ( texture ) {
+				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+			} ),
+			sunDirection: new THREE.Vector3(),
+			sunColor: 0x2165b8,
+			waterColor: 0x2f323b,
+			distortionScale: 1,
+			fog: scene.fog !== undefined
+		}
+	);
+	water.rotation.x = - Math.PI / 2;
+	water.position.y = -3.7;
+	scene.add( water );
+
+
+
+
+
+
+
+	loader = new TextureLoader();
+	textureCube = new CubeTextureLoader()
+	.load([
+	'img/px.png',
+	'img/nx.png',
+	'img/py.png',
+	'img/ny.png',
+	'img/pz.png',
+	'img/nz.png',
+	]);
+
+	
+	boothTexture = loader.load('img/Untitled.png');
+	boothTexture.flipY = false;
+
+	cardTexture = loader.load('img/1.png');
+	cardTexture.flipY = false;
+
+	playTexture = loader.load('img/play.png');
+	playTexture.flipY = false;
+
+	repeatTexture = loader.load('img/repeat.png');
+	repeatTexture.flipY = false;
+
+	eyeMat = new THREE.MeshBasicMaterial( { 
+	envMap: textureCube,
+	color: 0x890a0a,
+	envMapIntensity: 0.1,
+	metalness: 0.5,
+	roughness: 0.5,
+	specular: 0x1d1d1d,
+	emissive: 0xffffff,
+	shininess: 8,
+	} );
+
+	lightPlastic = new THREE.MeshBasicMaterial( { 
+	envMap: textureCube,
+	roughness: 0.5,
+	transparent: true
+	} );
+
+
+	boothMat = new THREE.MeshBasicMaterial( { 
+	envMap: textureCube,
+	envMapIntensity: 0.1,
+	map: boothTexture,
+	metalness: 0.5,
+	roughness: 0.5,
+	} );
+
+	FortuneCardMat = new THREE.MeshBasicMaterial( { 
+	map: cardTexture,
+	envMap: textureCube,
+	roughness: 0.5,
+	transparent: true,
+	side: THREE.DoubleSide
+	} );
+
+
+	SkinMat = new THREE.MeshBasicMaterial({
+	envMap: textureCube,
+	envMapIntensity: 0.1,
+	map: boothTexture,
+	metalness: 0,
+	roughness: 1,
+	} );
+
+
+	boothMat_transparant = new THREE.MeshBasicMaterial( { 
+	combine: THREE.MixOperation,
+	envMap: textureCube,
+	envMapIntensity: 0.1,
+	color: 0xffffff,
+	map: boothTexture,
+	specular: 0x666666,
+	emissive: 0xffffff, 
+	shininess: 10,
+	transparent: true,
+	opacity: 0.4, 
+	} );
+
+
+	redAnimMat = new THREE.MeshBasicMaterial( { 
+	map: playTexture,
+	color: 0xff0000, 
+	//specular: 0x009900, 
+	//shininess: 30, 
+	opacity: 1,
+	transparent: true,
+	flatShading: true 
+	} );
+	
+
+	greenAnimMat = new THREE.MeshBasicMaterial({
+	map: repeatTexture,
+	color: 0x4cbf4e,
+	//specular: 0x009900, 
+	//shininess: 30, 
+	opacity: 0,
+	transparent: true,
+	flatShading: true
+	});
+
+
+
+	new GLTFLoader().load( 'gltf/head.glb', function ( gltf ) {
+
+		head1 = gltf.scene.children[0];
+		head1.material = lightPlastic;
+
+		head_eyes = gltf.scene.children[1];
+		head_eyes.material = eyeMat;
+
+		booth = gltf.scene.children[2];
+		booth.material = boothMat;
+		
+		/*
+		glass = gltf.scene.children[3];
+		glass.material = boothMat_transparant;
+		glass.renderOrder = 1;
+		*/
+
+		sphere = gltf.scene.children[4];
+		sphere.material = boothMat_transparant;
+		//sphere.renderOrder = 2;
+
+		backPlate = gltf.scene.children[5];
+		backPlate.material = boothMat;
+
+		curtains = gltf.scene.children[6];
+		curtains.material = SkinMat;
+
+		lampsBack = gltf.scene.children[7];
+		lampsBack.material = SkinMat;
+
+		magicanBody = gltf.scene.children[8];
+		magicanBody.material = boothMat;
+
+		magicanArms = gltf.scene.children[9];
+		magicanArms.material = SkinMat;
+
+		beltBody = gltf.scene.children[10];
+		beltBody.material = boothMat;
+
+		scarfBody = gltf.scene.children[11];
+		scarfBody.material = boothMat;
+
+		accessoriesBody = gltf.scene.children[12];
+		accessoriesBody.material = boothMat;
+
+		redBottons = gltf.scene.children[13];
+		redBottons.material = redAnimMat;
+
+		greenBottons = gltf.scene.children[14];
+		greenBottons.material = greenAnimMat;
+
+		scene.add(head1, head_eyes, booth, sphere, backPlate, curtains, lampsBack, magicanBody, magicanArms, beltBody, scarfBody, accessoriesBody, redBottons, greenBottons);
+
+		animate();
+
+	});
+
+
+	new GLTFLoader().load('gltf/FortuneCard.glb', function (gltf) {
+
+		fortuneCard = gltf.scene.children[0];
+		fortuneCard.material = FortuneCardMat;
+
+		scene.add(fortuneCard);
+
+		FortuneCardMatPosition = fortuneCard.position;
+		//console.log(FortuneCardMatPosition);
+	});	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	/*
+	function darkenNonBloomed( obj ) {
+		if ( obj.isMesh && bloomLayer.test( obj.layers ) === false ) {
+			materials[ obj.uuid ] = obj.material;
+			obj.material = darkMaterial;
+		}
+	}
+
+	https://discourse.threejs.org/t/selective-unrealbloompass-issues/9331
+	function restoreMaterial( obj ) {
+		if ( materials[ obj.uuid ] ) {
+			obj.material = materials[ obj.uuid ];
+			delete materials[ obj.uuid ];
+	} */
+
+	function animate() {  
+
+   		booth.material = darkMaterial;
+		head1.material = darkMaterial;
+		lampsBack.material = darkMaterial;
+		beltBody.material = darkMaterial;
+		curtains.material = darkMaterial;
+		magicanArms.material = darkMaterial;
+		magicanBody.material = darkMaterial;
+		redBottons.material = darkMaterial;
+		//fortuneCard.material = darkMaterial;
+		backPlate.material = darkMaterial;
+		scarfBody.material = darkMaterial;
+		greenBottons.material = darkMaterial;
+
+		water.visible = false;
+		//scene.traverse( darkenNonBloomed );
+		bloomComposer.render();
+		
+		booth.material = boothMat;
+		head1.material = lightPlastic;
+		lampsBack.material = SkinMat;
+		beltBody.material = boothMat;
+ 		curtains.material = SkinMat;
+ 		magicanArms.material = SkinMat;
+		magicanBody.material = SkinMat;
+		//fortuneCard.material = FortuneCardMat;
+		redBottons.material = redAnimMat;
+		backPlate.material = boothMat;
+		scarfBody.material = boothMat;
+		greenBottons.material = greenAnimMat;
+
+
+		
+ 		water.visible = true;
+		//scene.traverse( restoreMaterial );
+		finalComposer.render();
+		
+		const time = performance.now() * 0.001;
+		water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
+		camera.position.x += (mouseX - camera.position.x) * .01;
+		camera.position.y += (- mouseY - camera.position.y) * .01;
+		camera.lookAt(scene.position);
+		camera.updateProjectionMatrix();
+		TWEEN.update();
+		requestAnimationFrame(animate);
+
+	}
+	
+
+
+	window.onresize = function () {
+
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+
+		camera.aspect = width / height;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( width, height );
+		finalComposer.setSize( width, height );
+	};
+
+	function onDocumentMouseMove(event) {
+		mouseX = (event.clientX - windowHalfX) / 1000;
+		mouseY = (event.clientY - windowHalfY) / 1000;
+	};
+	document.addEventListener( 'mousemove', onDocumentMouseMove );
+
+
+
+
+
+
+
+
+
+
+	var btn1_var = document.getElementById("startDiv");
+
+	btn1_var.addEventListener('click', function() {
+ 		sound1start.play()
+
+		var anim1cameraPosNewPosition= {x : 0, y : 0, z : 6};
+
+		var anim1cameraFov = new TWEEN.Tween(camera).to({fov: 60}, 9500).start();
+
+		var anim1cameraPos = new TWEEN.Tween(camera.position).to(anim1cameraPosNewPosition, 9500).easing(TWEEN.Easing.Quadratic.InOut).start();
+
+		anim1PulseButtonStart = new TWEEN.Tween(redAnimMat).to({opacity: 0}, 1000).easing(TWEEN.Easing.Quadratic.InOut);
+		anim1PulseButtonStart.yoyo(true);
+		anim1PulseButtonStart.repeat(Infinity); 
+		anim1PulseButtonStart.delay(2000);
+		anim1PulseButtonStart.start();
+
+		var enterScreen = $('.spinner-wrapper');
+		enterScreen.fadeOut(3000); 
+
+		var anim1ShowHintText =  new TWEEN.Tween(textHint.style).to({opacity: 1}, 4000).easing(TWEEN.Easing.Quadratic.InOut).delay(4500).start();
+
+	});
+
+
+
+	var cardsImages = ['img/2.png', 'img/3.png', 'img/4.png'];
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	function randomCard() {
+		document.cardId.src = cardsImages[getRandomInt(0, cardsImages.length - 1)];
+	}
+
+	function onPointerDown( event ) {
+		
+		event.preventDefault();
+		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+		raycaster.setFromCamera( mouse, camera );
+		const intersects = raycaster.intersectObjects( scene.children );
+
+		for ( var i = 0; i < intersects.length; i++ ) {
+
+			//console.log(intersects[ i ].object.id)  
+			//15,22,33
+			//RED START
+ 			if ( intersects[ i ].object.id === 35) {
+				sound2startCoin.play();
+				//popup1.style.display = "block";
+				//popup1.style.animation = 'animationFadeIn 2s';
+				anim1PulseButtonStart.stop();
+				scene.remove(redBottons);	
+				
+				var anim1ShowHintText =  new TWEEN.Tween(textHint.style).to({opacity: 0}, 4000).easing(TWEEN.Easing.Quadratic.InOut).start().onComplete(() => {
+					document.getElementById("textHint").innerHTML = "Well, press the green button to try your fortune again";
+					document.getElementById("textHint").style.color = "#084d1d";
+				});
+				var anim1ShowHintText =  new TWEEN.Tween(textHint.style).to({opacity: 1}, 4000).easing(TWEEN.Easing.Quadratic.InOut).delay(4100).start();
+
+				var anim1Bloom = new TWEEN.Tween(bloomPass).to({strength: 9.7}, 3000).easing(TWEEN.Easing.Quadratic.InOut).delay(500).start();
+		
+				var fortuneCardPosOriginal = fortuneCard.position;
+				var anim2FCardPosNewPosition= {x : 0, y : 0, z : 6};
+				var fortuneCardOut1 = new TWEEN.Tween(fortuneCard.position).to(anim2FCardPosNewPosition, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+				var fortuneCardOut2 = new TWEEN.Tween(fortuneCard.rotation).to({x : 0, y : 0, z : 0}, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+				var fortuneCardOut3 = new TWEEN.Tween(fortuneCard.rotation).to(fortuneCardPosOriginal, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+
+				setTimeout(ShowCard, 5000);
+
+			}
+
+			//GREEN REPEAT
+ 			if ( intersects[ i ].object.id === 36) {
+				sound2startCoin.play();
+				card.style.animation = 'animationFadeOut 3s';
+				setTimeout(function(){card.style.display = "none";}, 2000);
+
+				//TWEEN.removeAll();
+
+				var anim1Bloom2 = new TWEEN.Tween(bloomPass).to({strength: 0.2}, 3000).easing(TWEEN.Easing.Quadratic.InOut).start();
+				fortuneCard.position.set(-0.73,-1.74,0.94);
+				//var fortuneCardPosOriginal = fortuneCard.position;
+				//var anim2FCardPosNewPosition= {x : 0, y : 0, z : 6};
+
+				var fortuneCardOut1 = new TWEEN.Tween(fortuneCard.position).to({x : 0, y : 0, z : 6}, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(4000).start();
+				var fortuneCardOut2 = new TWEEN.Tween(fortuneCard.rotation).to({x : 0, y : 0, z : 6}, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(4000).start();
+				var fortuneCardOut3 = new TWEEN.Tween(fortuneCard.rotation).to({x : 1, y : 3, z : 0}, 1500).easing(TWEEN.Easing.Quadratic.In).delay(4000).start();
+
+				setTimeout(ShowCard, 5000);
+
+				var anim1ShowHintText =  new TWEEN.Tween(textHint.style).to({opacity: 0}, 3000).easing(TWEEN.Easing.Quadratic.InOut).start();
+				var anim1ShowHintText =  new TWEEN.Tween(textHint.style).to({opacity: 1}, 3000).easing(TWEEN.Easing.Quadratic.InOut).delay(3100).start();
+			}   
+		} 
+	}
+	document.addEventListener( 'pointerdown', onPointerDown );
+
+
+	var card = document.querySelector('.flip-card');
+	card.addEventListener('click', function () {
+		//card.classList.toggle('is-flipped');
+	});
+
+	function ShowCard() {
+		randomCard();
+		card.style.display = "block";
+		card.style.animation = 'animationFadeIn 5s';
+		//setTimeout(function(){card.style.display = "none";}, 3000);
+		fortuneCard.position.set(-0.71,-1.79,0.901);
+		fortuneCard.rotation.set(-0.001,-0.03,0.02);
+
+		anim1PulseButtonRepeat = new TWEEN.Tween(greenAnimMat).to({ opacity: 1 }, 1000).easing(TWEEN.Easing.Quadratic.InOut);
+		anim1PulseButtonRepeat.yoyo(true);
+		anim1PulseButtonRepeat.repeat(Infinity);
+		//anim1PulseButtonRepeat.delay(2000);
+		anim1PulseButtonRepeat.start();
+
+		var anim1BloomRepeat = new TWEEN.Tween(bloomPass).to({strength: 9.99}, 3000).easing(TWEEN.Easing.Quadratic.InOut).start();
+	}
+
+
+	var btn2_var = document.getElementById("popup1");
+	btn2_var.addEventListener('click', function()  {
+		
+		popup1.style.animation = 'animationFadeOut 3s';
+
+		var anim1Bloom = new TWEEN.Tween(bloomPass).to({strength: 9.7}, 3000).easing(TWEEN.Easing.Quadratic.InOut).delay(2000).start();
+		
+		var fortuneCardPosOriginal = fortuneCard.position;
+		var anim2FCardPosNewPosition= {x : 0, y : 0, z : 6};
+		var fortuneCardOut1 = new TWEEN.Tween(fortuneCard.position).to(anim2FCardPosNewPosition, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+		var fortuneCardOut2 = new TWEEN.Tween(fortuneCard.rotation).to({x : 0, y : 0, z : 0}, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+		var fortuneCardOut3 = new TWEEN.Tween(fortuneCard.rotation).to(fortuneCardPosOriginal, 1500).easing(TWEEN.Easing.Quadratic.Out).delay(3800).start();
+
+		setTimeout(ShowCard, 5000);
+		//setTimeout (hideCardMesh, 4000);
+		//setTimeout (showTryAgain, 10000);
+		//setTimeout("sound2startSwoosh.play()", 1200);
+		//setTimeout(swooshAndStopPulseRed(), 4000);
+		popup1.style.display = "none";
+	});
+
+	console.clear()
+
+</script>
+	
+
+
+
+
+
+<div id="popup1">
+	Follow us on Spotify to reveal your fortune… (click to close)
+	<iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:7F5gkuNk8gKIYIQtXJNFAw&size=basic&theme=dark"
+ scrolling="no" frameborder="0" style="border:none; overflow:hidden;" 
+	allowtransparency="true" >
+	</iframe>	
+
+	
+</div>
+
+
+
+</body>
+</html>
