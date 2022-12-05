@@ -1,0 +1,244 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v0.9.33",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Art_com_60X60_Basel_Black_and_Silver002.002",
+            "scale" : [
+                0.8786184191703796,
+                0.8786184191703796,
+                0.8786184191703796
+            ],
+            "translation" : [
+                0,
+                0.044273100793361664,
+                0
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "chaircolor",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0.5,
+                "roughnessFactor" : 0.20000000298023224
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "chairMaterial",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Art_com_60X60_Basel_Black_and_Silver002.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "TEXCOORD_1" : 3
+                    },
+                    "indices" : 4,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 5,
+                        "NORMAL" : 6,
+                        "TEXCOORD_0" : 7,
+                        "TEXCOORD_1" : 8
+                    },
+                    "indices" : 9,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "chair_color",
+            "uri" : "chair_color.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "iu-2",
+            "uri" : "iu-2.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 4050,
+            "max" : [
+                0.4503326117992401,
+                0.39081868529319763,
+                1.0509196519851685
+            ],
+            "min" : [
+                -0.45611047744750977,
+                -0.4768531322479248,
+                0.191858172416687
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 4050,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 4050,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 4050,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5123,
+            "count" : 11358,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 1822,
+            "max" : [
+                0.3686707019805908,
+                0.8705728650093079,
+                1.093332290649414
+            ],
+            "min" : [
+                -0.33566606044769287,
+                0.05832839012145996,
+                0.3267087936401367
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 1822,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 1822,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 1822,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5123,
+            "count" : 6318,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 48600,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48600,
+            "byteOffset" : 48600
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32400,
+            "byteOffset" : 97200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32400,
+            "byteOffset" : 129600
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 22716,
+            "byteOffset" : 162000
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21864,
+            "byteOffset" : 184716
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21864,
+            "byteOffset" : 206580
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 14576,
+            "byteOffset" : 228444
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 14576,
+            "byteOffset" : 243020
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 12636,
+            "byteOffset" : 257596
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 270232,
+            "uri" : "chair.bin"
+        }
+    ]
+}
