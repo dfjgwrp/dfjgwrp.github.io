@@ -1,0 +1,2408 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Imporant meta information to make the page as rigid as possible on mobiles, to avoid unintentional zooming on the page itself  -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>various mobile devices on three.js by ramikh3d.com</title>
+    
+</head>
+<style>
+
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+* {
+  touch-action: manipulation;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 11px;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#c {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.loading {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#DefaultCustomizeTopBase {
+	position: absolute;
+	top: 0%;
+	display: block;
+	z-index: 10;
+	color: white;
+	margin-top: 1em;
+}
+
+
+
+
+
+.loader{
+  -webkit-perspective: 120px;
+  -moz-perspective: 120px;
+  -ms-perspective: 120px;
+  perspective: 120px;
+  width: 100px;
+  height: 100px;
+}
+
+.loader:before{
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  width: 50px;
+  height: 50px;
+  background-color: orange;
+  animation: flip 1s infinite;
+}
+
+
+
+
+.flexbox_1{
+  display:flex;
+  justify-content:center;
+
+}
+
+
+@keyframes flip {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(180deg)  rotateX(180deg);
+  }
+}
+
+#form1 {
+
+margin-top:-2em;
+margin-left:-22em;
+position: fixed;
+
+}
+
+</style>
+
+
+
+<body onload="onloadIPHONE_SE(); onloadIPAD_PRO(); onloadAppleWatch_6();  onloadGoogle_Pixel5()">
+  
+<!--PRELOADER-->
+<div class="loading" id="js-loader">
+	<div class="loader"></div>
+</div>
+
+
+<!--3D FRAME-->
+<div class="wrapper">
+	<canvas id="c"></canvas>
+</div>
+
+
+<!--UI-->
+<div class="flexbox_1">
+<div align="center" id="DefaultCustomizeTopBase" >
+<input id="userImage" type="file" style="margin-left: 4em;"/>
+<!--UI selector-->
+<form id="form1" method="post">
+<label style="color:black;font-family:sans;font-size:1em;">Select device:</label>
+<select id="theSelector" onchange="setSelectorSource()"> 
+	<option value="iPhone12Pro">iPhone 12 Pro</option>
+	<option value="GooglePixel5">Google Pixel 5</option>  
+  <option value="AppleWatch6">Apple Watch 6 Solo Loop</option> 
+  <option value="iPhone11">iPhone 11 Pro</option> 
+  <option value="iPhoneSE">iPhone SE</option> 
+  <option value="iPadPro">iPad Pro</option> 
+</select>
+</form>
+
+
+<!-- The main Three.js file -->
+<script src="../threejs/build_r132/build/three.min.js"></script>
+<script src="../threejs/build_r132/examples/js/controls/OrbitControls.js"></script>
+<script src="../threejs/build_r132/examples/js/loaders/GLTFLoader.js"></script>
+<script src="../threejs/dat.gui.min.js"></script>
+<script>
+let scene,
+renderer,
+camera,
+model,                              
+loaderAnim = document.getElementById('js-loader');
+let controls;
+
+const canvas = document.querySelector('#c');
+const backgroundColor = 0xFFFFFF;
+
+// Init the scene
+scene = new THREE.Scene();
+scene.background = new THREE.Color(backgroundColor);
+//  scene.fog = new THREE.Fog(backgroundColor, 60, 100);
+
+// Init the renderer
+renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.shadowMap.enabled = false;
+//renderer.shadowMapSoft = true;
+renderer.setPixelRatio(window.devicePixelRatio);
+document.body.appendChild(renderer.domElement);
+
+// Add a camera
+camera = new THREE.PerspectiveCamera(
+15,
+window.innerWidth / window.innerHeight,
+0.2,
+1000
+);
+camera.position.z = 90 
+camera.position.x = 25;
+camera.position.y = 24;
+
+controls = new THREE.OrbitControls(camera, canvas);
+controls.enableDamping = true; 
+controls.dampingFactor = 0.09;
+
+/*
+controls.target.set(-0, -0.1, 0);
+controls.minDistance = 49.1;
+controls.maxDistance = 90.4; //5
+controls.enablePan = true;
+controls.enableDamping = true; 
+controls.dampingFactor = 0.05;
+controls.screenSpacePanning = true;
+controls.panSpeed = 0.3;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.4;
+//controls.maxPolarAngle = Math.PI / 2;
+controls.enableKeys = false;
+*/
+//When mouse up, autorotate stops
+document.getElementById('c').addEventListener('mouseup',myOnMouseUpFunction ,false);
+function myOnMouseUpFunction( ) {
+//console.log('mouseup');
+controls.autoRotate = false;
+}
+
+//When right click occurs, camera gets back to its origin target after 0.1 second
+document.getElementById('c').addEventListener('contextmenu',myOnMouseMoveFunction ,false);
+function myOnMouseMoveFunction( ) {
+console.log('dragend');
+setTimeout(function(){ 	controls.target.set(-0, -0.1, 0); }, 100);
+}
+
+
+const textureCube = new THREE.CubeTextureLoader()
+.load([
+'img/px.png',
+'img/nx.png',
+'img/py.png',
+'img/ny.png',
+'img/pz.png',
+'img/nz.png',
+]);
+
+const loader = new THREE.TextureLoader();
+
+
+// Add lights
+let hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.81);
+hemiLight.position.set(0, 90, 0);
+// Add hemisphere light to scene
+scene.add(hemiLight);
+
+let d = 8.25;
+let dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+dirLight.position.set(-8, 12, 8);
+dirLight.castShadow = false;
+//dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+dirLight.shadow.camera.near = 0.1;
+dirLight.shadow.camera.far = 1500;
+dirLight.shadow.camera.left = d * -1;
+dirLight.shadow.camera.right = d;
+dirLight.shadow.camera.top = d;
+dirLight.shadow.camera.bottom = d * -1;
+// Add directional Light to scene
+scene.add(dirLight);
+
+
+function updateLight() {
+dirLight.target.updateMatrixWorld();
+helper.update();
+}
+
+
+class ColorGUIHelper {
+constructor(material, prop) {
+this.material = material;
+this.prop = prop;
+}
+get value() {
+return `#${this.material[this.prop].getHexString()}`;
+}
+set value(hexString) {
+this.material[this.prop].set(hexString);
+}
+}
+
+function makeXYZGUI(gui, vector3, name, onChangeFn) {
+const folder = gui.addFolder(name);
+folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
+folder.add(vector3, 'y', -10, 10).onChange(onChangeFn);
+folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
+folder.open();
+}
+//const guiUniv = new dat.GUI();
+const gltfLoader = new THREE.GLTFLoader();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// iPhone_SE
+var groupiPhone_SE = new THREE.Group();
+//const metalME = loader.load('img/SparkleNoiseMap.jpg');
+const wallpaper = loader.load('iPhone_SE/wallpaper.jpg');
+wallpaper.flipY = false;
+const cameraNRM = loader.load('iPhone_SE/iPhone_SE_2020_Normal.png');
+cameraNRM.flipY = false;
+const cameraSPEC = loader.load('iPhone_SE/iPhone_SE_2020_Reflect.png');
+cameraSPEC.flipY = false;
+//const shadowTexture = loader.load('img/shadow.jpg');
+//shadowTexture.flipY = false;
+const glareTexture = loader.load('iPhone_SE/glare.png');
+glareTexture.flipY = false;
+
+
+const greyCar = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+//metalness: 1,
+roughness: 0.15,
+} );
+
+const greyCarClear = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.2,
+} );
+
+const lightGretDecor = new THREE.MeshPhongMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xFFFFFF,
+metalness: 0.2,
+roughness: 0.35,
+} );
+
+const shineMetal = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+const blackPlastic = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+envMap: textureCube,
+} );
+
+
+let displayMat_iPhone_SE = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+
+const whitePlastic = new THREE.MeshBasicMaterial( { 
+color: 0xFFFFFF,
+//envMap: textureCube,
+} );
+
+
+const cameraMat = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraSPEC,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+normalMap: cameraNRM,
+specularMap : cameraSPEC,
+} );
+
+
+const glassDetailsMat = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.7, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+
+const metalDetailsMat = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 2,
+roughness: 0,
+color: 0xFFFFFF,
+envMap: textureCube,
+normalMap: cameraNRM,
+} );
+
+const shadowMat = new THREE.MeshPhysicalMaterial( { 
+//map: shadowTexture,
+color: 0xFFFFFF
+} );
+
+
+const glareMat = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+
+
+
+function onloadIPHONE_SE() {
+setTimeout(
+function load_iPhone_SE_models() {
+
+ gltfLoader.load('iPhone_SE/iphoneSE.glb', (gltf) => {
+
+	camerasGlass = gltf.scene.children[0];
+	camerasGlass.material = glassDetailsMat;
+
+	backPlate = gltf.scene.children[1];
+	backPlate.material = greyCar;
+
+	backGlass = gltf.scene.children[2];
+	backGlass.material = glassDetailsMat;
+				
+	frontGlass = gltf.scene.children[3];
+	frontGlass.material = glassDetailsMat;	
+	
+	plasticrim = gltf.scene.children[4];
+	plasticrim.material = greyCar;	
+	
+	frontpanel = gltf.scene.children[5];
+	frontpanel.material = greyCarClear;
+
+	button_right = gltf.scene.children[6];
+	button_right.material = greyCar;	
+
+	button_left = gltf.scene.children[7];
+	button_left.material = greyCar;
+
+	backCamera = gltf.scene.children[8];
+	backCamera.material = cameraMat;
+
+	frontCamera = gltf.scene.children[9];
+	frontCamera.material = cameraMat;
+
+	metalDetails = gltf.scene.children[10];
+	metalDetails.material = metalDetailsMat;
+	
+	display = gltf.scene.children[11];
+	display.material = displayMat_iPhone_SE;
+
+	logo = gltf.scene.children[12];
+	logo.material = greyCarClear;
+
+//	scene.add(camerasGlass, backPlate, backGlass,frontGlass, plasticrim, frontpanel, button_right, button_left, backCamera, frontCamera, metalDetails, display, logo);
+
+  loaderAnim.remove();
+//	scene.add(groupiPhone_SE);
+	groupiPhone_SE.add(camerasGlass, backPlate, backGlass,frontGlass, plasticrim, frontpanel, button_right, button_left, backCamera, frontCamera, metalDetails, display, logo);
+});
+
+
+/*
+function myClick() {
+  setTimeout(
+    function() {
+      document.getElementById('div1').style.display='none';
+    }, 5000);
+}
+*/
+
+gltfLoader.load('iPhone_SE/glare.glb', (Zgltf) => {
+	glarePlane = Zgltf.scene.children[0];
+	glarePlane.material = glareMat;
+//	scene.add(glarePlane);
+	groupiPhone_SE.add(glarePlane);
+});
+
+}, 1000);
+}
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_iPhone_SE = e.target.files[0];     
+		var userImageURL_iPhone_SE = URL.createObjectURL( userImage_iPhone_SE );
+		loader.setCrossOrigin("");
+		var textureU_iPhone_SE = loader.load(userImageURL_iPhone_SE, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_iPhone_SE.flipY = false;
+		textureU_iPhone_SE.rotation = 1.58;
+		textureU_iPhone_SE.center.y = 0.5;
+		textureU_iPhone_SE.center.x = 0.5;
+		displayMat_iPhone_SE.map = textureU_iPhone_SE;
+		groupiPhone_SE.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		groupiPhone_SE.rotation.z = -389.545;
+		textureU_iPhone_SE.flipY = false;
+		displayMat_iPhone_SE.map = textureU_iPhone_SE;
+		}
+
+		});
+
+}); 
+
+
+const gui_iPhone_SE = new dat.GUI();
+gui_iPhone_SE.domElement.id = 'guiIphoneSE';
+gui_iPhone_SE.addColor(new ColorGUIHelper(greyCar, 'color'), 'value').name('color');
+gui_iPhone_SE.add( glassDetailsMat, 'roughness', 0.01, 0.3 );
+gui_iPhone_SE.add( glareMat, 'opacity', 0.01, 0.9 );
+guiIphoneSE.style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//iPadPRO
+const wallpaper_iPadPRO = loader.load('iPadPRO/wallpaper.jpg');
+wallpaper_iPadPRO.flipY = false;
+const cameraNRM_iPadPRO = loader.load('iPadPRO/camera_nrm.jpg');
+cameraNRM_iPadPRO.flipY = false;
+const cameraSPEC_iPadPRO = loader.load('iPadPRO/Camera.jpg');
+cameraSPEC_iPadPRO.flipY = false;
+const glareTexture_iPadPRO = loader.load('iPadPRO/glare.png');
+glareTexture_iPadPRO.flipY = false;
+let group_iPadPRO = new THREE.Group();
+
+let camerasGlass_iPadPRO, backPlate_iPadPRO, frontpanel_iPadPRO, display_iPadPRO, button1_iPadPRO, bottom_details_iPadPRO, back_details_iPadPRO, logo_iPadPRO, logo2_iPadPRO, logo3_iPadPRO, bottom_details2_iPadPRO, GlassAroundCamera_iPadPRO, blackInside_iPadPRO, backCamera_iPadPRO, back_details2_iPadPRO, back_details3_iPadPRO, button2_iPadPRO, front_details_iPadPRO, LiDar_iPadPRO, camerasGlassFront_iPadPRO, camerasGlassFront2_iPadPRO, camerasGlassFront3_iPadPRO, camerasGlassFront4_iPadPRO, camerasGlassFront5_iPadPRO, frontCamera_iPadPRO, fronCamera2_iPadPRO, flash1_iPadPRO;
+let greyCar_iPadPRO,greyCarDark_iPadPRO,greyCarClear_iPadPRO,greyCarClearFront_iPadPRO,greyCarClearFront2_iPadPRO,lightGretDecor_iPadPRO,shineMetal_iPadPRO,blackPlastic_iPadPRO, displayMat_iPadPRO,cameraMat_iPadPRO, glassDetailsMat_iPadPRO, metalDetailsMat_iPadPRO, shadowMat_iPadPRO, glareMat_iPadPRO;
+
+
+
+
+greyCar_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x84858a,
+//metalness: 1,
+roughness: 0.2,
+} );
+
+greyCarDark_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+//metalness: 1,
+roughness: 0.15,
+} );
+
+
+greyCarClear_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x84858a,
+metalness: 1,
+roughness: 0.1,
+} );
+
+greyCarClearFront_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+greyCarClearFront2_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.05,
+} );
+
+lightGretDecor_iPadPRO = new THREE.MeshPhongMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xFFFFFF,
+metalness: 0.2,
+roughness: 0.35,
+} );
+
+
+shineMetal_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+
+
+blackPlastic_iPadPRO = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+envMap: textureCube,
+} );
+
+
+ displayMat_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper_iPadPRO,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+
+cameraMat_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraSPEC_iPadPRO,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+normalMap: cameraNRM_iPadPRO,
+specularMap : cameraSPEC_iPadPRO,
+} );
+
+
+ glassDetailsMat_iPadPRO = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.7, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+
+ metalDetailsMat_iPadPRO = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 2,
+roughness: 0,
+color: 0xFFFFFF,
+envMap: textureCube,
+normalMap: cameraNRM,
+} );
+
+ shadowMat_iPadPRO = new THREE.MeshPhysicalMaterial( { 
+//map: shadowTexture,
+color: 0xFFFFFF
+} );
+
+
+ glareMat_iPadPRO = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture_iPadPRO,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+
+
+
+
+function onloadIPAD_PRO() {
+setTimeout(
+function load_iPad_PRO_models() {
+
+//IPAD PRO
+gltfLoader.load('iPadPRO/ipadPro2020.glb', (gltf) => {
+
+	camerasGlass_iPadPRO = gltf.scene.children[0];
+	camerasGlass_iPadPRO.material = glassDetailsMat_iPadPRO;
+
+	backPlate_iPadPRO = gltf.scene.children[1];
+	backPlate_iPadPRO.material = greyCar_iPadPRO;
+
+	frontpanel_iPadPRO = gltf.scene.children[2];
+	frontpanel_iPadPRO.material = greyCarClearFront_iPadPRO;
+
+	display_iPadPRO = gltf.scene.children[3];
+	display_iPadPRO.material = displayMat_iPadPRO;
+
+	button1_iPadPRO = gltf.scene.children[4];
+	button1_iPadPRO.material = greyCar_iPadPRO;
+
+	bottom_details_iPadPRO = gltf.scene.children[5];
+	bottom_details_iPadPRO.material = shineMetal_iPadPRO;
+
+	back_details_iPadPRO = gltf.scene.children[6];
+	back_details_iPadPRO.material = greyCarDark_iPadPRO;
+
+	logo_iPadPRO = gltf.scene.children[7];
+	logo_iPadPRO.material = greyCarClear_iPadPRO;
+
+	logo2_iPadPRO = gltf.scene.children[8];
+	logo2_iPadPRO.material = greyCarClear_iPadPRO;
+
+	logo3_iPadPRO = gltf.scene.children[9];
+	logo3_iPadPRO.material = greyCarClear_iPadPRO;
+
+	bottom_details2_iPadPRO = gltf.scene.children[10];
+	bottom_details2_iPadPRO.material = lightGretDecor_iPadPRO;
+	
+	GlassAroundCamera_iPadPRO = gltf.scene.children[11];
+	GlassAroundCamera_iPadPRO.material = glassDetailsMat_iPadPRO;
+	
+	blackInside_iPadPRO = gltf.scene.children[12];
+	blackInside_iPadPRO.material = blackPlastic_iPadPRO;
+
+	backCamera_iPadPRO = gltf.scene.children[13];
+	backCamera_iPadPRO.material = cameraMat_iPadPRO;
+
+	back_details2_iPadPRO = gltf.scene.children[14];
+	back_details2_iPadPRO.material = greyCarClear_iPadPRO;
+
+	back_details3_iPadPRO = gltf.scene.children[15];
+	back_details3_iPadPRO.material = greyCarClear_iPadPRO;
+
+	button2_iPadPRO = gltf.scene.children[16];
+	button2_iPadPRO.material = greyCar_iPadPRO;
+
+	front_details_iPadPRO = gltf.scene.children[17];
+	front_details_iPadPRO.material = greyCarClear_iPadPRO;
+
+	LiDar_iPadPRO = gltf.scene.children[18];
+	LiDar_iPadPRO.material = greyCarClear_iPadPRO;
+
+	camerasGlassFront_iPadPRO = gltf.scene.children[19];
+	camerasGlassFront_iPadPRO.material = greyCarClearFront2_iPadPRO;
+
+	camerasGlassFront2_iPadPRO = gltf.scene.children[20];
+	camerasGlassFront2_iPadPRO.material = greyCarClearFront2_iPadPRO;
+
+	camerasGlassFront3_iPadPRO = gltf.scene.children[21];
+	camerasGlassFront3_iPadPRO.material = greyCarClearFront2_iPadPRO;
+
+	camerasGlassFront4_iPadPRO = gltf.scene.children[22];
+	camerasGlassFront4_iPadPRO.material = glassDetailsMat_iPadPRO;
+
+	camerasGlassFront5_iPadPRO = gltf.scene.children[23];
+	camerasGlassFront5_iPadPRO.material = greyCarClearFront2_iPadPRO;
+
+	frontCamera_iPadPRO = gltf.scene.children[24];
+	frontCamera_iPadPRO.material = displayMat_iPadPRO;
+
+	fronCamera2_iPadPRO = gltf.scene.children[25];
+	fronCamera2_iPadPRO.material = greyCarClearFront_iPadPRO;
+
+	flash1_iPadPRO = gltf.scene.children[26];
+	flash1_iPadPRO.material = cameraMat_iPadPRO;
+
+
+//	scene.add(camerasGlass_iPadPRO, backPlate_iPadPRO, frontpanel_iPadPRO, display_iPadPRO, button1_iPadPRO, bottom_details_iPadPRO, back_details_iPadPRO, logo_iPadPRO, logo2_iPadPRO, logo3_iPadPRO, bottom_details2_iPadPRO, GlassAroundCamera_iPadPRO, blackInside_iPadPRO, backCamera_iPadPRO, back_details2_iPadPRO, back_details3_iPadPRO, button2_iPadPRO, front_details_iPadPRO, LiDar_iPadPRO, camerasGlassFront_iPadPRO, camerasGlassFront2_iPadPRO, camerasGlassFront3_iPadPRO, camerasGlassFront4_iPadPRO, camerasGlassFront5_iPadPRO, frontCamera_iPadPRO, fronCamera2_iPadPRO, flash1_iPadPRO);
+
+loaderAnim.remove();
+
+
+group_iPadPRO.add(camerasGlass_iPadPRO, backPlate_iPadPRO, frontpanel_iPadPRO, display_iPadPRO, button1_iPadPRO, bottom_details_iPadPRO, back_details_iPadPRO, logo_iPadPRO, logo2_iPadPRO, logo3_iPadPRO, bottom_details2_iPadPRO, GlassAroundCamera_iPadPRO, blackInside_iPadPRO, backCamera_iPadPRO, back_details2_iPadPRO, back_details3_iPadPRO, button2_iPadPRO, front_details_iPadPRO, LiDar_iPadPRO, camerasGlassFront_iPadPRO, camerasGlassFront2_iPadPRO, camerasGlassFront3_iPadPRO, camerasGlassFront4_iPadPRO, camerasGlassFront5_iPadPRO, frontCamera_iPadPRO, fronCamera2_iPadPRO, flash1_iPadPRO);
+//scene.add(group_iPadPRO);
+
+});
+
+
+gltfLoader.load('iPadPRO/glare.glb', (Zgltf) => {
+	glarePlane_iPadPRO = Zgltf.scene.children[0];
+	glarePlane_iPadPRO.material = glareMat_iPadPRO;
+	group_iPadPRO.add(glarePlane_iPadPRO);
+
+});
+
+}, 1000);}
+
+
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_iPadPRO = e.target.files[0];     
+		var userImageURL_iPadPRO = URL.createObjectURL( userImage_iPadPRO );
+		loader.setCrossOrigin("");
+		var textureU_iPadPRO = loader.load(userImageURL_iPadPRO, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_iPadPRO.flipY = false;
+		textureU_iPadPRO.rotation = 1.58;
+		textureU_iPadPRO.center.y = 0.5;
+		textureU_iPadPRO.center.x = 0.5;
+		displayMat_iPadPRO.map = textureU_iPadPRO;
+		group_iPadPRO.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		group_iPadPRO.rotation.z = -389.545;
+		textureU_iPadPRO.flipY = false;
+		displayMat_iPadPRO.map = textureU_iPadPRO;
+		}
+
+		});
+
+}); 
+
+const gui_iPadPRO = new dat.GUI();
+gui_iPadPRO.domElement.id = 'guiIPadPro';
+gui_iPadPRO.addColor(new ColorGUIHelper(greyCar_iPadPRO, 'color'), 'value').name('color');
+gui_iPadPRO.add( greyCar_iPadPRO, 'roughness', 0.01, 0.3 );
+gui_iPadPRO.add( glareMat_iPadPRO, 'opacity', 0.01, 0.9 );
+guiIPadPro.style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//IPHONE 11
+const wallpaper_iPhone_11 = loader.load('iPhone_11/wallpaper.jpg');
+wallpaper_iPhone_11.flipY = false;
+const cameraTexture_iPhone_11 = loader.load('iPhone_11/Camera.jpg');
+cameraTexture_iPhone_11.flipY = false;
+const cameraFrontTexture_iPhone_11 = loader.load('iPhone_11/AppleiPhone11Profront.jpg');
+cameraFrontTexture_iPhone_11.flipY = false;
+const glareTexture_iPhone_11 = loader.load('iPhone_11/glare.png');
+glareTexture_iPhone_11.flipY = false;
+
+
+const greyCar_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.15,
+} );
+
+
+const greyCarClear_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.2,
+} );
+
+
+const lightGretDecor_iPhone_11 = new THREE.MeshPhongMaterial( { 
+//envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xFFFFFF,
+//metalness: 0.2,
+//roughness: 0.35,
+} );
+
+
+const shineMetal_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+
+
+const blackPlastic_iPhone_11 = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+envMap: textureCube,
+} );
+
+
+let displayMat_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper_iPhone_11,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+
+const whitePlastic_iPhone_11 = new THREE.MeshBasicMaterial( { 
+color: 0xFFFFFF,
+//envMap: textureCube,
+} );
+
+
+const cameraMat_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraTexture_iPhone_11,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+} );
+
+
+const cameraFrontMat_iPhone_11 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraFrontTexture_iPhone_11,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+} );
+
+const glassDetailsMat_iPhone_11 = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.7, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+const metalDetailsMat_iPhone_11 = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 1,
+roughness: 0,
+color: 0xDDDDDD,
+envMap: textureCube,
+} );
+
+
+
+const glareMat_iPhone_11 = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture_iPhone_11,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+
+
+    
+var group_iPhone_11 = new THREE.Group();
+let backPlate_iPhone_11, display_iPhone_11, frame_iPhone_11, buttons_iPhone_11, button1_iPhone_11, button2_iPhone_11, frontpanel_iPhone_11, plasticrim_iPhone_11, cameras_iPhone_11, camerasGlass_iPhone_11, metaldetail1_iPhone_11, GlassAroundCamera_iPhone_11, metaldetail2front_iPhone_11, frontCamera_iPhone_11, frontCameraGlass_iPhone_11, metaldetail3bottom_iPhone_11, metaldetail4bottomBolt_iPhone_11, metaldetail5bottom_iPhone_11, logo_iPhone_11;
+
+
+gltfLoader.load('iPhone_11/iphone11.glb', (gltf) => {
+
+	backPlate_iPhone_11 = gltf.scene.children[1];
+	backPlate_iPhone_11.material = greyCar_iPhone_11;
+	
+	display_iPhone_11 = gltf.scene.children[0];
+	display_iPhone_11.material = displayMat_iPhone_11;
+	
+	frame_iPhone_11 = gltf.scene.children[2];
+	frame_iPhone_11.material = greyCar_iPhone_11;
+	
+	buttons_iPhone_11 = gltf.scene.children[3];
+	buttons_iPhone_11.material = shineMetal_iPhone_11;
+	
+	button1_iPhone_11 = gltf.scene.children[4];
+	button1_iPhone_11.material = shineMetal_iPhone_11;
+	
+	button2_iPhone_11 = gltf.scene.children[5];
+	button2_iPhone_11.material = blackPlastic_iPhone_11;
+	
+	frontpanel_iPhone_11 = gltf.scene.children[6];
+	frontpanel_iPhone_11.material = greyCarClear_iPhone_11;
+	
+	plasticrim_iPhone_11 = gltf.scene.children[7];
+	plasticrim_iPhone_11.material = lightGretDecor_iPhone_11;
+		
+	cameras_iPhone_11 = gltf.scene.children[8];
+	cameras_iPhone_11.material = cameraMat_iPhone_11;
+		
+	camerasGlass_iPhone_11 = gltf.scene.children[9];
+	camerasGlass_iPhone_11.material = glassDetailsMat_iPhone_11;
+	
+	metaldetail1_iPhone_11 = gltf.scene.children[10];
+	metaldetail1_iPhone_11.material = metalDetailsMat_iPhone_11;
+	
+	GlassAroundCamera_iPhone_11 = gltf.scene.children[11];
+	GlassAroundCamera_iPhone_11.material = glassDetailsMat_iPhone_11;
+		
+	metaldetail2front_iPhone_11 = gltf.scene.children[12];
+	metaldetail2front_iPhone_11.material = metalDetailsMat_iPhone_11;
+		
+	frontCamera_iPhone_11 = gltf.scene.children[13];
+	frontCamera_iPhone_11.material = cameraFrontMat_iPhone_11;
+				
+	frontCameraGlass_iPhone_11 = gltf.scene.children[14];
+	frontCameraGlass_iPhone_11.material = glassDetailsMat_iPhone_11;
+					
+	metaldetail3bottom_iPhone_11 = gltf.scene.children[15];
+	metaldetail3bottom_iPhone_11.material = metalDetailsMat_iPhone_11;
+						
+	metaldetail4bottomBolt_iPhone_11 = gltf.scene.children[16];
+	metaldetail4bottomBolt_iPhone_11.material = metalDetailsMat_iPhone_11;
+					
+	metaldetail5bottom_iPhone_11 = gltf.scene.children[17];
+	metaldetail5bottom_iPhone_11.material = shineMetal_iPhone_11;
+						
+	logo_iPhone_11 = gltf.scene.children[18];
+	logo_iPhone_11.material = greyCarClear_iPhone_11;
+							
+
+	scene.add(backPlate_iPhone_11, display_iPhone_11, frame_iPhone_11, buttons_iPhone_11, button1_iPhone_11, button2_iPhone_11, frontpanel_iPhone_11, plasticrim_iPhone_11, cameras_iPhone_11, camerasGlass_iPhone_11, metaldetail1_iPhone_11, GlassAroundCamera_iPhone_11, metaldetail2front_iPhone_11, frontCamera_iPhone_11, frontCameraGlass_iPhone_11, metaldetail3bottom_iPhone_11, metaldetail4bottomBolt_iPhone_11, metaldetail5bottom_iPhone_11, logo_iPhone_11);
+
+  loaderAnim.remove();
+
+group_iPhone_11.add(backPlate_iPhone_11, display_iPhone_11, frame_iPhone_11, buttons_iPhone_11, button1_iPhone_11, button2_iPhone_11, frontpanel_iPhone_11, plasticrim_iPhone_11, cameras_iPhone_11, camerasGlass_iPhone_11, metaldetail1_iPhone_11, GlassAroundCamera_iPhone_11, metaldetail2front_iPhone_11, frontCamera_iPhone_11, frontCameraGlass_iPhone_11, metaldetail3bottom_iPhone_11, metaldetail4bottomBolt_iPhone_11, metaldetail5bottom_iPhone_11, logo_iPhone_11);
+//scene.add(group_iPhone_11);
+
+
+});
+
+
+gltfLoader.load('iPhone_11/glare.glb', (Zgltf) => {
+
+	glarePlane_iPhone_11 = Zgltf.scene.children[0];
+	glarePlane_iPhone_11.material = glareMat_iPhone_11;
+	scene.add(glarePlane_iPhone_11);
+	group_iPhone_11.add(glarePlane_iPhone_11);
+
+});
+
+
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_iPhone_11 = e.target.files[0];     
+		var userImageURL_iPhone_11 = URL.createObjectURL( userImage_iPhone_11 );
+		loader.setCrossOrigin("");
+		var textureU_iPhone_11 = loader.load(userImageURL_iPhone_11, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_iPhone_11.flipY = false;
+		textureU_iPhone_11.rotation = 1.58;
+		textureU_iPhone_11.center.y = 0.5;
+		textureU_iPhone_11.center.x = 0.5;
+		displayMat_iPhone_11.map = textureU_iPhone_11;
+		group_iPhone_11.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		group_iPhone_11.rotation.z = -389.545;
+		textureU_iPhone_11.flipY = false;
+		displayMat_iPhone_11.map = textureU_iPhone_11;
+		}
+
+
+		});
+
+}); 
+
+
+
+const gui_iPhone_11 = new dat.GUI();
+gui_iPhone_11.addColor(new ColorGUIHelper(greyCar_iPhone_11, 'color'), 'value').name('color');
+gui_iPhone_11.add( greyCar_iPhone_11, 'roughness', 0.01, 0.3 );
+gui_iPhone_11.add( glareMat_iPhone_11, 'opacity', 0.01, 0.9 );
+gui_iPhone_11.domElement.id = 'guiiPhone11';
+guiiPhone11.style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Apple Whatch 6
+const wallpaper_AppleWatch_6 = loader.load('AppleWatch_6/wallpaper.jpg');
+wallpaper_AppleWatch_6.flipY = false;
+const cameraSPEC_AppleWatch_6 = loader.load('AppleWatch_6/Camera.jpg');
+cameraSPEC_AppleWatch_6.flipY = false;
+const glareTexture_AppleWatch_6 = loader.load('AppleWatch_6/glare.png');
+glareTexture_AppleWatch_6.flipY = false;
+const gridTexture_AppleWatch_6 = loader.load('AppleWatch_6/grid.jpg');
+glareTexture_AppleWatch_6.flipY = false;
+let group_AppleWatch_6 = new THREE.Group();
+
+
+let greyCar_AppleWatch_6, greyLoopDark_AppleWatch_6, greyCarClear_AppleWatch_6, greyClearLight_AppleWatch_6, greyMirrorClearLight_AppleWatch_6, greyCarClearFront_AppleWatch_6, greyCarClearFront2_AppleWatch_6,lightGretDecor_AppleWatch_6, shineMetal_AppleWatch_6, redPlastic_AppleWatch_6, displayMat_AppleWatch_6, cameraMat_AppleWatch_6, glassDetailsMat_AppleWatch_6, metalDetailsMat_AppleWatch_6, glareMat_AppleWatch_6, gridFrontMat_AppleWatch_6;
+
+
+
+
+greyCar_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+//color: 0xff0000,
+metalness: 0.8,
+roughness: 0.3,
+} );
+
+greyLoopDark_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x353537,
+//metalness: 1,
+roughness: 1.2,
+} );
+
+
+greyCarClear_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1.2,
+roughness: 0.2,
+} );
+
+greyClearLight_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xffffff,
+metalness: 1.2,
+roughness: 0.1,
+} );
+
+greyMirrorClearLight_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xffffff,
+metalness: 1.2,
+roughness: 0.03,
+} );
+
+
+greyCarClearFront_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x0a0a0a,
+metalness: 0.1,
+roughness: 0,
+} );
+
+greyCarClearFront2_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.05,
+} );
+
+lightGretDecor_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x9e9e9e,
+roughness: 5,
+} );
+
+
+shineMetal_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+
+
+redPlastic_AppleWatch_6 = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+roughness: 1.2,
+metalness: 0.1,
+envMap: textureCube,
+} );
+
+
+displayMat_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper_AppleWatch_6,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+
+cameraMat_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraSPEC_AppleWatch_6,
+metalness: 0.4,
+roughness: 0.6,
+reflectivity: 1,
+specularMap : cameraSPEC_AppleWatch_6,
+} );
+
+
+glassDetailsMat_AppleWatch_6 = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.7, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+
+metalDetailsMat_AppleWatch_6 = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 2,
+roughness: 0,
+color: 0xFFFFFF,
+envMap: textureCube,
+} );
+
+
+gridFrontMat_AppleWatch_6 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: gridTexture_AppleWatch_6,
+metalness: 0.5,
+roughness: 0,
+reflectivity: 1,
+} );
+
+
+
+ glareMat_AppleWatch_6 = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture_AppleWatch_6,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+
+
+
+let loop_AppleWatch_6, framePlane_AppleWatch_6, outlineBlackPlane_AppleWatch_6, displayPlane_AppleWatch_6, BackPlane_AppleWatch_6, grayDetailPlane_AppleWatch_6, grayDetailPlane2_AppleWatch_6, grayDetailPlan3_AppleWatch_6, grayDetailPlane4_AppleWatch_6, buttonDetailPlane_AppleWatch_6, BackRoundPlane_AppleWatch_6, BackRound2Plane_AppleWatch_6, BackCenterPlane_AppleWatch_6, BackLights_AppleWatch_6, BackGlass_AppleWatch_6, BackGlassSensor_AppleWatch_6, BackGrayDecor_AppleWatch_6, frame_AppleWatch_6, frame2_AppleWatch_6, frame3_AppleWatch_6, roundRed_AppleWatch_6, grid_AppleWatch_6, detail1_AppleWatch_6, detail2_AppleWatch_6, detail3_AppleWatch_6, detail4_AppleWatch_6, detail5_AppleWatch_6, detail6_AppleWatch_6, detail7_AppleWatch_6;
+
+
+
+function onloadAppleWatch_6() {
+setTimeout(
+function load_AppleWatch_6_models() {
+
+gltfLoader.load('AppleWatch_6/AppleWatch_6.glb', (gltf) => {
+
+	loop_AppleWatch_6 = gltf.scene.children[0];
+	loop_AppleWatch_6.material = greyLoopDark_AppleWatch_6;
+
+	outlineBlackPlane_AppleWatch_6 = gltf.scene.children[1];
+	outlineBlackPlane_AppleWatch_6.material = greyCarClearFront_AppleWatch_6;
+
+	displayPlane_AppleWatch_6 = gltf.scene.children[2];
+	displayPlane_AppleWatch_6.material = displayMat_AppleWatch_6;
+
+	BackPlane_AppleWatch_6 = gltf.scene.children[3];
+	BackPlane_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	grayDetailPlane_AppleWatch_6 = gltf.scene.children[4];
+	grayDetailPlane_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	grayDetailPlane2_AppleWatch_6 = gltf.scene.children[5];
+	grayDetailPlane2_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	grayDetailPlan3_AppleWatch_6 = gltf.scene.children[6];
+	grayDetailPlan3_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	grayDetailPlane4_AppleWatch_6 = gltf.scene.children[7];
+	grayDetailPlane4_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	buttonDetailPlane_AppleWatch_6 = gltf.scene.children[8];
+	buttonDetailPlane_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	BackRoundPlane_AppleWatch_6 = gltf.scene.children[9];
+	BackRoundPlane_AppleWatch_6.material = greyClearLight_AppleWatch_6;
+
+	BackRound2Plane_AppleWatch_6 = gltf.scene.children[10];
+	BackRound2Plane_AppleWatch_6.material = greyMirrorClearLight_AppleWatch_6;
+
+	BackCenterPlane_AppleWatch_6 = gltf.scene.children[11];
+	BackCenterPlane_AppleWatch_6.material = greyCarClear_AppleWatch_6;
+
+	BackLights_AppleWatch_6 = gltf.scene.children[12];
+	BackLights_AppleWatch_6.material = cameraMat_AppleWatch_6;
+
+	BackGlass_AppleWatch_6 = gltf.scene.children[13];
+	BackGlass_AppleWatch_6.material = glassDetailsMat_AppleWatch_6;
+
+	BackGlassSensor_AppleWatch_6 = gltf.scene.children[14];
+	BackGlassSensor_AppleWatch_6.material = glassDetailsMat_AppleWatch_6;
+
+	BackGrayDecor_AppleWatch_6 = gltf.scene.children[15];
+	BackGrayDecor_AppleWatch_6.material = lightGretDecor_AppleWatch_6;
+
+	frame_AppleWatch_6 = gltf.scene.children[16];
+	frame_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	frame2_AppleWatch_6 = gltf.scene.children[17];
+	frame2_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	frame3_AppleWatch_6 = gltf.scene.children[18];
+	frame3_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	roundRed_AppleWatch_6 = gltf.scene.children[19];
+	roundRed_AppleWatch_6.material = redPlastic_AppleWatch_6;
+
+	grid_AppleWatch_6 = gltf.scene.children[20];
+	grid_AppleWatch_6.material = gridFrontMat_AppleWatch_6;
+
+	detail1_AppleWatch_6 = gltf.scene.children[21];
+	detail1_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail2_AppleWatch_6 = gltf.scene.children[22];
+	detail2_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail3_AppleWatch_6 = gltf.scene.children[23];
+	detail3_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail4_AppleWatch_6 = gltf.scene.children[24];
+	detail4_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail5_AppleWatch_6 = gltf.scene.children[25];
+	detail5_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail6_AppleWatch_6 = gltf.scene.children[26];
+	detail6_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+	detail7_AppleWatch_6 = gltf.scene.children[27];
+	detail7_AppleWatch_6.material = greyCar_AppleWatch_6;
+
+//	scene.add(loop_AppleWatch_6, framePlane_AppleWatch_6);
+
+loaderAnim.remove();
+
+
+group_AppleWatch_6.add(loop_AppleWatch_6, outlineBlackPlane_AppleWatch_6, displayPlane_AppleWatch_6, BackPlane_AppleWatch_6, grayDetailPlane_AppleWatch_6, grayDetailPlane2_AppleWatch_6, grayDetailPlan3_AppleWatch_6, grayDetailPlane4_AppleWatch_6, buttonDetailPlane_AppleWatch_6, BackRoundPlane_AppleWatch_6, BackRound2Plane_AppleWatch_6, BackCenterPlane_AppleWatch_6, BackLights_AppleWatch_6, BackGlass_AppleWatch_6, BackGlassSensor_AppleWatch_6, BackGrayDecor_AppleWatch_6, frame_AppleWatch_6, frame2_AppleWatch_6, frame3_AppleWatch_6, roundRed_AppleWatch_6, grid_AppleWatch_6, detail1_AppleWatch_6, detail2_AppleWatch_6, detail3_AppleWatch_6, detail4_AppleWatch_6, detail5_AppleWatch_6, detail6_AppleWatch_6, detail7_AppleWatch_6);
+//scene.add(group_AppleWatch_6, framePlane_AppleWatch_6);
+
+});
+
+
+gltfLoader.load('AppleWatch_6/glare.glb', (Zgltf) => {
+	glarePlane_AppleWatch_6 = Zgltf.scene.children[0];
+	glarePlane_AppleWatch_6.material = glareMat_AppleWatch_6;
+
+	group_AppleWatch_6.add(glarePlane_AppleWatch_6);
+
+});
+
+}, 1000);}
+
+
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_AppleWatch_6 = e.target.files[0];     
+		var userImageURL_AppleWatch_6 = URL.createObjectURL( userImage_AppleWatch_6 );
+		loader.setCrossOrigin("");
+		var textureU_AppleWatch_6 = loader.load(userImageURL_AppleWatch_6, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_AppleWatch_6.flipY = false;
+		textureU_AppleWatch_6.rotation = 1.58;
+		textureU_AppleWatch_6.center.y = 0.5;
+		textureU_AppleWatch_6.center.x = 0.5;
+		displayMat_AppleWatch_6.map = textureU_AppleWatch_6;
+		group_AppleWatch_6.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		group_AppleWatch_6.rotation.z = -389.545;
+		textureU_AppleWatch_6.flipY = false;
+		displayMat_AppleWatch_6.map = textureU_AppleWatch_6;
+		}
+
+		});
+
+}); 
+
+const gui_AppleWatch_6 = new dat.GUI();
+gui_AppleWatch_6.domElement.id = 'guiAppleWatch_6';
+gui_AppleWatch_6.addColor(new ColorGUIHelper(greyCar_AppleWatch_6, 'color'), 'value').name('color');
+gui_AppleWatch_6.addColor(new ColorGUIHelper(greyLoopDark_AppleWatch_6, 'color'), 'value').name('color');
+gui_AppleWatch_6.add( greyCar_AppleWatch_6, 'roughness', 0.01, 0.3 );
+gui_AppleWatch_6.add( glareMat_AppleWatch_6, 'opacity', 0.01, 0.9 );
+guiAppleWatch_6.style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
+//Google Pixel 5
+const wallpaper_Google_Pixel5 = loader.load('Google_Pixel5/wallpaper.jpg');
+wallpaper_Google_Pixel5.flipY = false;
+const metalME = loader.load('Google_Pixel5/SparkleNoiseMap.jpg');
+metalME.wrapS = THREE.RepeatWrapping;
+metalME.wrapT = THREE.RepeatWrapping;
+metalME.flipY = false;
+const cameraSPEC_Google_Pixel5 = loader.load('Google_Pixel5/Camera.jpg');
+cameraSPEC_Google_Pixel5.flipY = false;
+const glareTexture_Google_Pixel5 = loader.load('Google_Pixel5/glare.png');
+glareTexture_Google_Pixel5.flipY = false;
+
+let group_Google_Pixel5 = new THREE.Group();
+
+
+let greyCar_Google_Pixel5, greyDark_Google_Pixel5, greyCarClear_Google_Pixel5, greyClearLight_Google_Pixel5, greyMirrorClearLight_Google_Pixel5, greyCarClearFront_Google_Pixel5, greyCarClearFront2_Google_Pixel5,lightGretDecor_Google_Pixel5, shineMetal_Google_Pixel5, redPlastic_Google_Pixel5, displayMat_Google_Pixel5, cameraMat_Google_Pixel5, glassDetailsMat_Google_Pixel5, metalDetailsMat_Google_Pixel5, glareMat_Google_Pixel5, gridFrontMat_Google_Pixel5;
+
+
+
+
+greyCar_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xffffff,
+//color: 0xff0000,
+//metalness: 0.8,
+roughness: 0.5,
+} );
+
+greyDark_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//envMapIntensity : 0.5,
+normalMap : metalME ,
+normalScale: new THREE.Vector2( 0.1, 0.1 ),
+color: 0x3f3a3a,
+metalness: 0.2,
+roughness: 0.8,
+} );
+
+
+greyCarClear_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1.2,
+roughness: 0.2,
+} );
+
+greyClearLight_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xffffff,
+metalness: 1.2,
+roughness: 0.1,
+} );
+
+greyMirrorClearLight_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0xffffff,
+metalness: 1.2,
+roughness: 0.03,
+} );
+
+
+greyCarClearFront_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x2d2d2d,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+} );
+
+const blackPlastic_Google_Pixel5 = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+envMap: textureCube,
+} );
+
+
+lightGretDecor_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x9e9e9e,
+roughness: 5,
+} );
+
+
+shineMetal_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0x585151,
+metalness: 1,
+roughness: 0.1,
+} );
+
+
+
+redPlastic_Google_Pixel5 = new THREE.MeshBasicMaterial( { 
+color: 0x000000,
+roughness: 1.2,
+metalness: 0.1,
+envMap: textureCube,
+} );
+
+
+displayMat_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper_Google_Pixel5,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+
+cameraMat_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraSPEC_Google_Pixel5,
+metalness: 0.4,
+roughness: 0.6,
+reflectivity: 1,
+specularMap : cameraSPEC_Google_Pixel5,
+} );
+
+
+glassDetailsMat_Google_Pixel5 = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.7, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+
+metalDetailsMat_Google_Pixel5 = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 2,
+roughness: 0,
+color: 0xFFFFFF,
+envMap: textureCube,
+} );
+
+/* 
+gridFrontMat_Google_Pixel5 = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: gridTexture_Google_Pixel5,
+metalness: 0.5,
+roughness: 0,
+reflectivity: 1,
+} ); */
+
+
+
+glareMat_Google_Pixel5 = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture_Google_Pixel5,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+
+
+
+let backPlane_Google_Pixel5, outlineBlackPlane_Google_Pixel5, displayPlane_Google_Pixel5, BackPlaneCamera_Google_Pixel5, InsideBlack_Google_Pixel5, Bottom2_Google_Pixel5, Bottom1_Google_Pixel5, Logo_Google_Pixel5, GlassBack_Google_Pixel5, BackCamera_Google_Pixel5, FrontCamera_Google_Pixel5, GlassFront_Google_Pixel5/*, BackLights_Google_Pixel5, BackGlass_Google_Pixel5, BackGlassSensor_Google_Pixel5, BackGrayDecor_Google_Pixel5, frame_Google_Pixel5, frame2_Google_Pixel5, frame3_Google_Pixel5, roundRed_Google_Pixel5, grid_Google_Pixel5, detail1_Google_Pixel5, detail2_Google_Pixel5, detail3_Google_Pixel5, detail4_Google_Pixel5, detail5_Google_Pixel5, detail6_Google_Pixel5, detail7_Google_Pixel5 */;
+
+
+
+function onloadGoogle_Pixel5() {
+setTimeout(
+function load_Google_Pixel5_models() {
+
+gltfLoader.load('Google_Pixel5/Google_Pixel5.glb', (gltf) => {
+
+	backPlane_Google_Pixel5 = gltf.scene.children[0];
+	backPlane_Google_Pixel5.material = greyDark_Google_Pixel5;
+ 
+	outlineBlackPlane_Google_Pixel5 = gltf.scene.children[1];
+	outlineBlackPlane_Google_Pixel5.material = greyCarClearFront_Google_Pixel5;
+
+	displayPlane_Google_Pixel5 = gltf.scene.children[2];
+	displayPlane_Google_Pixel5.material = displayMat_Google_Pixel5;
+
+	BackPlaneCamera_Google_Pixel5 = gltf.scene.children[3];
+	BackPlaneCamera_Google_Pixel5.material = greyCarClear_Google_Pixel5;
+
+	InsideBlack_Google_Pixel5 = gltf.scene.children[4];
+	InsideBlack_Google_Pixel5.material = blackPlastic_Google_Pixel5;
+
+	Bottom2_Google_Pixel5 = gltf.scene.children[5];
+	Bottom2_Google_Pixel5.material = greyDark_Google_Pixel5;
+
+	Bottom1_Google_Pixel5 = gltf.scene.children[6];
+	Bottom1_Google_Pixel5.material = greyCar_Google_Pixel5;
+
+	Logo_Google_Pixel5 = gltf.scene.children[7];
+	Logo_Google_Pixel5.material = greyCarClear_Google_Pixel5;
+
+	GlassBack_Google_Pixel5 = gltf.scene.children[8];
+	GlassBack_Google_Pixel5.material = glassDetailsMat_Google_Pixel5;
+
+	BackCamera_Google_Pixel5 = gltf.scene.children[9];
+	BackCamera_Google_Pixel5.material = cameraMat_Google_Pixel5;
+
+	FrontCamera_Google_Pixel5 = gltf.scene.children[10];
+	FrontCamera_Google_Pixel5.material = cameraMat_Google_Pixel5;
+
+	GlassFront_Google_Pixel5 = gltf.scene.children[11];
+	GlassFront_Google_Pixel5.material = glassDetailsMat_Google_Pixel5;
+
+
+//	scene.add(loop_Google_Pixel5, framePlane_Google_Pixel5);
+
+loaderAnim.remove();
+
+
+group_Google_Pixel5.add(backPlane_Google_Pixel5, outlineBlackPlane_Google_Pixel5, displayPlane_Google_Pixel5, BackPlaneCamera_Google_Pixel5, InsideBlack_Google_Pixel5, Bottom2_Google_Pixel5, Bottom1_Google_Pixel5, Logo_Google_Pixel5, GlassBack_Google_Pixel5, BackCamera_Google_Pixel5, FrontCamera_Google_Pixel5, GlassFront_Google_Pixel5);
+//scene.add(group_Google_Pixel5);
+
+});
+
+
+gltfLoader.load('Google_Pixel5/glare.glb', (Zgltf) => {
+	glarePlane_Google_Pixel5 = Zgltf.scene.children[0];
+	glarePlane_Google_Pixel5.material = glareMat_Google_Pixel5;
+
+	group_Google_Pixel5.add(glarePlane_Google_Pixel5);
+
+});
+ 
+}, 1000);}
+
+
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_Google_Pixel5 = e.target.files[0];     
+		var userImageURL_Google_Pixel5 = URL.createObjectURL( userImage_Google_Pixel5 );
+		loader.setCrossOrigin("");
+		var textureU_Google_Pixel5 = loader.load(userImageURL_Google_Pixel5, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_Google_Pixel5.flipY = false;
+		textureU_Google_Pixel5.rotation = 1.58;
+		textureU_Google_Pixel5.center.y = 0.5;
+		textureU_Google_Pixel5.center.x = 0.5;
+		displayMat_Google_Pixel5.map = textureU_Google_Pixel5;
+		group_Google_Pixel5.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		group_Google_Pixel5.rotation.z = -389.545;
+		textureU_Google_Pixel5.flipY = false;
+		displayMat_Google_Pixel5.map = textureU_Google_Pixel5;
+		}
+
+		});
+
+}); 
+
+const gui_Google_Pixel5 = new dat.GUI();
+gui_Google_Pixel5.domElement.id = 'guiGoogle_Pixel5';
+gui_Google_Pixel5.addColor(new ColorGUIHelper(greyCar_Google_Pixel5, 'color'), 'value').name('color');
+gui_Google_Pixel5.addColor(new ColorGUIHelper(greyDark_Google_Pixel5, 'color'), 'value').name('color');
+gui_Google_Pixel5.add( greyDark_Google_Pixel5, 'roughness', 0.3, 0.9 );
+gui_Google_Pixel5.add( glareMat_Google_Pixel5, 'opacity', 0.01, 0.9 );
+guiGoogle_Pixel5.style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//IPHONE 12Pro
+const wallpaper_iPhone_12Pro = loader.load('iPhone_12Pro/wallpaper.jpg');
+wallpaper_iPhone_12Pro.flipY = false;
+const cameraTexture_iPhone_12Pro = loader.load('iPhone_12Pro/Camera.jpg');
+cameraTexture_iPhone_12Pro.flipY = false;
+const cameraFrontTexture_iPhone_12Pro = loader.load('iPhone_12Pro/AppleiPhone11Profront.jpg');
+cameraFrontTexture_iPhone_12Pro.flipY = false;
+const glareTexture_iPhone_12Pro = loader.load('iPhone_12Pro/glare.png');
+glareTexture_iPhone_12Pro.flipY = false;
+const gridTexture_iPhone_12Pro = loader.load('iPhone_12Pro/grid.jpg');
+gridTexture_iPhone_12Pro.flipY = false;
+
+let greyCar_iPhone_12Pro, glassDetailsMat_iPhone_12Pro, metalDetailsMat_iPhone_12Pro, shineMetal_iPhone_12Pro, greyCarClear_iPhone_12Pro, displayMat_iPhone_12Pro, cameraMat_iPhone_12Pro, blackPlastic_iPhone_12Pro, cameraFrontMat_iPhone_12Pro, clearMetal_iPhone_12Pro;
+
+
+greyCar_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.15,
+} );
+
+
+glassDetailsMat_iPhone_12Pro = 
+new THREE.MeshPhysicalMaterial( {
+color: 0x585151, 
+envMap: textureCube, 
+metalness: 1, 
+roughness: 0, 
+transparency: 0.8, 
+transparent: true, 
+//name: 'smoked', 
+//side: THREE.DoubleSide,
+envMap: textureCube,
+} );
+
+
+metalDetailsMat_iPhone_12Pro = 
+new THREE.MeshPhysicalMaterial( { 
+clearcoat: 1.0,
+clearcoatRoughness: 1,
+metalness: 1,
+roughness: 1,
+color: 0xDDDDDD,
+envMap: textureCube,
+} );
+
+
+shineMetal_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0xDDDDDD,
+metalness: 1,
+roughness: 0.3,
+} );
+
+
+clearMetal_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+color: 0xffffff,
+metalness: 0.5,
+roughness: 0.7,
+} );
+
+
+
+greyCarClear_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+//roughnessMap: metalME ,
+color: 0x585151,
+metalness: 1,
+roughness: 0.2,
+} );
+
+
+displayMat_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: wallpaper_iPhone_12Pro,
+metalness: 0.1,
+roughness: 0,
+//emission: 5,
+reflectivity: 1,
+} );
+
+cameraMat_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraTexture_iPhone_12Pro,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+} );
+
+
+blackPlastic_iPhone_12Pro = new THREE.MeshBasicMaterial( { 
+color: 0x222222,
+envMap: textureCube,
+} );
+
+
+cameraFrontMat_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: cameraFrontTexture_iPhone_12Pro,
+metalness: 0.1,
+roughness: 0,
+reflectivity: 1,
+} );
+
+
+gridFrontMat_iPhone_12Pro = new THREE.MeshPhysicalMaterial( { 
+envMap: textureCube,
+map: gridTexture_iPhone_12Pro,
+metalness: 0.5,
+roughness: 0,
+reflectivity: 1,
+} );
+
+
+const glareMat_iPhone_12Pro = 
+new THREE.MeshPhysicalMaterial( {
+map: glareTexture_iPhone_12Pro,
+metalness: 0.1,
+roughness: 0,
+transparency: 0.3, 
+transparent: true, 
+
+} );
+    
+var group_iPhone_12Pro = new THREE.Group();
+
+let backPlate_iPhone_12Pro, GlassAroundCamera_iPhone_12Pro, metaldetail1_iPhone_12Pro, frame_iPhone_12Pro, frame2_iPhone_12Pro, frame3_iPhone_12Pro, frame4_iPhone_12Pro, button1_iPhone_12Pro, frontpanel_iPhone_12Pro, display_iPhone_12Pro, metaldetail2_iPhone_12Pro, cameraPlasticDetail_iPhone_12Pro, cameraPlasticDetail2_iPhone_12Pro, cameraPlasticDetail3_iPhone_12Pro, cameraPlasticDetail4_iPhone_12Pro, minidetail1_iPhone_12Pro, cameras_iPhone_12Pro, camera1_iPhone_12Pro, frontCamera_iPhone_12Pro, frontCamera2_iPhone_12Pro, gridFront_iPhone_12Pro, gridBottom_iPhone_12Pro, bottomDetail_iPhone_12Pro, logo_iPhone_12Pro, button2_iPhone_12Pro, frame5_iPhone_12Pro, frame6_iPhone_12Pro, cameras2_iPhone_12Pro, camera3_iPhone_12Pro, camerasGlass_iPhone_12Pro;
+
+gltfLoader.load('iPhone_12Pro/iphone12Pro.glb', (gltf) => {
+
+	backPlate_iPhone_12Pro = gltf.scene.children[0];
+	backPlate_iPhone_12Pro.material = greyCar_iPhone_12Pro;
+	
+	GlassAroundCamera_iPhone_12Pro = gltf.scene.children[1];
+	GlassAroundCamera_iPhone_12Pro.material = glassDetailsMat_iPhone_12Pro;
+	
+	metaldetail1_iPhone_12Pro = gltf.scene.children[2];
+	metaldetail1_iPhone_12Pro.material = metalDetailsMat_iPhone_12Pro;
+
+	frame_iPhone_12Pro = gltf.scene.children[3];
+	frame_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	frame2_iPhone_12Pro = gltf.scene.children[4];
+	frame2_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	frame3_iPhone_12Pro = gltf.scene.children[5];
+	frame3_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	frame4_iPhone_12Pro = gltf.scene.children[6];
+	frame4_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	button1_iPhone_12Pro = gltf.scene.children[7];
+	button1_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	frontpanel_iPhone_12Pro = gltf.scene.children[8];
+	frontpanel_iPhone_12Pro.material = greyCarClear_iPhone_12Pro;
+	
+	display_iPhone_12Pro = gltf.scene.children[9];
+	display_iPhone_12Pro.material = displayMat_iPhone_12Pro;
+	
+	metaldetail2_iPhone_12Pro = gltf.scene.children[10];
+	metaldetail2_iPhone_12Pro.material = metalDetailsMat_iPhone_12Pro;
+
+	cameraPlasticDetail_iPhone_12Pro = gltf.scene.children[11];
+	cameraPlasticDetail_iPhone_12Pro.material = greyCar_iPhone_12Pro;
+	
+	cameraPlasticDetail2_iPhone_12Pro = gltf.scene.children[12];
+	cameraPlasticDetail2_iPhone_12Pro.material = greyCar_iPhone_12Pro;
+
+	cameraPlasticDetail3_iPhone_12Pro = gltf.scene.children[13];
+	cameraPlasticDetail3_iPhone_12Pro.material = greyCar_iPhone_12Pro;
+	
+	cameraPlasticDetail4_iPhone_12Pro = gltf.scene.children[14];
+	cameraPlasticDetail4_iPhone_12Pro.material = greyCar_iPhone_12Pro;	
+
+	minidetail1_iPhone_12Pro = gltf.scene.children[15];
+	minidetail1_iPhone_12Pro.material = greyCarClear_iPhone_12Pro;
+		
+	cameras_iPhone_12Pro = gltf.scene.children[16];
+	cameras_iPhone_12Pro.material = cameraMat_iPhone_12Pro;
+
+	camera1_iPhone_12Pro = gltf.scene.children[17];
+	camera1_iPhone_12Pro.material = blackPlastic_iPhone_12Pro;
+
+	frontCamera_iPhone_12Pro = gltf.scene.children[18];
+	frontCamera_iPhone_12Pro.material = cameraFrontMat_iPhone_12Pro;
+	
+	frontCamera2_iPhone_12Pro = gltf.scene.children[19];
+	frontCamera2_iPhone_12Pro.material = greyCarClear_iPhone_12Pro;	
+
+	gridFront_iPhone_12Pro = gltf.scene.children[20];
+	gridFront_iPhone_12Pro.material = gridFrontMat_iPhone_12Pro;
+
+	gridBottom_iPhone_12Pro = gltf.scene.children[21];
+	gridBottom_iPhone_12Pro.material = gridFrontMat_iPhone_12Pro;
+
+	bottomDetail_iPhone_12Pro = gltf.scene.children[22];
+	bottomDetail_iPhone_12Pro.material = greyCarClear_iPhone_12Pro;
+	
+	bottomMetalDetail_iPhone_12Pro = gltf.scene.children[23];
+	bottomMetalDetail_iPhone_12Pro.material = clearMetal_iPhone_12Pro;
+
+	logo_iPhone_12Pro = gltf.scene.children[24];
+	logo_iPhone_12Pro.material = glassDetailsMat_iPhone_12Pro;
+
+	button2_iPhone_12Pro = gltf.scene.children[25];
+	button2_iPhone_12Pro.material = greyCarClear_iPhone_12Pro;
+
+	frame5_iPhone_12Pro = gltf.scene.children[26];
+	frame5_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	frame6_iPhone_12Pro = gltf.scene.children[27];
+	frame6_iPhone_12Pro.material = shineMetal_iPhone_12Pro;
+
+	cameras2_iPhone_12Pro = gltf.scene.children[28];
+	cameras2_iPhone_12Pro.material = cameraMat_iPhone_12Pro;
+
+	camera3_iPhone_12Pro = gltf.scene.children[29];
+	camera3_iPhone_12Pro.material = blackPlastic_iPhone_12Pro;
+
+	camerasGlass_iPhone_12Pro = gltf.scene.children[30];
+	camerasGlass_iPhone_12Pro.material = glassDetailsMat_iPhone_12Pro;
+
+
+  loaderAnim.remove();
+
+group_iPhone_12Pro.add(backPlate_iPhone_12Pro, GlassAroundCamera_iPhone_12Pro, metaldetail1_iPhone_12Pro, frame_iPhone_12Pro, frame2_iPhone_12Pro, frame3_iPhone_12Pro, frame4_iPhone_12Pro, button1_iPhone_12Pro, frontpanel_iPhone_12Pro, display_iPhone_12Pro, metaldetail2_iPhone_12Pro, cameraPlasticDetail_iPhone_12Pro, cameraPlasticDetail2_iPhone_12Pro, cameraPlasticDetail3_iPhone_12Pro, cameraPlasticDetail4_iPhone_12Pro, minidetail1_iPhone_12Pro, cameras_iPhone_12Pro, camera1_iPhone_12Pro, frontCamera_iPhone_12Pro, frontCamera2_iPhone_12Pro, gridFront_iPhone_12Pro, gridBottom_iPhone_12Pro, bottomDetail_iPhone_12Pro, bottomMetalDetail_iPhone_12Pro, logo_iPhone_12Pro, button2_iPhone_12Pro, frame5_iPhone_12Pro, frame6_iPhone_12Pro, cameras2_iPhone_12Pro, camera3_iPhone_12Pro, camerasGlass_iPhone_12Pro );
+scene.add(group_iPhone_12Pro);
+
+
+});
+
+
+gltfLoader.load('iPhone_12Pro/glare.glb', (Zgltf) => {
+
+	glarePlane_iPhone_12Pro = Zgltf.scene.children[0];
+	glarePlane_iPhone_12Pro.material = glareMat_iPhone_12Pro;
+	scene.add(glarePlane_iPhone_12Pro);
+	group_iPhone_12Pro.add(glarePlane_iPhone_12Pro);
+
+});
+
+
+
+
+
+document.getElementById('userImage').addEventListener('change', function(e) {
+		var userImage_iPhone_12Pro = e.target.files[0];     
+		var userImageURL_iPhone_12Pro = URL.createObjectURL( userImage_iPhone_12Pro );
+		loader.setCrossOrigin("");
+		var textureU_iPhone_12Pro = loader.load(userImageURL_iPhone_12Pro, function (texture) { 	
+
+		console.log( 'Texture dimensions: %sx%s', texture.image.width, 			texture.image.height ); 
+
+		if (texture.image.height < texture.image.width) {
+		textureU_iPhone_12Pro.flipY = false;
+		textureU_iPhone_12Pro.rotation = 1.58;
+		textureU_iPhone_12Pro.center.y = 0.5;
+		textureU_iPhone_12Pro.center.x = 0.5;
+		displayMat_iPhone_12Pro.map = textureU_iPhone_12Pro;
+		group_iPhone_12Pro.rotation.z = 89.54;
+		}
+
+		else if (texture.image.height > texture.image.width) {
+		group_iPhone_12Pro.rotation.z = -389.545;
+		textureU_iPhone_12Pro.flipY = false;
+		displayMat_iPhone_12Pro.map = textureU_iPhone_12Pro;
+		}
+
+
+		});
+
+}); 
+
+
+
+const gui_iPhone_12Pro = new dat.GUI();
+gui_iPhone_12Pro.addColor(new ColorGUIHelper(greyCar_iPhone_12Pro, 'color'), 'value').name('color');
+gui_iPhone_12Pro.add( greyCar_iPhone_12Pro, 'roughness', 0.01, 0.3 );
+gui_iPhone_12Pro.add( glareMat_iPhone_12Pro, 'opacity', 0.01, 0.9 );
+gui_iPhone_12Pro.domElement.id = 'guiiPhone12Pro';
+guiiPhone12Pro.style.display = "block";
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function addGUI_iPhone11() {
+			gui_iPhone_11.addColor(new ColorGUIHelper(greyCar_iPhone_11, 'color'), 'value').name('color');
+			gui_iPhone_11.add( greyCar_iPhone_11, 'roughness', 0.01, 0.3 );
+			gui_iPhone_11.add( glareMat_iPhone_11, 'opacity', 0.01, 0.9 );
+}
+
+
+function addGUI_iPad_PRO() { 
+			gui_iPadPRO.addColor(new ColorGUIHelper(greyCar_iPadPRO, 'color'), 'value').name('color');
+			gui_iPadPRO.add( greyCar_iPadPRO, 'roughness', 0.01, 0.3 );
+			gui_iPadPRO.add( glareMat_iPadPRO, 'opacity', 0.01, 0.9 );
+}
+
+
+function addGUI_iPhone_SE() {  
+			gui_iPhone_SE.addColor(new ColorGUIHelper(greyCar, 'color'), 'value').name('color');
+			gui_iPhone_SE.add( glassDetailsMat, 'roughness', 0.01, 0.3 );
+			gui_iPhone_SE.add( glareMat, 'opacity', 0.01, 0.9 );
+}
+*/
+
+
+
+
+//ROTATE ALL
+var currentRotateState = 0;
+
+function rotateDevice() {
+		if (currentRotateState === 0) {
+				groupiPhone_SE.rotation.z = 89.54;
+				group_iPadPRO.rotation.z = 89.54;
+				group_iPhone_11.rotation.z = 89.54;
+				group_iPhone_12Pro.rotation.z = 89.54;
+				group_AppleWatch_6.rotation.z = 89.54;
+				group_Google_Pixel5.rotation.z = 89.54;
+				currentRotateState = 1;
+
+		} else if (currentRotateState === 1) {
+				groupiPhone_SE.rotation.z = -389.545;
+				group_iPadPRO.rotation.z = -389.545;
+				group_iPhone_11.rotation.z = -389.545;
+				group_iPhone_12Pro.rotation.z = -389.545;
+				group_AppleWatch_6.rotation.z = -389.545;
+				group_Google_Pixel5.rotation.z = -389.545;
+
+				currentRotateState = 0;
+		}
+}
+
+
+
+
+
+
+
+
+//RESET ALL
+function resetAll() {
+	groupiPhone_SE.rotation.z = -389.545;
+	group_iPadPRO.rotation.z = -389.545;
+	group_iPhone_11.rotation.z = -389.545;
+	group_iPhone_12Pro.rotation.z = -389.545;
+	group_AppleWatch_6.rotation.z = -389.545;
+	group_Google_Pixel5.rotation.z = -389.545;
+	displayMat_iPhone_SE.map = wallpaper;
+	displayMat_iPhone_11 = wallpaper_iPhone_11;
+	displayMat_iPadPRO.map = wallpaper_iPadPRO;
+	displayMat_iPhone_12Pro.map = wallpaper_iPhone_12Pro;
+	displayMat_AppleWatch_6.map = wallpaper_AppleWatch_6;
+	displayMat_Google_Pixel5.map = wallpaper_Google_Pixel5;
+
+}
+
+
+ 
+
+
+
+
+
+
+function setSelectorSource() {
+
+	var e = document.getElementById("theSelector");
+
+	var strType = e.value;
+
+	switch (strType) {
+	
+			case 'iPhoneSE':
+			scene.remove(group_iPhone_11);
+			scene.remove(group_iPadPRO);
+			scene.remove(group_iPhone_12Pro);
+			scene.remove(group_AppleWatch_6);
+			scene.remove(group_Google_Pixel5);
+			scene.add(groupiPhone_SE);
+			//CSS GUI 
+			guiIPadPro.style.display = "none";
+			guiIphoneSE.style.display = "block";
+			guiiPhone11.style.display = "none";
+			guiAppleWatch_6.style.display = "none";
+			guiGoogle_Pixel5.style.display = "none";
+			guiiPhone12Pro.style.display = "none";
+			break;
+
+			case 'iPadPro': 
+			//GROUPS 3D MESH
+			scene.remove(group_iPhone_11);
+			scene.remove(groupiPhone_SE);
+			scene.remove(group_iPhone_12Pro);
+			scene.remove(group_AppleWatch_6);
+			scene.remove(group_Google_Pixel5);
+			scene.add(group_iPadPRO);
+			//CSS GUI 
+			guiIPadPro.style.display = "block";
+			guiIphoneSE.style.display = "none";
+			guiiPhone11.style.display = "none";
+			guiAppleWatch_6.style.display = "none";
+			guiiPhone12Pro.style.display = "none";
+			guiGoogle_Pixel5.style.display = "none";
+			break;
+
+			case 'iPhone11':
+			//GROUPS 3D MESH
+			scene.remove(group_iPadPRO);
+			scene.remove(groupiPhone_SE);
+			scene.remove(group_iPhone_12Pro);
+			scene.remove(group_AppleWatch_6);
+			scene.remove(group_Google_Pixel5);
+			scene.add(group_iPhone_11);
+			//CSS GUI 
+			guiIPadPro.style.display = "none";
+			guiIphoneSE.style.display = "none";
+			guiiPhone11.style.display = "block";
+			guiAppleWatch_6.style.display = "none";
+			guiiPhone12Pro.style.display = "none";
+			guiGoogle_Pixel5.style.display = "none";
+			break;
+
+			case 'AppleWatch6':
+			//GROUPS 3D MESH
+			scene.remove(group_iPadPRO);
+			scene.remove(groupiPhone_SE);
+			scene.remove(group_iPhone_11);
+			scene.remove(group_iPhone_12Pro);
+			scene.remove(group_Google_Pixel5);
+			scene.add(group_AppleWatch_6);
+			//CSS GUI 
+			guiIPadPro.style.display = "none";
+			guiIphoneSE.style.display = "none";
+			guiiPhone11.style.display = "none";
+			guiiPhone12Pro.style.display = "none";
+			guiAppleWatch_6.style.display = "block";
+			guiGoogle_Pixel5.style.display = "none";
+			break;
+
+			case 'iPhone12Pro':
+			//GROUPS 3D MESH
+			scene.remove(group_iPadPRO);
+			scene.remove(groupiPhone_SE);
+			scene.remove(group_iPhone_11);
+			scene.remove(group_AppleWatch_6);
+			scene.remove(group_Google_Pixel5);
+			scene.add(group_iPhone_12Pro);
+			//CSS GUI 
+			guiIPadPro.style.display = "none";
+			guiIphoneSE.style.display = "none";
+			guiiPhone11.style.display = "none";
+			guiAppleWatch_6.style.display = "none";
+			guiiPhone12Pro.style.display = "block";
+			guiGoogle_Pixel5.style.display = "none";
+			break;
+
+
+			case 'GooglePixel5':
+			//GROUPS 3D MESH
+			scene.remove(group_iPadPRO);
+			scene.remove(groupiPhone_SE);
+			scene.remove(group_iPhone_11);
+			scene.remove(group_AppleWatch_6);
+			scene.remove(group_iPhone_12Pro);
+			scene.add(group_Google_Pixel5);
+			//CSS GUI 
+			guiIPadPro.style.display = "none";
+			guiIphoneSE.style.display = "none";
+			guiiPhone11.style.display = "none";
+			guiAppleWatch_6.style.display = "none";
+			guiiPhone12Pro.style.display = "none";
+			guiGoogle_Pixel5.style.display = "block";
+			break;
+
+
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function update() {
+if (resizeRendererToDisplaySize(renderer)) {
+const canvas = renderer.domElement;
+camera.aspect = canvas.clientWidth / canvas.clientHeight;
+camera.updateProjectionMatrix();
+}
+controls.update();
+renderer.render(scene, camera);
+requestAnimationFrame(update);
+}
+update();
+function resizeRendererToDisplaySize(renderer) {
+const canvas = renderer.domElement;
+let width = window.innerWidth;
+let height = window.innerHeight;
+let canvasPixelWidth = canvas.width / window.devicePixelRatio;
+let canvasPixelHeight = canvas.height / window.devicePixelRatio;
+
+const needResize =
+canvasPixelWidth !== width || canvasPixelHeight !== height;
+if (needResize) {
+renderer.setSize(width, height, false);
+}
+return needResize;
+}
+
+console.clear()
+</script>
+<style>
+#guiiPhone11 {right:0em; top: 0em; position:absolute};
+#guiIPadPro {right:0em; top: 1.6em; position:absolute};
+#guiIphoneSE {right:0em; top: 1.6em; position:absolute};
+#guiiPhone12Pro {right:0em; top: 1.6em; position:absolute};
+#guiAppleWatch_6 {right:0em; top: 1.6em; position:absolute};
+#guiGoogle_Pixel5 {right:0em; top: 1.6em; position:absolute};
+</style>
+
+
+<div style="font: arial; position: fixed; size:2em; color:grey; cursor: pointer; margin-top:-2em;left:1em;" onclick="rotateDevice();">Rotate
+</div>
+
+
+<div style="font: arial; position: fixed; size:2em; color:grey; cursor: pointer; margin-top:-2em;left:7em;" onclick="resetAll();">Reset
+</div>
+
+
+
+</div>
+</div>
+
+
+
+<!--
+<script type="x-shader/x-vertex" id="vertexShader">
+    varying vec2 vUv;
+
+    void main() {
+        vUv = uv;
+        gl_Position = vec4(uv * 2. - vec2(1, 1), 0., 1.);
+    }
+</script>
+<script type="x-shader/x-fragment" id="fragmentShader">
+    precision highp float;
+
+    varying vec2 vUv;
+    uniform sampler2D texture1;
+    void main() {
+        gl_FragColor = texture2D(texture1, vUv.xy);
+    }
+</script>
+-->
+
+</body>
+</html>
+
