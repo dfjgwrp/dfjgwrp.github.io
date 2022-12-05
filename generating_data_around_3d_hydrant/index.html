@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>12141.net - Generating data around 3D example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=0.4, maximum-scale=1.0">
+	<meta name="description" content="Hydrant with labels by Ramikh3D">
+	<link rel="stylesheet"  href="css/_desktop.css" />
+</head>
+
+
+
+<body>
+
+
+	<style>
+		.preloader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		background: #000000;
+		z-index: 9999;
+		color: grey;
+		font-family:sans-serif;
+		font-size:0.7em;
+		text-align: center;
+		}	
+		</style>
+		<script>
+		  window.onload = function(){ document.querySelector(".preloader").style.display = "none";}
+		</script>
+		<div class="preloader">Loading...
+		</div> 
+
+		
+
+	<div id="container">  
+		<canvas id="c"></canvas>
+	</div>
+
+
+
+
+	<div id="inputForm1">
+		
+		<div id="inputForm1Container_Field1">
+			<p class="inputForm1_Title_Field1">Brand Name & Logo:</p>
+			<input type="text" placeholder="Enter Value"  id="1_Field1"/>
+			<br>
+			<p class="inputForm1_Title_Field1">Website</p>
+			<input type="text" placeholder="Enter Value"  id="1_Field2"/>
+			<br>
+			<p class="inputForm1_Title_Field1">Location</p>
+			<input type="text" placeholder="Enter Value"  id="1_Field3"/>
+			<br><Br>
+
+			<b style="color:#c10606;font-size:0.55em;width:13em">Don't forget to upload a picture (jpg/png) to be able to generate the labels!</b>
+
+			<input id="userImage_Form1Selector" type="file" accept="image/png" />
+			<br><br>
+			<button id="buttonJS_Field1"><strong>SUBMIT</strong></button>	
+		</div>
+
+	</div>
+
+
+
+
+
+
+	<script src="../threejs/build_r132/build/three.min.js"></script>
+	<script src="../threejs/build_r132/examples/js/controls/OrbitControls.js"></script>
+	<script src="../threejs/build_r132/examples/js/loaders/GLTFLoader.js"></script>
+	<!-- <script src="dat.gui.min.js"></script> -->
+	<script src="gl.js"></script>
+
+
+</body>
+</html>
+
+
+

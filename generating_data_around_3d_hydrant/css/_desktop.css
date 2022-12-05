@@ -1,0 +1,88 @@
+#c {
+width: 100vw;  
+height: 100vh;
+display: block;
+background-color: burlywood;
+background-image: url("img/backdrop_test_1200.jpg");
+background-position: 0% 0%;
+background-size: cover;
+background-repeat: no-repeat;
+user-select: none;
+-webkit-user-select:none;
+}
+
+#container {
+position: absolute;  
+width: 100vw;
+height: 100vh;
+overflow: hidden;
+user-select: none;
+-webkit-user-select:none;
+}
+
+
+html, body {
+display: flex;
+font-size:1em;
+font-family:sans-serif;
+margin-top: 0;
+margin-left: 0;
+background-color: blue;
+user-select: none;
+-webkit-user-select:none;
+}
+
+
+#inputForm1 {
+background-color: grey;	
+position: absolute;
+right: 0em;	
+height: auto;
+opacity: 0.69;
+width: 11.8em;
+padding:2em;
+user-select: none;
+-webkit-user-select:none;
+}
+
+.inputForm1_Title_Field1 {
+font-size: 0.7em;
+text-align: left;
+position: relative;
+margin-bottom: 0.2em;
+margin-left: 0.2em;
+user-select: none;
+
+}
+
+#inputForm1Container_Field1 {
+padding: 16px 0;
+text-align: left;
+user-select: none;
+-webkit-user-select:none;
+}
+
+#1_Field1 {
+position: relative;
+left: 0em;
+user-select: none;
+-webkit-user-select:none;
+}
+
+#userImage_Form1Selector {
+position:relative;
+margin-left: 0.04em;
+user-select: none;
+-webkit-user-select:none;
+}
+
+
+#buttonJS_Field1 {
+z-index: 999;
+left: 0;
+position: relative;
+width: 6em;
+user-select: none;
+-webkit-user-select:none;
+}
+
