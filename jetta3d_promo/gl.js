@@ -1446,7 +1446,7 @@ top2_4_carsign.style.textDecoration = "none";
 
 
 
-
+console.clear();
 
 function offCameraAnimation() {
 TWEEN.removeAll();
