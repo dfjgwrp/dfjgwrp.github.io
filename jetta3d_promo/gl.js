@@ -1446,7 +1446,7 @@ top2_4_carsign.style.textDecoration = "none";
 
 
 
-console.clear();
+
 
 function offCameraAnimation() {
 TWEEN.removeAll();
@@ -1487,3 +1487,5 @@ sceneremoveComponents2();
 scene.remove(sign1,sign2,sign3,sign4,sign5);
 };
 
+
+console.clear()
