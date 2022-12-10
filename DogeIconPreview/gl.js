@@ -126,6 +126,9 @@ scene.add(light3.target);
 
 
 
+var time;
+
+
 
 
 //resize windows
@@ -163,6 +166,9 @@ function render(time) {
 	camera.aspect = canvas.clientWidth / canvas.clientHeight;
 	}
     camera.updateProjectionMatrix();
+
+	GogeIcon.rotation.y += 0.001;
+	console.clear();
 
 	controls.update();
 
