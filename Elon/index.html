@@ -67,10 +67,10 @@
 	bloomLayer.set( BLOOM_SCENE );
 
 	const params = {
-		exposure: 0.2,
-	  	bloomStrength: 0.4,
+		exposure: 0.1,
+	  	bloomStrength: 0.3,
 		bloomThreshold: 0.1,
-		bloomRadius: 2.4,
+		bloomRadius: 3,
 		scene: "Scene with Glow"
 	};
 
@@ -104,7 +104,7 @@
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color( 0x000000 );
 
-	camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.focalLength = 3;
 	camera.position.set(0,0, 6);
 	camera.rotation.set(0,3,0)
@@ -176,7 +176,7 @@
 		envMap: textureCube,
 		envMapIntensity: 1.1,
 		map: iconTexture,
-		roughness: 0.7,
+		roughness: 0.8,
 		metalness: 0.5,
 	} );
 
@@ -202,18 +202,25 @@
 
 
 
-	const color2 = 0xFFF000;
-	const intensity2 = 0.1; 
-	const light2 = new THREE.DirectionalLight(color2, intensity2);
-	light2.position.set( 0, 0, 0);
-	light2.target.position.set(0, 0, -0);
-	scene.add(light2);
-	scene.add(light2.target);
 
 
 
+	const color3 = 0xFF6745;
+	const intensity3 = 0.25; 
+	const light3 = new THREE.DirectionalLight(color3, intensity3);
+	light3.position.set( 22.2, 44, 11);
+	light3.target.position.set(42, 40, 35);
+	scene.add(light3);
+	scene.add(light3.target);
 
 
+	const color4 = 0xFF6745;
+	const intensity4 = 0.2; 
+	const light4 = new THREE.DirectionalLight(color4, intensity4);
+	light4.position.set( 22.2, 44, 11);
+	light4.target.position.set(42, 40, -35);
+	scene.add(light4);
+	scene.add(light4.target);
 
 
 
