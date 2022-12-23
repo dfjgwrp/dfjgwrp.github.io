@@ -1,0 +1,40 @@
+.shop-clear-filter-01 {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+	ul {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		li {
+			+ li {
+				margin-left: 10px;
+			}
+		}
+	}
+	a {
+		display: inline-block;
+	    vertical-align: top;
+	    padding: 2px 8px;
+	    border: 1px solid $gray-300;
+	    color: $dark;
+	    transition: ease all 0.35s;
+        display: flex;
+		align-items: center;
+		white-space: nowrap;
+	    &:hover {
+	    	background: $primary;
+	    	border-color: $primary;
+	    	color: $white;
+	    }
+	    &.clear-all {
+	    	background: $danger;
+	    	border-color: $danger;
+	    	color: $white;
+	    	&:hover {
+	    		background: darken($danger, 10%);
+	    	}
+	    }
+	}
+}

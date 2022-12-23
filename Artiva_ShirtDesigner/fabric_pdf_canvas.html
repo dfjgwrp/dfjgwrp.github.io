@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="HTMLstyles.css">
+		<link type="text/css" rel="stylesheet"  href="fonts/fonts.css">
+
+
+		<script src="skripte/globals.js"></script>
+		<script src="skripte/jquery.js"></script>
+		<script src="skripte/fabric2.js"></script>
+		<script src="skripte/customiseControls.js"></script>
+
+
+		<meta name="msapplication-TileColor" content="#000000">
+		<meta name="theme-color" content="#000000">
+
+
+		<style>
+		div::-webkit-scrollbar {
+		width: 10px;
+		}
+		div::-webkit-scrollbar-track {
+		background-color: #9993 !important;
+		}
+		div::-webkit-scrollbar-thumb {
+		background-color: #9999 !important;
+		}
+
+
+		#c-right2 {
+		position: absolute;
+		width:1500px;
+		height:430px;
+		display: block;
+		background-color: rgba(0, 0, 255, 0);
+		position: absolute;
+		z-index: 0;
+		top:0em;
+		}
+
+
+		#canvas2 {
+		position: fixed;
+		display:block;
+		width: 1500px;
+		height: 430px;
+		left: 0px;
+		top: 0px;
+		z-index:0;
+		/* touch-action: none; */
+		/* -webkit-user-select: none; */
+		/* background-color: rgb(16, 72, 106); */
+		}
+
+
+		#c2correction {
+		position: absolute;
+		display:none;
+		width: 1500px;
+		height: 430px; 
+		left: 0px;
+		top: 0px;
+		z-index:10;
+		pointer-events: none;
+		/* touch-action: none; */
+		/* -webkit-user-select: none; */
+		/* background-color: rgba(16, 72, 106, 0.532);  */
+		background-image: url('./svg/3D_Design_1_Runningshirt_Men_O-neck_withSidepanel_M 2.png');
+		background-size: 100%;
+		background-repeat: no-repeat;
+		opacity:0.5;
+		}
+
+		</style>
+
+	</head>
+	<body>
+
+	<!-- <canvas id="canvas2" width="1500" height="430"></canvas> -->
+
+	<script src="skripte/pdfkit.js"></script>
+	<script src="skripte/blob-stream.js"></script>
+	<script src="skripte/FileSaver.js"></script>
+	<script src="skripte/canvas2pdf.js"></script>
+
+
+
+	<script>
+
+		pdf_canvas = new fabric.Canvas("canvas2");
+		pdf_canvas.backgroundColor = "#456332";
+		pdf_canvas.selection = false;
+		pdf_canvas.renderAll();
+
+		var stream = blobStream();
+
+
+		//canvasPrint_FabricObject.loadFromJSON(jsoned_canvas, function() {});
+		//let jsoned_canvas = canvas1.toJSON(['selectable', 'centeredRotation' ]);
+
+
+
+
+
+		var ctx = new canvas2pdf.PdfContext(blobStream());
+
+		//draw your canvas like you would normally
+		
+
+		ctx.fillStyle='yellow';
+		ctx.fillRect(100,100,100,100);
+		ctx.getContext("pdf_canvas");
+
+		// more canvas drawing, etc...
+
+		//console.log(ctx)
+
+		//convert your PDF to a Blob and save to file
+		ctx.stream.on('finish', function () {
+			var blob = ctx.stream.toBlob('application/pdf');
+			saveAs(blob, 'example.pdf', true);
+		});
+		ctx.end();
+
+
+	</script>
+	
+
+	<!-- <script src="skripte/fabric_pdf_export.js"></script>  -->
+
+
+	</body>
+</html>

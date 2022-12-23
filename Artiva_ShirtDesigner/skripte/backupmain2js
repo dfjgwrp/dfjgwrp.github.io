@@ -1,0 +1,2023 @@
+import * as THREE from './three.module.js';
+import { FBXLoader } from './FBXLoader.js';
+import { OrbitControls } from './OrbitControls.js';
+
+//import { DRACOLoader } from "./DRACOLoader.js";
+//import { GLTFLoader } from "./GLTFLoader.js";
+//let meshobj;
+var group1 = new THREE.Object3D();
+var id_f = 0;
+
+
+//canvas1 = new fabric.Canvas("canvas1");
+//canvas1 = new fabric.Canvas("canvas1", {renderOnAddRemove: false});
+canvas1 = new fabric.Canvas("canvas1", {width: 2048, height:2048,/* renderOnAddRemove: false */});
+canvas1.backgroundColor = "#ffffff00";
+//canvas1.backgroundColor = "#488483";
+canvas1.selection = false;
+
+//newGFX(canvas1, 'logos/ball.png', 300, 200, 0.5, 0.5, 0);
+//newVec(canvas2, 200, 500, 0.2, 210, 45, "#666666");
+
+
+var containerHeight = document.getElementById('c').clientHeight;
+var containerWidth = document.getElementById('c').clientWidth; 
+
+//var containerHeight = "2000";
+//var containerWidth = "2000";   
+
+var renderer, container, scene, geometry, cube;
+var texture1, texturen1, material1;
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+var onClickPosition = new THREE.Vector2();
+var canvas;
+
+//camera
+var camera, controls;
+const fov = 36; 
+const near = 0.1;
+const far = 200;
+
+//for placing new fabricjs object, status
+let positioningRequired = true; 
+
+init();
+animate();
+
+
+function init() {
+
+	scene = new THREE.Scene();
+
+	camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, near, far);
+	camera.position.set(0, 0.1, 5);
+	scene.position.set(0,0.9,0);
+	camera.lookAt(scene.position);
+	
+	container = document.getElementById(containerName);
+	containerWidth = container.offsetWidth;
+	containerHeight = container.offsetHeight; 
+	canvas = container;
+
+	renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false,});
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(containerWidth, containerWidth);
+	camera.aspect = 1.0; //container.clientWidth / container.clientHeight;
+	scene.background = new THREE.Color(0xffffff) 
+	//camera.updateProjectionMatrix();
+
+	//orbitcontrols
+	controls = new OrbitControls( camera, renderer.domElement );
+	controls.target.set(0, 1, -0);
+	controls.minDistance = 5.2; //2.8
+	controls.maxDistance = 8; //5
+	//enable 'from' bottom view ⬇️
+	//controls.maxPolarAngle = Math.PI / 2;
+	controls.enableDamping = false;
+	controls.dampingFactor = 0.05;
+	controls.autoRotate = false;
+	controls.autoRotateSpeed = 3;
+	controls.enabled = true;
+	//disable right mouse move
+	controls.enableKeys = true;
+	controls.enablePan = true;
+	controls.screenSpacePanning = true;
+
+
+
+
+
+
+	//lights
+	
+	//var light = new THREE.DirectionalLight(0xffffff, 0.5);
+	//light.position.setScalar(10,2,-5);
+	//scene.add(light);
+	
+	const hemiLight = new THREE.HemisphereLight( 0xdfdfdf, 0x495359 );
+	hemiLight.position.set( 0, 200, 0 );
+	scene.add( hemiLight );
+
+	/*
+	const color = 0xffffff;
+	const intensity = 0;
+	const light = new THREE.DirectionalLight(color, intensity);
+	light.castShadow = true;
+	light.position.set(18, 2, 0);
+	light.target.position.set(35, 9, -15);
+	scene.add(light);
+	scene.add(light.target); 
+	*/
+	
+
+	const color2 = 0xffffff;
+	const intensity2 = 0.39;
+	const light2 = new THREE.DirectionalLight(color2, intensity2);
+	light2.castShadow = false;
+	light2.position.set(-20, 0, 18);
+	light2.target.position.set(-18, 5, 4.5);
+	scene.add(light2);
+	scene.add(light2.target);
+	//const helper = new THREE.DirectionalLightHelper(light);
+	//scene.add(helper);
+
+	
+	const color3 = 0xffffff;
+	const intensity3 = 0.399;
+	const light3 = new THREE.DirectionalLight(color3, intensity3);
+	//light3.position.set(2, 1, -1.99);
+	light3.position.set(2.19, -1.15, -1.99);
+	light3.target.position.set(0, 0, 0);
+	scene.add(light3);
+	scene.add(light3.target);
+				
+	
+
+
+
+
+
+
+
+
+	//3d models loading
+
+	scene.add(group1);
+	
+	const loader = new FBXLoader();
+
+	
+	var canvasForManRoundNeck;
+	loader.load( './models/manRoundneck.fbx', function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child.isMesh ) {
+				child.material = material1;
+				child.material.side = THREE.DoubleSide;
+			}
+		} );
+		group1.add(object);
+		id_f = object.id+1;
+		object.renderOrder = 3; 
+		canvasForManRoundNeck = object;
+	} ); 
+
+
+	var canvasForManRoundNeckInside;
+	loader.load( './models/manRoundneckInside.fbx', function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child.isMesh ) {
+				child.material = material_clean;
+				//child.material.side = THREE.DoubleSide;
+			}
+		} );
+		scene.add(object);
+		//id_f = object.id+1;
+		object.renderOrder = 2; 
+		canvasForManRoundNeckInside = object;
+	} ); 
+
+
+/* 
+	var canvasForWomanRoundNeck;
+	loader.load( './models/womanRoundneck.fbx', function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child.isMesh ) {
+				child.material = material1;
+				child.material.side = THREE.DoubleSide;
+			}
+		} );
+		canvasForWomanRoundNeck = object;
+		object.renderOrder = 3; 
+
+	} );
+	
+
+	var canvasForWomanVNeck;
+	loader.load( './models/womanVneck.fbx', function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child.isMesh ) {
+				child.material = material1;
+				child.material.side = THREE.DoubleSide;
+			}
+		} );
+		canvasForWomanVNeck = object;
+		object.renderOrder = 3; 
+	} );
+	
+
+	var canvasForManVNeck;
+	loader.load( './models/manVneck.fbx', function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child.isMesh ) {
+				child.material = material1;
+				child.material.side = THREE.DoubleSide;
+			}
+		} );
+		canvasForManVNeck = object;
+		object.renderOrder = 3; 
+	} );	
+	 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// textures  for 3d models  
+
+	const textureLoader = new THREE.TextureLoader();
+	texture1 = new THREE.Texture(document.getElementById("canvas1"));
+	texture1.anisotropy = renderer.capabilities.getMaxAnisotropy();
+	
+	material1 = new THREE.MeshStandardMaterial({
+		map: texture1,
+		//normalMap: Fabric_Main_NRM,
+		/*normalMap: Fabric_Main_NRM,
+		normalScale: new THREE.Vector2(1, 1), */
+		//color: 0x3F8BBC,
+		//transparency: 0,
+		//transparent: false,
+		//opacity: 1,
+		depthTest: true,
+		depthWrite: true,
+		side: THREE.FrontSide,
+	});
+
+
+
+	var material_clean = new THREE.MeshPhongMaterial({
+		//normalMap: Fabric_Main_NRM,
+		/*normalMap: Fabric_Main_NRM,
+		normalScale: new THREE.Vector2(1, 1), */
+		color: 0xffffff,
+		//transparency: 0,
+		//transparent: false,
+		//opacity: 1,
+		side: THREE.FrontSide
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//optional (not finished) solution to restore canvas from saved cookie in real time 
+
+/* 	document.getElementById("deliverDesignData").addEventListener("click", function () {
+
+		//UI.JS 1245 line 
+		//var json_str = getCookie('mycookie');
+		//var arr = JSON.parse(json_str);
+		canvas1.loadFromJSON(json);
+
+		// re-render the canvas
+		canvas1.renderAll();
+	  
+		// optional
+		canvas1.calculateOffset();
+
+		chooseMenMesh_func();
+
+	}); */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+	document.getElementById("BlockType_Man").addEventListener("click", function () {
+		GenderStatus = 0;
+	});
+
+	document.getElementById("BlockType_Woman").addEventListener("click", function () {
+		GenderStatus = 1;
+	});
+
+	document.getElementById("BlockType_RoundNeck").addEventListener("click", function () {
+		NeckStatus = 0;
+	});      
+
+	document.getElementById("BlockType_VNeck").addEventListener("click", function () {
+		NeckStatus = 1;
+	});
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	document.getElementById("BlockDesign0").addEventListener("click", function () {
+		BlockDesign0.style.background = "#e4f7ff";
+		BlockDesign1.style.background = "#0000000f";
+	
+		BlockSelectorForSolidColor.style.display = "block";
+		BlockSelectorForDesignColor.style.display = "none";
+	
+		choosenDesign = 0;
+
+		canvas1.remove(MenONeckDesign1SvgGroup);
+		canvas1.add(MenONeckDesign0SvgGroup);
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+		MenONeckDesign0SvgGroup.sendBackwards()
+
+		canvas1.renderAll();
+	})
+
+	//applying colors from HTML hue whell to three.js model via cavnas1 - design 0
+	document.getElementById("SelectedColorFront").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorFront").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(6).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedColorBack").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorBack").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(9).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedLeftSleeve").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorLeftSleeve").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(2).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedLeftSide").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorLeftSide").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(3).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedRightSleeve").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorRightSleeve").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(1).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedRightSide").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorRightSide").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(7).set('fill', e.target.value);
+		canvas1.renderAll();
+	})
+	document.getElementById("SelectedKnitTrim").addEventListener('input', (e) => {
+		document.getElementById("selectedHueColorKnitTrim").innerHTML = e.target.value
+		MenONeckDesign0SvgGroup.item(0).set('fill', e.target.value);
+		MenONeckDesign0SvgGroup.item(4).fill = e.target.value;
+		MenONeckDesign0SvgGroup.item(5).fill = e.target.value;
+		canvas1.renderAll();
+	})
+
+
+
+
+
+
+	document.getElementById("BlockDesign1").addEventListener("click", function () {
+		BlockDesign1.style.background = "#e4f7ff";
+		BlockDesign0.style.background = "#0000000f";
+	
+		BlockSelectorForSolidColor.style.display = "none";
+		BlockSelectorForDesignColor.style.display = "block";
+		Farbe2.style.display = "flex";
+		Farbe3.style.display = "flex";
+		Farbe4.style.display = "none";
+		Farbe5.style.display = "none";
+	
+		choosenDesign = 1;
+
+		//canvas1.clear()
+		canvas1.remove(MenONeckDesign0SvgGroup);
+		canvas1.add(MenONeckDesign1SvgGroup);
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+		MenONeckDesign1SvgGroup.sendBackwards()
+
+		canvas1.renderAll();
+	})
+
+	//applying colors from HTML hue whell to three.js model via cavnas1 - design 1
+	document.getElementById("SelectedColorFarbe1").addEventListener('input', (e) => {
+		document.getElementById("selectedHueFarbe1").innerHTML = e.target.value
+		
+		//MenONeckDesign1FrontColor1
+		MenONeckDesign1SvgGroup.item(6).set('fill', e.target.value);
+
+		//MenONeckDesign1KnitTrimTop
+		MenONeckDesign1SvgGroup.item(0).fill = e.target.value;
+
+		//MenONeckDesign1SleeveRight
+		MenONeckDesign1SvgGroup.item(1).fill = e.target.value;
+
+		//MenONeckDesign1SleeveLeft
+		MenONeckDesign1SvgGroup.item(2).fill = e.target.value;
+
+		//MenONeckDesign1BackColor1
+		MenONeckDesign1SvgGroup.item(11).fill = e.target.value;
+
+		canvas1.renderAll();
+	})
+
+	document.getElementById("SelectedColorFarbe2").addEventListener('input', (e) => {
+		document.getElementById("selectedHueFarbe2").innerHTML = e.target.value
+
+		//MenONeckDesign1FrontColor2
+		MenONeckDesign1SvgGroup.item(7).set('fill', e.target.value);
+		//MenONeckDesign1BackColor2
+		MenONeckDesign1SvgGroup.item(12).fill = e.target.value;
+
+		canvas1.renderAll();
+	})
+
+	document.getElementById("SelectedColorFarbe3").addEventListener('input', (e) => {
+		document.getElementById("selectedHueFarbe3").innerHTML = e.target.value;
+
+		//MenONeckDesign1SideLeft
+		MenONeckDesign1SvgGroup.item(3).set('fill', e.target.value);
+
+		//MenONeckDesign1SleeveLeftKnitTrim
+		MenONeckDesign1SvgGroup.item(4).fill = e.target.value;
+
+		//MenONeckDesign1SleeveRightKnitTrim
+		MenONeckDesign1SvgGroup.item(5).fill = e.target.value;
+
+		//MenONeckDesign1FrontColor3
+		MenONeckDesign1SvgGroup.item(8).fill = e.target.value;
+
+		//MenONeckDesign1SideRight
+		MenONeckDesign1SvgGroup.item(9).fill = e.target.value;
+
+		//MenONeckDesign1BackColor3
+		MenONeckDesign1SvgGroup.item(13).fill = e.target.value;
+
+		canvas1.renderAll();
+	})
+	
+	
+
+
+
+
+
+
+
+
+	setHelperFuncs(canvas1);
+}
+//end of function init()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function animate() {
+	requestAnimationFrame(animate);
+
+	texture1.needsUpdate = true;
+	//Fabric_Simple_Front.needsUpdate = true;
+
+	/* if (resizeRendererToDisplaySize(renderer)) {
+		const canvas = renderer.domElement;
+		camera.aspect = canvas.clientWidth / canvas.clientHeight;
+	} */
+		
+	container = document.getElementById(containerName);
+	
+	if (container.offsetWidth != containerWidth || container.offsetHeight != containerHeight) {
+		containerWidth = container.clientWidth;
+		containerHeight = container.clientHeight;
+		renderer.setSize(containerWidth, containerWidth);
+		camera.aspect = 1.0; //container.clientWidth / container.clientHeight;
+		camera.updateProjectionMatrix();
+	}
+
+	//camera.updateProjectionMatrix(); 
+	controls.update();
+	renderer.render(scene, camera);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//fabricjs customiseControls customization
+
+fabric.Canvas.prototype.customiseControls({
+    tl: {
+        action: 'move',
+    },
+    tr: {
+        action: 'rotate'
+    },
+    bl: {
+        action: 'remove',
+        //cursor: 'pointer'
+    },
+    br: {
+        action: 'scale',
+    },
+    mb: {
+        action: 'move',
+        //cursor: 'pointer'
+    },
+	ml: {
+		action: 'move',
+        //action: 'rotate',
+        //cursor: 'cow.png'
+    },
+
+    mr: {
+		action: 'move',
+        /* action: function( e, target ) {
+            target.set( {
+                left: 200
+            } );
+            canvas.renderAll();
+        } */
+     },
+     // only is hasRotatingPoint is not set to false
+     mt: {
+		action: 'move',
+        //action: 'rotate',
+        //cursor: 'cow.png'
+     },
+}, function() {
+    canvas.renderAll();
+} );
+
+
+
+
+fabric.Object.prototype.customiseCornerIcons({
+	ssettings: {
+		borderColor: '#44444400',
+		cornerSize: 25,
+		//cornerBackgroundColor: 'red',
+		cornerShape: 'circle',
+		cornerPadding: 10,
+	},
+	tl: {
+		icon: './icons/move.png',
+		settings: {
+			cornerShape: 'circle',
+			cornerBackgroundColor: '#44444455',
+			cornerPadding: 10,
+			cornerSize: 25,
+		},
+	},
+	tr: {
+
+		icon: './icons/rotate.png',
+		settings: {
+			cornerShape: 'circle',
+			cornerBackgroundColor: '#44444455',
+			cornerPadding: 10,
+			cornerSize: 25,
+		},
+	},
+	bl: {
+		icon: './icons/trash.png',
+		settings: {
+			cornerShape: 'circle',
+			cornerBackgroundColor: '#44444455',
+			cornerPadding: 10,
+			cornerSize: 25,
+		},
+	},
+	br: {
+		icon: './icons/expand-solid.png',
+		settings: {
+			cornerShape: 'circle',
+			cornerBackgroundColor: '#44444455',
+			cornerPadding: 10,
+			cornerSize: 25,
+		},
+	},
+
+	/////////////////////////////////////////
+	// only is hasRotatingPoint is not set to false
+	mt: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+
+	//hidden middle points
+	mb: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+
+	mt: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+	mr: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+
+	mr: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+
+	ml: {
+		icon: './icons/empty.png',
+		settings: {
+			cornerShape: 'rect',
+			cornerBackgroundColor: '#44444400',
+		},
+	},
+
+
+}, function() {
+	canvas1.renderAll();
+} );
+
+//fabricjs customiseControls customization
+
+
+
+
+
+//to prevent fliping of fabricjs object on model when scaling
+fabric.Object.prototype.lockScalingFlip = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Fabric.js patch
+fabric.Canvas.prototype.getPointer =  function (e, ignoreZoom) {
+	var obb;
+	if (this._absolutePointer && !ignoreZoom) {
+		return this._absolutePointer;
+	}
+	if (this._pointer && ignoreZoom) {
+		return this._pointer;
+	}
+	var pointer = fabric.util.getPointer(e),
+		upperCanvasEl = this.upperCanvasEl,
+		bounds = upperCanvasEl.getBoundingClientRect(),
+		boundsWidth = bounds.width || 0,
+		boundsHeight = bounds.height || 0,
+		cssScale;
+
+	if (!boundsWidth || !boundsHeight ) {
+		if ('top' in bounds && 'bottom' in bounds) {
+			boundsHeight = Math.abs( bounds.top - bounds.bottom );
+		}
+		if ('right' in bounds && 'left' in bounds) {
+			boundsWidth = Math.abs( bounds.right - bounds.left );
+		}
+	}
+	
+
+
+	this.calcOffset();
+	pointer.x = pointer.x - this._offset.left;
+	pointer.y = pointer.y - this._offset.top;
+	/* BEGIN PATCH CODE */
+	if (e.target !== this.upperCanvasEl) {
+		var positionOnScene = getPositionOnScene(container, e);
+		if(positionOnScene) {
+			pointer.x = positionOnScene.x;
+			pointer.y = positionOnScene.y;
+			activeID = positionOnScene.id;
+			
+			if (activeCanvas) {
+				obb = activeCanvas.getActiveObject();
+				if (obb) {
+					if (activeID!=oldCanvas) {
+					
+						obb.lockMovementX = true; 
+						obb.lockMovementY = true;
+					} else {
+						obb.lockMovementX = false; 
+						obb.lockMovementY = false;
+					}
+				}
+			}
+		}
+	}
+	  /* END PATCH CODE */
+	if (!ignoreZoom) {
+		pointer = this.restorePointerVpt(pointer);
+	}
+
+	if (boundsWidth === 0 || boundsHeight === 0) {
+		cssScale = { width: 1, height: 1 };
+	}
+	else {
+		cssScale = {
+			width: upperCanvasEl.width / boundsWidth,
+			height: upperCanvasEl.height / boundsHeight
+		};
+	}
+
+	return {
+		x: pointer.x * cssScale.width,
+		y: pointer.y * cssScale.height
+	};
+}
+
+
+
+
+
+//new uploader may 2022
+
+var targetFiles, userimageURL;
+function attachUserSelectedPictureToCanvas1(e) {
+
+	targetFiles = e.target.files[0];     
+	userimageURL = URL.createObjectURL( targetFiles );
+
+	newGFX(canvas1, userimageURL, 200, 700, 0.2, 0.2, 0)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* Zoom in and out of the model
+*/
+
+const evt = new Event('wheel', {bubbles: true, cancelable: true});
+
+const zoomInBtn = document.querySelectorAll('.zoom');
+zoomInBtn.forEach(btn => btn.addEventListener('click', () => {
+	evt.deltaY = -240;
+	canvas.dispatchEvent(evt);
+}));
+
+const zoomOutBtn = document.querySelectorAll('.zoom-out');
+zoomOutBtn.forEach(btn => btn.addEventListener('click', () => {
+	evt.deltaY = +240;
+	canvas.dispatchEvent(evt);
+}));
+
+
+
+
+
+
+
+
+
+
+
+
+//⬇️ mouse up and down, window  listeners
+
+
+
+
+
+/*window.addEventListener( 'resize', onWindowResize, false );
+
+function onWindowResize(){
+    camera.aspect = containerHeight / containerWidth;
+	renderer.setSize(containerWidth, containerWidth);
+	camera.updateProjectionMatrix();
+}
+*/
+
+
+
+
+container.addEventListener("mouseup", onMouseUpEvt, false);
+
+var maxScaleX = 1;
+var maxScaleY = 1;
+
+var maxScaleX_forText = 2.3;
+var maxScaleY_forText = 2.3;
+
+let activeObjectForScaleCorrection, activeObjectForScaleCorrection_type;
+
+function onMouseUpEvt(evt) {
+	evt.preventDefault();
+	activeObjectForScaleCorrection = canvas1.getActiveObject();
+	activeObjectForScaleCorrection_type = canvas1.getActiveObject().get('type')
+
+	if(activeObjectForScaleCorrection) {
+	
+		//let's check either current object text or picture and if text, apply specific rules for rescaling
+		if (activeObjectForScaleCorrection_type == 'text') {
+
+			if(activeObjectForScaleCorrection.scaleX >= maxScaleX_forText || activeObjectForScaleCorrection.scaleY >= maxScaleY_forText) {
+				activeObjectForScaleCorrection.scaleX = maxScaleX_forText;
+				activeObjectForScaleCorrection.scaleY = maxScaleY_forText; 
+			}
+
+		} else {
+
+			if(activeObjectForScaleCorrection.scaleX > maxScaleX || activeObjectForScaleCorrection.scaleY > maxScaleY) {
+				activeObjectForScaleCorrection.scaleX = maxScaleX;
+				activeObjectForScaleCorrection.scaleY = maxScaleY; 
+			}
+		}   
+	}
+	//console.clear();
+
+}
+
+
+
+
+
+
+container.addEventListener("mousedown", onMouseEvt, false);
+
+function onMouseEvt(evt) {
+
+	evt.preventDefault();
+
+		areasTextPositioning = getPositionOnScene(container, evt);
+		//areasPicturePositioning = getPositionOnScene(container, evt);
+
+		switch (event.which) {
+			case 1:
+				const positionOnScene = getPositionOnScene(container, evt);
+
+				//console.log(positionOnScene)
+
+				if (positionOnScene) {
+					const canvasRect = canvas1._offset;
+					const simEvt = new MouseEvent(evt.type, {
+						clientX: canvasRect.left + positionOnScene.x,
+						clientY: canvasRect.top + positionOnScene.y
+					});
+					const deEvt = new MouseEvent(evt.type, {
+						clientX: canvasRect.left,
+						clientY: canvasRect.top
+					});
+					
+					activeID = positionOnScene.id;
+					
+					if (positionOnScene.id==id_f) { activeCanvas = canvas1; } else { canvas1.upperCanvasEl.dispatchEvent(deEvt); }
+			
+					activeCanvas.upperCanvasEl.dispatchEvent(simEvt);
+					
+					activeObject = activeCanvas.getActiveObject();
+
+					if (activeObject) {
+					controls.enabled = false;
+						if (activeObject.typ) {
+							activeTyp = activeObject.typ; 
+						} 
+						else { 
+							activeTyp = 2; 
+						}
+					} 
+					else { 
+						activeTyp = 0; 
+						controls.enabled = true;
+					}
+					if (activeTyp == 1) { $('#graphics-tab').tab('show') }
+					if (activeTyp == 2) { $('#text-tab').tab('show'); setTextControls(); }
+					if (activeTyp == 3) { $('#vector-tab').tab('show'); setVecControls(); }
+					
+				}
+				break;
+			default:
+			console.log("weird mouse event");
+		}
+	
+}
+
+
+
+
+
+
+function getPositionOnScene(sceneContainer, evt) {
+
+	var array = getMousePosition(container, evt.clientX, evt.clientY);
+	onClickPosition.fromArray(array);
+	onClickPosition.x = onClickPosition.x/containerWidth*document.getElementById(containerName).offsetWidth;
+	onClickPosition.y = onClickPosition.y/containerWidth*document.getElementById(containerName).offsetHeight;
+	var intersects = getIntersects(onClickPosition, group1.children);
+
+	if (intersects.length > 0) {
+
+		if (intersects[0].uv) {
+			var uv = intersects[0].uv;
+			intersects[0].object.material.map.transformUv(uv);
+			//console.log("f  "+uv.x+"  "+" / "+uv.y);
+			return {
+				x: getRealPosition('x', uv.x),
+				y: getRealPosition('y', uv.y),
+				id: intersects[0].object.id
+			}
+		}
+	} else {
+		//controls.enableRotate  = true;
+		//controls.handleMouseMoveRotate(evt);
+	}
+	return null 
+}
+
+
+function getRealPosition(axis, value) {
+	let CORRECTION_VALUE = axis === "x" ? 4.5 : 5.5;
+	return Math.round(value * 2048) - CORRECTION_VALUE;
+}
+
+var getMousePosition = function(dom, x, y) {
+	var rect = dom.getBoundingClientRect();
+	return [(x - rect.left) / rect.width, (y - rect.top) / rect.height];
+};
+
+var getIntersects = function(point, objects) {
+	mouse.set(point.x * 2 - 1, -(point.y * 2) + 1);
+	raycaster.setFromCamera(mouse, camera);
+	return raycaster.intersectObjects(objects, true);
+};
+
+
+
+
+function setHelperFuncs(canv) {
+
+	canv.preserveObjectStacking = true;
+	
+	canv.on('selection:created', function () {
+		oldCanvas = activeID;
+	});
+	
+	canv.on('selection:updated', function () {
+		oldCanvas = activeID;
+	});
+	
+	
+	canv.on('object:rotating', function(e) {
+		var p = e.target;
+		
+		if (p) {
+			p.setCoords();
+
+			var oro = p.get('angle');
+			
+			if (oro>356 || oro<4) {
+				p.set('angle', 0.0);
+			}
+			if (oro>86 && oro<94) {
+				p.set('angle', 90.0);
+			}
+			if (oro>176 && oro<184) {
+				p.set('angle', 180.0);
+			}
+			if (oro>266 && oro<274) {
+				p.set('angle', 270.0);
+			}
+			
+			if (oro>41 && oro<49) {
+				p.set('angle', 45.0);
+			}
+			if (oro>131 && oro<139) {
+				p.set('angle', 135.0);
+			}
+			if (oro>221 && oro<229) {
+				p.set('angle', 225.0);
+			}
+			if (oro>311 && oro<319) {
+				p.set('angle', 315.0);
+			}
+			
+			p.setCoords();
+			
+		}	
+	});
+	
+	canv.on('object:moving', function(e) {
+		var p = e.target;
+
+		if (oldCanvas != activeID) {
+			console.log("Wechsel!");
+		}
+		
+		if (p) {
+			p.setCoords();
+
+			var bo = p.getBoundingRect();
+			
+			var pox = (bo.left+bo.width*0.5);
+			var poy = (bo.top+bo.height*0.5);
+			
+			var mix = 512;
+			var miy = 512;
+			
+			if (poy>miy-6 && poy<miy+6) { 
+				p.top = miy;
+			}
+		
+			p.setCoords();
+	
+		}
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function loadGrafik(logoname, logourl) {
+	imageanzahl += 1;
+	var ur = mainfolder+logourl;
+	
+	grafiken[imageanzahl] = fabric.Image.fromURL(ur);
+	htmlgrafiken[imageanzahl] = new Image();
+	htmlgrafiken[imageanzahl].src = ur;
+	grafikurls[imageanzahl] = ur;
+	imagename[imageanzahl] = logoname;
+	grafikListe();
+}
+
+
+
+
+
+//loadIMG( canvas1, 0, 512, 600, 1.5, 1.5);	
+function addIMG( canv, iurl, x, y, sx, sy) {
+
+	fabric.Image.fromURL(iurl, function(myImg0) {
+	var img0 = myImg0.set({ left: x, top: y });
+		img0.transparentCorners = false;
+		img0.originX = "center";
+		img0.originY = "center";
+		img0.scaleX = sx;
+		img0.scaleY = sy;
+		img0.cornerSize = 0;
+		img0.borderScaleFactor = 4;
+		img0.centeredScaling = true;
+		img0.typ = 1;
+		canv.add(img0); 
+	});
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//initiate adding custom text and pictures on selected  (click) area
+
+
+
+
+//------pictures 
+document.getElementById("addAreaSpecificGFX").addEventListener("click", function() {
+
+	if (addAreaSpecificGFX.value === '')
+	{window.alert('Please upload or select a picture (jpg, png, svg)'); 
+		c.style.cursor = "default";
+		document.getElementById("shirtObjectsAreasQuestion").style.display = "none";
+		document.getElementById("c").removeEventListener('click', addPictureToSelectedArea); 
+		//if we want transparent or other mesh while adding active
+		/* Fabric_Simple_Front.opacity = 1;
+		Fabric_Simple_Front.wireframe = false;
+		*/
+		controls.autoRotate = false;
+	}
+	else {
+		
+		// to reset/disable "if we want transparent or other mesh while adding active"
+		/* Fabric_Simple_Front.opacity = 0.8
+		Fabric_Simple_Front.wireframe = true*/
+
+		controls.autoRotate = true; 
+		c.style.cursor = "copy";
+		document.getElementById("shirtObjectsAreasQuestion").style.display = "block";
+		document.getElementById("c").addEventListener("click", addPictureToSelectedArea);
+
+	}
+
+});
+
+
+
+
+
+function addPictureToSelectedArea() {
+
+	newGFX(canvas1, document.getElementById("addAreaSpecificGFX").value, areasTextPositioning.x, areasTextPositioning.y, 0.5, 0.5, 0);
+
+	c.style.cursor = "default";
+	document.getElementById("shirtObjectsAreasQuestion").style.display = "none";
+
+	document.getElementById("c").removeEventListener('click', addPictureToSelectedArea); 
+
+	controls.autoRotate = false; 
+
+	document.getElementById("addAreaSpecificGFX").value = '';
+
+	titleTextMaterials2inner.style.color = "grey"
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<i>Choose ready-made pictures:</i>";
+
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+
+	//1 - 14, 10; 0 - 10,8 
+};
+
+
+
+
+
+
+
+
+//pictures presets 
+
+document.getElementById("BlockLogoPreset1").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset1.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/logo.png';
+	//BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+}); 
+
+
+document.getElementById("BlockLogoPreset2").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset2.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/logo1.png';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+});
+
+document.getElementById("BlockLogoPreset3").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset3.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/logo2.png';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+});
+
+document.getElementById("BlockLogoPreset4").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset4.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/logo2.jpg';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+});
+
+document.getElementById("BlockLogoPreset5").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset5.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/pokal.png';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+});
+
+document.getElementById("BlockLogoPreset6").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset6.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/ball.png';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+}); 
+
+document.getElementById("BlockLogoPreset7").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset7.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/eintracht_frankfurt.svg';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	BlockLogoPreset8.style.backgroundColor = "#0000000f";
+}); 
+
+document.getElementById("BlockLogoPreset8").addEventListener("click", function() {
+	document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+	titleTextMaterials2inner.style.color = "#e25129c7"
+	BlockLogoPreset8.style.backgroundColor = "#bbbbbb"
+	document.getElementById("addAreaSpecificGFX").value = 'logos/coca-cola.svg';
+	BlockLogoPreset1.style.backgroundColor = "#0000000f";
+	BlockLogoPreset2.style.backgroundColor = "#0000000f";
+	BlockLogoPreset3.style.backgroundColor = "#0000000f";
+	BlockLogoPreset4.style.backgroundColor = "#0000000f";
+	BlockLogoPreset5.style.backgroundColor = "#0000000f";
+	BlockLogoPreset6.style.backgroundColor = "#0000000f";
+	BlockLogoPreset7.style.backgroundColor = "#0000000f";
+	//BlockLogoPreset8.style.backgroundColor = "#0000000f";
+}); 
+
+
+//------pictures 
+
+
+
+
+
+
+
+//------texts
+
+document.getElementById("addTextButton").addEventListener("click", function () {
+	controls.autoRotate = true; 
+
+	c.style.cursor = "copy";
+	document.getElementById("shirtObjectsAreasQuestion").style.display = "block";
+
+	document.getElementById("c").addEventListener("click", addTextToSelectedArea);
+
+});
+
+
+
+function addTextToSelectedArea() {
+
+	if (txtText.value == '') {
+		window.alert("Please don't forget to input some text!")
+
+		c.style.cursor = "default";
+		document.getElementById("shirtObjectsAreasQuestion").style.display = "none";
+
+		document.getElementById("c").removeEventListener('click', addPictureToSelectedArea); 
+
+		controls.autoRotate = false;
+
+	} else {
+
+		var ob, ob2, ob3, ob4, ob5;
+		ob = document.getElementById("txtBorder");
+		ob2 = document.getElementById("txtColor");
+		ob3 = document.getElementById("txtColorBorder");
+		ob4 = document.getElementById("txtText");
+
+		var text1 = new fabric.Text(ob4.value, { 
+			originX: "center",
+			originY: "center",
+			scaleX: 1.0,
+			scaleY: 1.0,
+			left: areasTextPositioning.x,
+			top: areasTextPositioning.y, 
+			angle: 0,
+			//fontStyle: "",
+			fontFamily: document.getElementById("txtFont").value,
+			transparentCorners: false,
+			cornerSize: 14,
+			borderScaleFactor: 2, 
+			centeredScaling: true,
+			//cornerStyle: 'circle',
+			fill: ob2.value,
+			strokeColor: ob3.value,
+			stroke: ob.value,
+			fontStyle: fontStyleCheckerGlobal,
+			fontWeight: fontWeightCheckerGlobal,
+			//id: textitemcounter,
+			//borderColor: 0x64646481,
+			//http://fabricjs.com/controls-customization
+		});
+
+		canvas1.add(text1);
+		canvas1.setActiveObject(text1);
+		text1.typ = 2;
+		controls.autoRotate = false; 
+
+		c.style.cursor = "default";
+		document.getElementById("shirtObjectsAreasQuestion").style.display = "none";
+
+		document.getElementById("c").removeEventListener('click', addTextToSelectedArea);
+	}
+};
+
+
+
+
+
+
+
+
+//canvas1.setActiveObject(text1);
+
+
+
+//------texts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//designs patters svgs 
+
+
+
+
+
+
+
+ MenONeckDesign0SvgGroup = new fabric.Group
+
+ MenONeckDesign0Svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="2048" height="1536"> <g transform="matrix(2.2653513 0 0 2.2653513 -0 0)"> <g id="MenONeckDesign1KnitTrimTop"> <path d="M99.8766 32.4106L99.8766 15.4026L177.66 15.4026L255.301 15.4026L255.301 32.4106L177.66 32.4106L99.8766 32.4106Z" fill="#ffffff" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveRight"> <path d="M814.247 99.2273L814.026 99.7383L813.601 100.778L812.785 102.716L812.185 103.981L811.624 105L810.987 105.975L810.664 106.402L810.318 106.812L809.562 107.583L808.734 108.287L807.846 108.927L806.913 109.502L805.945 110.013L805.642 110.15L804.957 110.461L803.962 110.846L803.098 111.129L802.211 111.377L801.306 111.59L800.389 111.771L799.466 111.921L798.543 112.041L796.719 112.2L795.789 112.235L794.868 112.227L793.956 112.181L793.052 112.1L791.975 111.962L790.903 111.787L789.303 111.471L787.705 111.111L786.568 114.191L785.377 117.25L784.108 120.277L783.438 121.775L782.741 123.258L781.462 125.82L780.121 128.346L778.724 130.841L777.279 133.309L775.492 136.239L773.657 139.141L771.411 142.596L767.992 147.745L766.079 150.612L765.13 152.05L764.687 152.72L763.447 154.663L761.937 157.106L759.839 160.475L758.389 162.719L757.146 164.559L755.864 166.346L754.764 167.78L753.633 169.151L752.469 170.444L751.269 171.649L750.571 172.281L749.934 172.8L749.354 173.219L748.826 173.547L748.252 173.841L747.736 174.048L747.181 174.207L746.444 174.345L745.931 174.426L745.419 174.569L744.948 174.795L744.302 175.164L743.562 175.656L742.764 176.174L743.993 178.738L745.19 181.306L746.354 183.882L747.482 186.469L748.577 189.076L749.634 191.706L750.655 194.363L751.638 197.054L752.445 199.389L753.213 201.739L753.949 204.099L754.653 206.466L753.934 208.783L752.896 212.135L763.405 212.134L784.416 212.132L858.732 212.127L856.934 206.458L857.654 204.099L858.405 201.748L859.188 199.406L860.012 197.076L860.991 194.443L861.977 191.904L862.989 189.411L864.049 186.918L865.175 184.378L866.388 181.743L867.707 178.967L868.87 175.863L868.301 175.592L867.28 175.098L866.613 174.746L866.107 174.465L865.206 174.084L864.541 173.878L863.811 173.626L863.325 173.38L862.882 173.076L862.378 172.645L861.892 172.163L861.332 171.548L860.682 170.781L859.928 169.839L855.65 164.303L851.438 158.678L849.366 155.837L847.321 152.981L845.307 150.112L843.327 147.232L838.911 140.665L836.74 137.358L834.605 134.029L831.829 129.549L830.479 127.287L829.155 125.01L827.017 121.175L825.983 119.238L824.974 117.286L823.993 115.319L823.039 113.335L822.116 111.336L821.223 109.318L820.467 107.522L819.74 105.715L817.659 100.253L817.157 98.9093L816.904 98.2393L814.247 99.2273Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveLeft"> <path d="M605.011 98.8862L604.508 100.23L602.427 105.692L601.7 107.499L600.944 109.295L600.052 111.312L599.128 113.312L598.175 115.296L597.193 117.263L596.185 119.215L595.151 121.152L593.013 124.987L591.689 127.264L590.338 129.526L587.563 134.006L585.428 137.335L583.257 140.642L578.84 147.209L576.861 150.089L574.847 152.958L572.802 155.814L570.73 158.654L566.518 164.28L562.239 169.816L561.484 170.757L560.835 171.525L560.275 172.14L559.79 172.622L559.286 173.053L558.843 173.357L558.357 173.603L557.627 173.855L556.961 174.061L556.061 174.442L555.555 174.723L554.887 175.075L553.867 175.569L553.298 175.84L554.461 178.944L555.779 181.719L556.992 184.355L558.118 186.895L559.178 189.388L560.191 191.881L561.176 194.42L562.155 197.052L562.979 199.383L563.763 201.725L564.513 204.075L565.234 206.435L563.435 212.104L637.75 212.109L658.763 212.111L669.272 212.111L668.233 208.76L667.514 206.442L668.219 204.075L668.954 201.716L669.723 199.366L670.53 197.031L671.513 194.34L672.533 191.681L673.591 189.053L674.684 186.446L675.814 183.859L676.978 181.283L678.174 178.715L679.403 176.15L678.606 175.633L677.866 175.14L677.22 174.771L676.747 174.545L676.237 174.403L675.724 174.321L674.987 174.184L674.432 174.024L673.915 173.818L673.342 173.524L672.813 173.195L672.234 172.777L671.597 172.258L670.898 171.625L669.699 170.421L668.534 169.127L667.403 167.757L666.304 166.323L665.022 164.536L663.777 162.696L662.328 160.45L660.23 157.083L658.72 154.64L657.481 152.697L657.037 152.027L656.088 150.589L654.175 147.722L650.756 142.572L648.51 139.118L646.676 136.215L644.888 133.286L643.444 130.818L642.047 128.323L640.706 125.796L639.427 123.235L638.73 121.751L638.059 120.254L636.791 117.227L635.599 114.168L634.463 111.088L632.864 111.448L631.264 111.764L630.193 111.939L629.116 112.076L628.21 112.157L627.299 112.203L626.379 112.211L625.448 112.177L623.625 112.018L622.701 111.897L621.778 111.748L620.862 111.567L619.956 111.354L619.07 111.106L618.206 110.823L617.21 110.438L616.526 110.127L616.222 109.99L615.255 109.479L614.321 108.904L613.433 108.264L612.605 107.559L611.85 106.789L611.504 106.379L611.18 105.952L610.543 104.977L609.983 103.958L609.382 102.693L608.567 100.754L608.141 99.7152L607.921 99.2042L605.264 98.2152L605.011 98.8862Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SideLeft"> <path d="M328.543 80.8835L328.583 81.3305L328.784 83.5745L329.09 86.9515L329.231 88.6645L329.647 93.6935L330.222 101.15L330.823 109.528L331.118 114.444L331.16 115.148L331.342 118.174L331.711 125.766L331.967 132.445L332.147 138.14L332.359 146.472L332.453 152.465L332.491 154.914L332.532 159.914L332.544 165.783L332.501 174.889L332.381 185.7L332.24 200.817L332.23 210.966L332.314 219.494L332.397 223.79L332.513 228.107L330.579 233.527L328.123 233.107L325.662 232.729L323.196 232.395L320.724 232.104L317.915 231.835L315.102 231.641L312.285 231.527L309.469 231.499L301.589 231.557L296.334 231.63L291.952 231.729L287.569 231.88L287.267 226.214L287.359 218.691L287.391 211.197L287.374 202.23L287.285 188.823L287.176 174.593L287.181 162.623L287.249 154.924L287.359 148.378L287.442 145.175L287.59 139.482L287.856 131.407L288.103 125.252L288.373 119.6L288.53 116.84L288.716 113.577L289.12 107.168L289.569 100.766L290.064 94.3705L290.334 91.2095L290.555 88.6305L290.85 85.1745L291.001 83.4495L293.825 83.6965L294.442 84.2705L295.538 85.3975L296.69 86.6395L298.047 88.1685L300.121 90.4725L301.542 91.9475L302.765 93.1055L304.035 94.1735L304.63 94.5995L305.317 95.0165L306.073 95.4095L306.874 95.7635L307.699 96.0635L308.526 96.2935L309.332 96.4385L310.094 96.4835L310.58 96.4395L311.079 96.3295L311.585 96.1615L312.091 95.9455L312.832 95.5545L313.532 95.1095L314.166 94.6445L314.71 94.1915L315.4 93.5525L316.069 92.8875L317.353 91.4895L318.818 89.7215L320.933 86.9715L322.435 84.9845L323.735 83.3655L324.594 82.3585L325.343 81.5295L325.72 81.1395L328.543 80.8835Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveLeftKnitTrim"> <path d="M563.026 199.52L563.764 201.725L564.514 204.076L565.235 206.436L563.437 212.105L637.751 212.109L658.764 212.111L669.273 212.112L668.234 208.76L667.515 206.443L668.22 204.076L668.955 201.716L669.673 199.52L563.026 199.52Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveRightKnitTrim"> <path d="M752.495 199.543L753.213 201.739L753.949 204.1L754.653 206.466L753.934 208.783L752.896 212.135L763.405 212.134L784.416 212.132L858.732 212.128L856.934 206.459L857.654 204.099L858.404 201.748L859.142 199.543L752.495 199.543Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontColor1"> <path d="M220.96 60.5568L223.454 63.6968L224.293 64.7368L224.71 65.2588L226.687 67.7868L230.553 72.9088L234.402 77.9818L237.003 81.3308L239.816 81.6758L239.693 82.7048L239.436 84.7628L238.871 89.4398L237.297 103.671L236.324 113.165L235.586 121.08L234.932 128.998L234.466 135.599L234.081 142.203L233.79 148.809L233.6 155.418L233.506 161.979L233.477 168.542L233.508 176.418L233.625 188.234L233.757 199.973L233.779 209.837L233.732 216.169L233.646 221.542L233.576 224.163L233.561 224.701L233.451 226.189L233.24 227.956L233.028 229.849L227.25 230.009L218.581 230.29L208.994 230.611L204.199 230.728L200.898 230.809L194.251 230.923L187.622 230.991L180.989 231.019L177.589 231.015L174.635 231.014L169.162 231.016L164.572 230.982L162.933 230.956L158.085 230.889L149.25 230.684L139.842 230.421L128.653 230.059L122.15 229.849L121.938 227.956L121.726 226.189L121.616 224.7L121.602 224.163L121.532 221.542L121.445 216.166L121.399 209.833L121.42 199.966L121.553 188.224L121.67 176.412L121.7 168.538L121.672 161.977L121.577 155.418L121.387 148.798L121.093 142.178L120.704 135.56L120.234 128.945L119.576 121.014L118.834 113.094L117.863 103.611L116.307 89.4398L115.694 84.3658L115.471 82.5758L115.362 81.6758L118.175 81.3308L122.451 75.8498L128.811 67.5868L132.41 62.8978L134.218 60.5568L134.818 59.7798L138.231 55.3568L141.175 51.7008L143.111 49.3978L144.791 47.4778L146.259 45.8788L147.517 44.5598L148.804 43.2678L150.12 42.0068L150.786 41.3998L151.659 40.6038L153.474 39.0928L154.928 37.8718L155.671 38.5748L156.298 39.2548L156.996 40.1448L157.837 41.1918L158.552 42.0038L159.295 42.7798L160.214 43.6658L160.804 44.1958L161.411 44.7018L162.036 45.1818L162.677 45.6378L164.001 46.4758L165.376 47.2138L166.793 47.8528L168.243 48.3918L169.72 48.8318L171.214 49.1718L172.444 49.3668L173.669 49.4888L175.141 49.5628L177.367 49.5958L179.42 49.5948L180.641 49.5598L181.656 49.4938L182.669 49.3858L184.18 49.1328L185.68 48.7768L187.16 48.3168L188.614 47.7548L190.032 47.0918L191.407 46.3288L192.73 45.4668L193.37 44.9998L193.994 44.5078L195.112 43.5288L196.048 42.5868L196.997 41.4908L198.227 39.8828L198.992 38.8518L199.703 37.9688L199.984 37.6458L201.516 38.9318L203.454 40.5448L204.392 41.3998L205.085 42.0328L206.455 43.3488L207.793 44.6968L209.1 46.0728L210.625 47.7418L212.368 49.7448L214.373 52.1438L217.326 55.8338L220.96 60.5568Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g><g id="MenONeckDesign1SideRight"> <path d="M39.1845 81.0238L39.1445 81.4708L38.9425 83.7148L38.6375 87.0918L38.4965 88.8048L38.0805 93.8338L37.5055 101.291L36.9045 109.669L36.6095 114.584L36.5665 115.289L36.3855 118.315L36.0165 125.907L35.7605 132.586L35.5805 138.281L35.3675 146.613L35.2745 152.606L35.2365 155.055L35.1955 160.055L35.1835 165.923L35.2265 175.03L35.3465 185.84L35.4865 200.958L35.4975 211.107L35.4135 219.635L35.3305 223.93L35.2145 228.248L37.1485 233.667L39.6035 233.247L42.0655 232.869L44.5315 232.535L47.0035 232.245L49.8125 231.975L52.6255 231.781L55.4425 231.668L58.2585 231.639L66.1375 231.697L71.3935 231.77L75.7755 231.87L80.1585 232.02L80.4605 226.355L80.3685 218.832L80.3355 211.337L80.3535 202.371L80.4425 188.963L80.5515 174.734L80.5465 162.764L80.4785 155.065L80.3685 148.518L80.2855 145.316L80.1375 139.623L79.8715 131.548L79.6245 125.393L79.3545 119.741L79.1975 116.981L79.0115 113.718L78.6075 107.309L78.1585 100.907L77.6635 94.5108L77.3935 91.3498L77.1725 88.7708L76.8775 85.3148L76.7265 83.5898L73.9025 83.8368L73.2855 84.4108L72.1895 85.5378L71.0375 86.7798L69.6805 88.3088L67.6065 90.6128L66.1855 92.0878L64.9625 93.2458L63.6925 94.3138L63.0975 94.7398L62.4105 95.1568L61.6545 95.5498L60.8535 95.9038L60.0275 96.2038L59.2015 96.4338L58.3955 96.5788L57.6325 96.6238L57.1475 96.5798L56.6485 96.4698L56.1425 96.3018L55.6365 96.0858L54.8945 95.6948L54.1955 95.2498L53.5605 94.7848L53.0175 94.3318L52.3275 93.6928L51.6585 93.0278L50.3745 91.6298L48.9095 89.8618L46.7945 87.1118L45.2915 85.1248L43.9925 83.5058L43.1335 82.4988L42.3845 81.6698L42.0075 81.2798L39.1845 81.0238Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontLogo"> <path d="M154.594 73.5C153.645 73.7943 152.727 74.421 152.062 75.3438C153.51 73.8207 155.68 73.8403 156.594 74.6562C157.58 75.5362 157.656 77.1552 156.688 77.9062C153.232 80.5803 153.295 76.8115 154.938 75.5625C154.938 75.5625 153.315 75.0493 152.094 76.0312C150.587 77.2433 150.653 80.799 154.344 80.375C156.489 80.128 157.642 78.0312 158.906 79.2812C160.664 74.5645 157.441 72.6171 154.594 73.5ZM155.75 81.2188C155.655 81.2188 155.588 81.2495 155.531 81.3125C155.474 81.3745 155.437 81.4483 155.438 81.5312C155.438 81.6153 155.474 81.687 155.531 81.75C155.588 81.813 155.655 81.8438 155.75 81.8438C155.845 81.8438 155.943 81.813 156 81.75C156.057 81.687 156.063 81.6153 156.062 81.5312C156.062 81.4483 156.058 81.3745 156 81.3125C155.941 81.2495 155.842 81.2188 155.75 81.2188ZM153.75 81.375L153.75 82.0625L153.656 82.0625L153.344 82.0625L153.031 82.0625C152.693 82.0625 152.43 82.1243 152.25 82.2812C152.07 82.4392 151.969 82.6525 151.969 82.9375L151.969 84.2188L152.562 84.2188L152.562 82.9375C152.562 82.7365 152.619 82.602 152.719 82.5C152.82 82.399 152.967 82.3438 153.156 82.3438L153.344 82.3438L153.656 82.3438L153.75 82.3438L153.75 83.4375C153.75 83.7115 153.83 83.9065 154 84.0625C154.17 84.2185 154.404 84.3125 154.719 84.3125C154.825 84.3125 154.954 84.3082 155.062 84.2812C155.169 84.2522 155.26 84.1983 155.344 84.1562L155.219 83.9062C155.166 83.9373 155.109 83.9428 155.031 83.9688C154.953 83.9958 154.864 84.0313 154.781 84.0312C154.722 84.0312 154.647 84.023 154.594 84C154.541 83.978 154.51 83.921 154.469 83.875C154.429 83.829 154.399 83.7615 154.375 83.6875C154.351 83.6135 154.344 83.5445 154.344 83.4375L154.344 82.3438L154.969 82.3438L154.969 82.0625L154.344 82.0625L154.344 81.375L153.75 81.375ZM150.656 81.9688C150.589 81.9688 150.546 81.989 150.469 82C150.392 82.011 150.297 82.0102 150.219 82.0312C150.141 82.0523 150.074 82.094 150 82.125C149.926 82.155 149.842 82.1777 149.781 82.2188L149.938 82.4688C150.032 82.4048 150.13 82.3505 150.25 82.3125C150.37 82.2755 150.499 82.25 150.625 82.25C150.792 82.25 150.927 82.3112 151.031 82.4062C151.136 82.5013 151.188 82.6438 151.188 82.8438L150.594 82.8438C150.215 82.8438 149.96 82.9162 149.781 83.0312C149.601 83.1453 149.5 83.2992 149.5 83.5312C149.5 83.7623 149.601 83.9485 149.781 84.0625C149.96 84.1775 150.215 84.2188 150.594 84.2188L151.781 84.2188L151.781 82.8438C151.781 82.7127 151.768 82.607 151.719 82.5C151.67 82.393 151.595 82.2967 151.5 82.2188C151.405 82.1408 151.292 82.0733 151.156 82.0312C151.019 81.9892 150.834 81.9687 150.656 81.9688ZM150.594 83.125L151.188 83.125L151.188 83.9375L150.594 83.9375C150.273 83.9375 150.125 83.7962 150.125 83.5312C150.125 83.2663 150.273 83.125 150.594 83.125ZM159.719 81.9688C159.653 81.9688 159.577 81.989 159.5 82C159.423 82.011 159.359 82.0102 159.281 82.0312C159.203 82.0523 159.136 82.094 159.062 82.125C158.988 82.155 158.905 82.1777 158.844 82.2188L159 82.4688C159.095 82.4048 159.192 82.3505 159.312 82.3125C159.433 82.2755 159.562 82.25 159.688 82.25C159.854 82.25 159.99 82.3112 160.094 82.4062C160.199 82.5013 160.25 82.6438 160.25 82.8438L159.656 82.8438C159.277 82.8438 159.023 82.9162 158.844 83.0312C158.664 83.1453 158.562 83.2992 158.562 83.5312C158.562 83.7623 158.664 83.9485 158.844 84.0625C159.023 84.1775 159.277 84.2188 159.656 84.2188L160.844 84.2188L160.844 82.8438C160.844 82.7127 160.799 82.607 160.75 82.5C160.701 82.393 160.657 82.2967 160.562 82.2188C160.468 82.1408 160.324 82.0733 160.188 82.0312C160.05 81.9892 159.898 81.9687 159.719 81.9688ZM159.656 83.125L160.25 83.125L160.25 83.9375L159.656 83.9375C159.335 83.9375 159.188 83.7962 159.188 83.5312C159.188 83.2663 159.335 83.125 159.656 83.125ZM155.469 82.0625L155.469 84.2188L156.062 84.2188L156.062 82.0625L155.469 82.0625ZM156.188 82.0625L157.031 84.2188L157.969 84.2188L158.781 82.0625L158.219 82.0625L157.5 83.875L157.469 83.875L156.781 82.0625L156.188 82.0625Z" fill="#000000" fill-rule="evenodd" opacity="0" stroke="none"/> </g> <g id="MenONeckDesign1BackColor1"> <path d="M479.093 54.4029L479.985 55.5299L481.763 57.7879L483.098 59.4809L484.121 60.7919L486.922 64.4529L490.205 68.8319L493.604 73.3519L495.892 76.3519L498.706 76.6969L498.592 77.6309L498.357 79.5019L497.754 84.4509L496.567 95.0089L495.799 102.048L495.184 107.916L494.891 110.84L494.597 113.787L493.699 123.584L493.295 128.488L492.927 133.398L492.691 137.142L492.512 140.896L492.355 145.406L492.188 152.165L492.072 159.429L492.029 166.695L492.047 175.414L492.152 188.495L492.257 199.688L492.283 209.092L492.257 215.129L492.203 220.252L492.158 222.751L493.253 228.316L490.56 228.783L487.871 229.279L479.816 230.869L473.424 232.158L468.037 233.148L464.569 233.723L461.618 234.161L460.174 234.347L458.94 234.506L456.495 234.777L454.086 235.003L451.701 235.188L449.103 235.348L446.268 235.476L443.155 235.569L438.954 235.631L436.068 235.628L431.182 235.624L427.151 235.549L424.671 235.473L422.401 235.369L420.317 235.242L418.218 235.079L416.097 234.876L415.038 234.753L413.382 234.561L410.002 234.092L406.034 233.464L401.989 232.74L397.689 231.924L392.578 230.904L384.37 229.297L378.882 228.316L379.978 222.751L380.099 162.236L380.082 161.117L380.054 158.879L379.948 152.165L379.78 145.409L379.622 140.892L379.443 137.136L379.208 133.398L378.748 127.264L378.244 121.137L377.697 115.014L377.295 110.833L377.109 108.897L376.482 102.782L375.817 96.6699L375.116 90.5599L374.381 84.4509L374.064 81.8719L373.639 78.4199L373.43 76.6969L376.243 76.3519L381.717 69.1449L386.953 62.2279L391.414 56.4609L393.042 54.4029L394.598 52.4379L397.623 48.7229L400.179 45.6959L402.285 43.2729L404.243 41.0879L406.057 39.1219L407.9 37.1859L409.774 35.2829L410.717 34.3589L411.793 33.3019L413.433 31.7539L415.3 30.0549L416.431 29.1059L417.853 27.9099L420.635 25.6319L422.737 23.9069L424.536 26.0959L426.856 26.0509L431.23 26.0059L436.068 25.9959L437.596 25.9929L446.109 26.0799L447.599 26.0959L449.398 23.9069L451.515 25.6449L454.307 27.9319L455.705 29.1059L456.839 30.0589L458.864 31.8999L460.537 33.4919L461.419 34.3589L462.363 35.2869L464.238 37.1939L466.08 39.1299L467.892 41.0929L469.849 43.2749L471.951 45.6939L474.507 48.7189L477.536 52.4349L479.093 54.4029Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g><g id="MenONeckDesign1BackLogo"> <path d="M428.469 33.2188C427.784 33.431 427.136 33.866 426.656 34.5312C427.699 33.4332 429.247 33.4745 429.906 34.0625C430.617 34.6975 430.699 35.8653 430 36.4062C427.51 38.3343 427.534 35.6187 428.719 34.7188C428.719 34.7188 427.568 34.3232 426.688 35.0312C425.601 35.9053 425.652 38.4935 428.313 38.1875C429.861 38.0095 430.683 36.474 431.594 37.375C432.861 33.9745 430.522 32.582 428.469 33.2188ZM440.125 33.875C440.018 33.875 439.94 33.8978 439.875 33.9688C439.811 34.0398 439.781 34.1247 439.781 34.2188C439.781 34.3128 439.811 34.3988 439.875 34.4688C439.94 34.5397 440.018 34.5625 440.125 34.5625C440.231 34.5625 440.342 34.5397 440.406 34.4688C440.471 34.3987 440.5 34.3127 440.5 34.2188C440.5 34.1248 440.472 34.0398 440.406 33.9688C440.34 33.8977 440.229 33.875 440.125 33.875ZM437.875 34.0625L437.875 34.8125L437.75 34.8125L437.438 34.8125L437.063 34.8125C436.683 34.8125 436.389 34.8845 436.188 35.0625C435.985 35.2395 435.875 35.4925 435.875 35.8125L435.875 37.25L436.531 37.25L436.531 35.8125C436.531 35.5875 436.606 35.4265 436.719 35.3125C436.832 35.1985 436.975 35.1562 437.188 35.1562L437.438 35.1562L437.75 35.1562L437.875 35.1562L437.875 36.375C437.875 36.682 437.965 36.9178 438.156 37.0938C438.347 37.2688 438.645 37.3438 439 37.3438C439.119 37.3438 439.224 37.3435 439.344 37.3125C439.466 37.2815 439.562 37.2345 439.656 37.1875L439.531 36.875C439.472 36.911 439.4 36.9388 439.312 36.9688C439.224 36.9987 439.125 37.0313 439.031 37.0312C438.965 37.0312 438.903 37.025 438.844 37C438.784 36.975 438.734 36.926 438.688 36.875C438.641 36.823 438.588 36.7402 438.562 36.6562C438.536 36.5743 438.531 36.495 438.531 36.375L438.531 35.1562L439.281 35.1562L439.281 34.8125L438.531 34.8125L438.531 34.0625L437.875 34.0625ZM434.406 34.7188C434.331 34.7188 434.273 34.737 434.188 34.75C434.101 34.762 433.993 34.7572 433.906 34.7812C433.818 34.8043 433.738 34.84 433.656 34.875C433.572 34.909 433.506 34.953 433.438 35L433.594 35.2812C433.701 35.2083 433.834 35.168 433.969 35.125C434.104 35.083 434.233 35.0625 434.375 35.0625C434.563 35.0625 434.695 35.1117 434.813 35.2188C434.93 35.3247 435 35.4918 435 35.7188L434.344 35.7188C433.918 35.7188 433.609 35.7782 433.406 35.9062C433.204 36.0352 433.094 36.2088 433.094 36.4688C433.094 36.7298 433.204 36.9335 433.406 37.0625C433.609 37.1905 433.918 37.25 434.344 37.25L435.656 37.25L435.656 35.7188C435.656 35.5707 435.649 35.4325 435.594 35.3125C435.539 35.1915 435.451 35.087 435.344 35C435.237 34.912 435.091 34.8282 434.938 34.7812C434.784 34.7343 434.607 34.7188 434.406 34.7188ZM434.344 36.0312L435 36.0312L435 36.9375L434.344 36.9375C433.983 36.9375 433.812 36.7667 433.813 36.4688C433.813 36.1707 433.983 36.0312 434.344 36.0312ZM444.594 34.7188C444.519 34.7188 444.461 34.737 444.375 34.75C444.289 34.762 444.181 34.7572 444.094 34.7812C444.006 34.8043 443.927 34.84 443.844 34.875C443.761 34.909 443.694 34.953 443.625 35L443.781 35.2812C443.887 35.2083 444.021 35.168 444.156 35.125C444.291 35.083 444.422 35.0625 444.562 35.0625C444.751 35.0625 444.914 35.1117 445.031 35.2188C445.149 35.3247 445.188 35.4918 445.188 35.7188L444.531 35.7188C444.104 35.7188 443.797 35.7782 443.594 35.9062C443.392 36.0352 443.281 36.2088 443.281 36.4688C443.281 36.7298 443.392 36.9335 443.594 37.0625C443.797 37.1905 444.104 37.25 444.531 37.25L445.844 37.25L445.844 35.7188C445.844 35.5707 445.836 35.4325 445.781 35.3125C445.726 35.1915 445.637 35.087 445.531 35C445.424 34.912 445.309 34.8282 445.156 34.7812C445.002 34.7343 444.795 34.7188 444.594 34.7188ZM444.531 36.0312L445.188 36.0312L445.188 36.9375L444.531 36.9375C444.17 36.9375 444 36.7667 444 36.4688C444 36.1707 444.17 36.0312 444.531 36.0312ZM439.812 34.8125L439.812 37.25L440.469 37.25L440.469 34.8125L439.812 34.8125ZM440.625 34.8125L441.562 37.25L442.625 37.25L443.563 34.8125L442.906 34.8125L442.125 36.8438L442.063 36.8438L441.281 34.8125L440.625 34.8125Z" fill="#000000" fill-rule="evenodd" opacity="0" stroke="none"/> </g></g> </svg>';
+
+fabric.loadSVGFromString(MenONeckDesign0Svg, function(objects, options) {
+	for (let i = 0; i < objects.length; i++){
+		let obj = objects[i];
+		//obj.setTop(0);
+		//obj.setCoords();
+		//obj.scaleToHeight(pdf_canvas.height)
+		MenONeckDesign0SvgGroup.addWithUpdate(obj)
+	} 
+});
+
+MenONeckDesign0SvgGroup.set({ 
+	lockMovementX:true,
+	lockMovementY:true,
+	lockScalingX:true,
+	lockScalingY:true,
+	lockRotation:true,
+	hasControls:false,
+	hasBorders:false,
+	selectable: false,
+	fixed: true,
+})
+
+canvas1.add(MenONeckDesign0SvgGroup);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MenONeckDesign1SvgGroup = new fabric.Group
+
+MenONeckDesign1Svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="2048" height="1536"> <g transform="matrix(2.2653513 0 0 2.2653513 -0 0)"> <g id="MenONeckDesign1KnitTrimTop"> <path d="M99.8766 32.4106L99.8766 15.4026L177.66 15.4026L255.301 15.4026L255.301 32.4106L177.66 32.4106L99.8766 32.4106Z" fill="#ffffff" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveRight"> <path d="M814.247 99.2273L814.026 99.7383L813.601 100.778L812.785 102.716L812.185 103.981L811.624 105L810.987 105.975L810.664 106.402L810.318 106.812L809.562 107.583L808.734 108.287L807.846 108.927L806.913 109.502L805.945 110.013L805.642 110.15L804.957 110.461L803.962 110.846L803.098 111.129L802.211 111.377L801.306 111.59L800.389 111.771L799.466 111.921L798.543 112.041L796.719 112.2L795.789 112.235L794.868 112.227L793.956 112.181L793.052 112.1L791.975 111.962L790.903 111.787L789.303 111.471L787.705 111.111L786.568 114.191L785.377 117.25L784.108 120.277L783.438 121.775L782.741 123.258L781.462 125.82L780.121 128.346L778.724 130.841L777.279 133.309L775.492 136.239L773.657 139.141L771.411 142.596L767.992 147.745L766.079 150.612L765.13 152.05L764.687 152.72L763.447 154.663L761.937 157.106L759.839 160.475L758.389 162.719L757.146 164.559L755.864 166.346L754.764 167.78L753.633 169.151L752.469 170.444L751.269 171.649L750.571 172.281L749.934 172.8L749.354 173.219L748.826 173.547L748.252 173.841L747.736 174.048L747.181 174.207L746.444 174.345L745.931 174.426L745.419 174.569L744.948 174.795L744.302 175.164L743.562 175.656L742.764 176.174L743.993 178.738L745.19 181.306L746.354 183.882L747.482 186.469L748.577 189.076L749.634 191.706L750.655 194.363L751.638 197.054L752.445 199.389L753.213 201.739L753.949 204.099L754.653 206.466L753.934 208.783L752.896 212.135L763.405 212.134L784.416 212.132L858.732 212.127L856.934 206.458L857.654 204.099L858.405 201.748L859.188 199.406L860.012 197.076L860.991 194.443L861.977 191.904L862.989 189.411L864.049 186.918L865.175 184.378L866.388 181.743L867.707 178.967L868.87 175.863L868.301 175.592L867.28 175.098L866.613 174.746L866.107 174.465L865.206 174.084L864.541 173.878L863.811 173.626L863.325 173.38L862.882 173.076L862.378 172.645L861.892 172.163L861.332 171.548L860.682 170.781L859.928 169.839L855.65 164.303L851.438 158.678L849.366 155.837L847.321 152.981L845.307 150.112L843.327 147.232L838.911 140.665L836.74 137.358L834.605 134.029L831.829 129.549L830.479 127.287L829.155 125.01L827.017 121.175L825.983 119.238L824.974 117.286L823.993 115.319L823.039 113.335L822.116 111.336L821.223 109.318L820.467 107.522L819.74 105.715L817.659 100.253L817.157 98.9093L816.904 98.2393L814.247 99.2273Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveLeft"> <path d="M605.011 98.8862L604.508 100.23L602.427 105.692L601.7 107.499L600.944 109.295L600.052 111.312L599.128 113.312L598.175 115.296L597.193 117.263L596.185 119.215L595.151 121.152L593.013 124.987L591.689 127.264L590.338 129.526L587.563 134.006L585.428 137.335L583.257 140.642L578.84 147.209L576.861 150.089L574.847 152.958L572.802 155.814L570.73 158.654L566.518 164.28L562.239 169.816L561.484 170.757L560.835 171.525L560.275 172.14L559.79 172.622L559.286 173.053L558.843 173.357L558.357 173.603L557.627 173.855L556.961 174.061L556.061 174.442L555.555 174.723L554.887 175.075L553.867 175.569L553.298 175.84L554.461 178.944L555.779 181.719L556.992 184.355L558.118 186.895L559.178 189.388L560.191 191.881L561.176 194.42L562.155 197.052L562.979 199.383L563.763 201.725L564.513 204.075L565.234 206.435L563.435 212.104L637.75 212.109L658.763 212.111L669.272 212.111L668.233 208.76L667.514 206.442L668.219 204.075L668.954 201.716L669.723 199.366L670.53 197.031L671.513 194.34L672.533 191.681L673.591 189.053L674.684 186.446L675.814 183.859L676.978 181.283L678.174 178.715L679.403 176.15L678.606 175.633L677.866 175.14L677.22 174.771L676.747 174.545L676.237 174.403L675.724 174.321L674.987 174.184L674.432 174.024L673.915 173.818L673.342 173.524L672.813 173.195L672.234 172.777L671.597 172.258L670.898 171.625L669.699 170.421L668.534 169.127L667.403 167.757L666.304 166.323L665.022 164.536L663.777 162.696L662.328 160.45L660.23 157.083L658.72 154.64L657.481 152.697L657.037 152.027L656.088 150.589L654.175 147.722L650.756 142.572L648.51 139.118L646.676 136.215L644.888 133.286L643.444 130.818L642.047 128.323L640.706 125.796L639.427 123.235L638.73 121.751L638.059 120.254L636.791 117.227L635.599 114.168L634.463 111.088L632.864 111.448L631.264 111.764L630.193 111.939L629.116 112.076L628.21 112.157L627.299 112.203L626.379 112.211L625.448 112.177L623.625 112.018L622.701 111.897L621.778 111.748L620.862 111.567L619.956 111.354L619.07 111.106L618.206 110.823L617.21 110.438L616.526 110.127L616.222 109.99L615.255 109.479L614.321 108.904L613.433 108.264L612.605 107.559L611.85 106.789L611.504 106.379L611.18 105.952L610.543 104.977L609.983 103.958L609.382 102.693L608.567 100.754L608.141 99.7152L607.921 99.2042L605.264 98.2152L605.011 98.8862Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SideLeft"> <path d="M328.543 80.8835L328.583 81.3305L328.784 83.5745L329.09 86.9515L329.231 88.6645L329.647 93.6935L330.222 101.15L330.823 109.528L331.118 114.444L331.16 115.148L331.342 118.174L331.711 125.766L331.967 132.445L332.147 138.14L332.359 146.472L332.453 152.465L332.491 154.914L332.532 159.914L332.544 165.783L332.501 174.889L332.381 185.7L332.24 200.817L332.23 210.966L332.314 219.494L332.397 223.79L332.513 228.107L330.579 233.527L328.123 233.107L325.662 232.729L323.196 232.395L320.724 232.104L317.915 231.835L315.102 231.641L312.285 231.527L309.469 231.499L301.589 231.557L296.334 231.63L291.952 231.729L287.569 231.88L287.267 226.214L287.359 218.691L287.391 211.197L287.374 202.23L287.285 188.823L287.176 174.593L287.181 162.623L287.249 154.924L287.359 148.378L287.442 145.175L287.59 139.482L287.856 131.407L288.103 125.252L288.373 119.6L288.53 116.84L288.716 113.577L289.12 107.168L289.569 100.766L290.064 94.3705L290.334 91.2095L290.555 88.6305L290.85 85.1745L291.001 83.4495L293.825 83.6965L294.442 84.2705L295.538 85.3975L296.69 86.6395L298.047 88.1685L300.121 90.4725L301.542 91.9475L302.765 93.1055L304.035 94.1735L304.63 94.5995L305.317 95.0165L306.073 95.4095L306.874 95.7635L307.699 96.0635L308.526 96.2935L309.332 96.4385L310.094 96.4835L310.58 96.4395L311.079 96.3295L311.585 96.1615L312.091 95.9455L312.832 95.5545L313.532 95.1095L314.166 94.6445L314.71 94.1915L315.4 93.5525L316.069 92.8875L317.353 91.4895L318.818 89.7215L320.933 86.9715L322.435 84.9845L323.735 83.3655L324.594 82.3585L325.343 81.5295L325.72 81.1395L328.543 80.8835Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveLeftKnitTrim"> <path d="M563.026 199.52L563.764 201.725L564.514 204.076L565.235 206.436L563.437 212.105L637.751 212.109L658.764 212.111L669.273 212.112L668.234 208.76L667.515 206.443L668.22 204.076L668.955 201.716L669.673 199.52L563.026 199.52Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SleeveRightKnitTrim"> <path d="M752.495 199.543L753.213 201.739L753.949 204.1L754.653 206.466L753.934 208.783L752.896 212.135L763.405 212.134L784.416 212.132L858.732 212.128L856.934 206.459L857.654 204.099L858.404 201.748L859.142 199.543L752.495 199.543Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontColor1"> <path d="M220.96 60.5568L223.454 63.6968L224.293 64.7368L224.71 65.2588L226.687 67.7868L230.553 72.9088L234.402 77.9818L237.003 81.3308L239.816 81.6758L239.693 82.7048L239.436 84.7628L238.871 89.4398L237.297 103.671L236.324 113.165L235.586 121.08L234.932 128.998L234.466 135.599L234.081 142.203L233.79 148.809L233.6 155.418L233.506 161.979L233.477 168.542L233.508 176.418L233.625 188.234L233.757 199.973L233.779 209.837L233.732 216.169L233.646 221.542L233.576 224.163L233.561 224.701L233.451 226.189L233.24 227.956L233.028 229.849L227.25 230.009L218.581 230.29L208.994 230.611L204.199 230.728L200.898 230.809L194.251 230.923L187.622 230.991L180.989 231.019L177.589 231.015L174.635 231.014L169.162 231.016L164.572 230.982L162.933 230.956L158.085 230.889L149.25 230.684L139.842 230.421L128.653 230.059L122.15 229.849L121.938 227.956L121.726 226.189L121.616 224.7L121.602 224.163L121.532 221.542L121.445 216.166L121.399 209.833L121.42 199.966L121.553 188.224L121.67 176.412L121.7 168.538L121.672 161.977L121.577 155.418L121.387 148.798L121.093 142.178L120.704 135.56L120.234 128.945L119.576 121.014L118.834 113.094L117.863 103.611L116.307 89.4398L115.694 84.3658L115.471 82.5758L115.362 81.6758L118.175 81.3308L122.451 75.8498L128.811 67.5868L132.41 62.8978L134.218 60.5568L134.818 59.7798L138.231 55.3568L141.175 51.7008L143.111 49.3978L144.791 47.4778L146.259 45.8788L147.517 44.5598L148.804 43.2678L150.12 42.0068L150.786 41.3998L151.659 40.6038L153.474 39.0928L154.928 37.8718L155.671 38.5748L156.298 39.2548L156.996 40.1448L157.837 41.1918L158.552 42.0038L159.295 42.7798L160.214 43.6658L160.804 44.1958L161.411 44.7018L162.036 45.1818L162.677 45.6378L164.001 46.4758L165.376 47.2138L166.793 47.8528L168.243 48.3918L169.72 48.8318L171.214 49.1718L172.444 49.3668L173.669 49.4888L175.141 49.5628L177.367 49.5958L179.42 49.5948L180.641 49.5598L181.656 49.4938L182.669 49.3858L184.18 49.1328L185.68 48.7768L187.16 48.3168L188.614 47.7548L190.032 47.0918L191.407 46.3288L192.73 45.4668L193.37 44.9998L193.994 44.5078L195.112 43.5288L196.048 42.5868L196.997 41.4908L198.227 39.8828L198.992 38.8518L199.703 37.9688L199.984 37.6458L201.516 38.9318L203.454 40.5448L204.392 41.3998L205.085 42.0328L206.455 43.3488L207.793 44.6968L209.1 46.0728L210.625 47.7418L212.368 49.7448L214.373 52.1438L217.326 55.8338L220.96 60.5568Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontColor2"> <path d="M116.307 89.4398L117.863 103.611L118.834 113.094L119.576 121.014L120.234 128.945L120.704 135.56L121.092 142.178L121.387 148.799L121.577 155.417L121.671 161.977L121.7 168.538L121.669 176.411L121.552 188.223L121.42 199.966L121.398 209.833L121.445 216.166L121.465 217.431L233.711 217.431L233.732 216.168L233.779 209.838L233.757 199.973L233.625 188.234L233.508 176.418L233.477 168.542L233.506 161.979L233.6 155.417L233.789 148.808L234.081 142.202L234.465 135.599L234.871 129.849L115.958 86.5488L116.307 89.4398Z" fill="#75b6d2" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontColor3"> <path d="M121.387 148.798L121.577 155.417L121.671 161.977L121.7 168.538L121.67 176.411L121.553 188.222L121.42 199.966L121.399 209.832L121.446 216.166L121.532 221.541L121.602 224.162L121.616 224.7L121.726 226.188L121.938 227.955L122.15 229.848L128.654 230.058L139.842 230.421L149.249 230.683L158.084 230.889L162.934 230.955L164.573 230.982L169.163 231.015L174.635 231.014L177.588 231.014L180.989 231.018L187.622 230.991L194.251 230.922L200.897 230.809L204.199 230.728L208.995 230.611L218.582 230.289L227.249 230.008L233.027 229.848L233.24 227.955L233.451 226.189L233.561 224.7L233.576 224.162L233.646 221.541L233.732 216.168L233.779 209.837L233.757 199.972L233.625 188.233L233.613 187.001L121.267 146.092L121.387 148.798Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1SideRight"> <path d="M39.1845 81.0238L39.1445 81.4708L38.9425 83.7148L38.6375 87.0918L38.4965 88.8048L38.0805 93.8338L37.5055 101.291L36.9045 109.669L36.6095 114.584L36.5665 115.289L36.3855 118.315L36.0165 125.907L35.7605 132.586L35.5805 138.281L35.3675 146.613L35.2745 152.606L35.2365 155.055L35.1955 160.055L35.1835 165.923L35.2265 175.03L35.3465 185.84L35.4865 200.958L35.4975 211.107L35.4135 219.635L35.3305 223.93L35.2145 228.248L37.1485 233.667L39.6035 233.247L42.0655 232.869L44.5315 232.535L47.0035 232.245L49.8125 231.975L52.6255 231.781L55.4425 231.668L58.2585 231.639L66.1375 231.697L71.3935 231.77L75.7755 231.87L80.1585 232.02L80.4605 226.355L80.3685 218.832L80.3355 211.337L80.3535 202.371L80.4425 188.963L80.5515 174.734L80.5465 162.764L80.4785 155.065L80.3685 148.518L80.2855 145.316L80.1375 139.623L79.8715 131.548L79.6245 125.393L79.3545 119.741L79.1975 116.981L79.0115 113.718L78.6075 107.309L78.1585 100.907L77.6635 94.5108L77.3935 91.3498L77.1725 88.7708L76.8775 85.3148L76.7265 83.5898L73.9025 83.8368L73.2855 84.4108L72.1895 85.5378L71.0375 86.7798L69.6805 88.3088L67.6065 90.6128L66.1855 92.0878L64.9625 93.2458L63.6925 94.3138L63.0975 94.7398L62.4105 95.1568L61.6545 95.5498L60.8535 95.9038L60.0275 96.2038L59.2015 96.4338L58.3955 96.5788L57.6325 96.6238L57.1475 96.5798L56.6485 96.4698L56.1425 96.3018L55.6365 96.0858L54.8945 95.6948L54.1955 95.2498L53.5605 94.7848L53.0175 94.3318L52.3275 93.6928L51.6585 93.0278L50.3745 91.6298L48.9095 89.8618L46.7945 87.1118L45.2915 85.1248L43.9925 83.5058L43.1335 82.4988L42.3845 81.6698L42.0075 81.2798L39.1845 81.0238Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1FrontLogo"> <path d="M154.594 73.5C153.645 73.7943 152.727 74.421 152.062 75.3438C153.51 73.8207 155.68 73.8403 156.594 74.6562C157.58 75.5362 157.656 77.1552 156.688 77.9062C153.232 80.5803 153.295 76.8115 154.938 75.5625C154.938 75.5625 153.315 75.0493 152.094 76.0312C150.587 77.2433 150.653 80.799 154.344 80.375C156.489 80.128 157.642 78.0312 158.906 79.2812C160.664 74.5645 157.441 72.6171 154.594 73.5ZM155.75 81.2188C155.655 81.2188 155.588 81.2495 155.531 81.3125C155.474 81.3745 155.437 81.4483 155.438 81.5312C155.438 81.6153 155.474 81.687 155.531 81.75C155.588 81.813 155.655 81.8438 155.75 81.8438C155.845 81.8438 155.943 81.813 156 81.75C156.057 81.687 156.063 81.6153 156.062 81.5312C156.062 81.4483 156.058 81.3745 156 81.3125C155.941 81.2495 155.842 81.2188 155.75 81.2188ZM153.75 81.375L153.75 82.0625L153.656 82.0625L153.344 82.0625L153.031 82.0625C152.693 82.0625 152.43 82.1243 152.25 82.2812C152.07 82.4392 151.969 82.6525 151.969 82.9375L151.969 84.2188L152.562 84.2188L152.562 82.9375C152.562 82.7365 152.619 82.602 152.719 82.5C152.82 82.399 152.967 82.3438 153.156 82.3438L153.344 82.3438L153.656 82.3438L153.75 82.3438L153.75 83.4375C153.75 83.7115 153.83 83.9065 154 84.0625C154.17 84.2185 154.404 84.3125 154.719 84.3125C154.825 84.3125 154.954 84.3082 155.062 84.2812C155.169 84.2522 155.26 84.1983 155.344 84.1562L155.219 83.9062C155.166 83.9373 155.109 83.9428 155.031 83.9688C154.953 83.9958 154.864 84.0313 154.781 84.0312C154.722 84.0312 154.647 84.023 154.594 84C154.541 83.978 154.51 83.921 154.469 83.875C154.429 83.829 154.399 83.7615 154.375 83.6875C154.351 83.6135 154.344 83.5445 154.344 83.4375L154.344 82.3438L154.969 82.3438L154.969 82.0625L154.344 82.0625L154.344 81.375L153.75 81.375ZM150.656 81.9688C150.589 81.9688 150.546 81.989 150.469 82C150.392 82.011 150.297 82.0102 150.219 82.0312C150.141 82.0523 150.074 82.094 150 82.125C149.926 82.155 149.842 82.1777 149.781 82.2188L149.938 82.4688C150.032 82.4048 150.13 82.3505 150.25 82.3125C150.37 82.2755 150.499 82.25 150.625 82.25C150.792 82.25 150.927 82.3112 151.031 82.4062C151.136 82.5013 151.188 82.6438 151.188 82.8438L150.594 82.8438C150.215 82.8438 149.96 82.9162 149.781 83.0312C149.601 83.1453 149.5 83.2992 149.5 83.5312C149.5 83.7623 149.601 83.9485 149.781 84.0625C149.96 84.1775 150.215 84.2188 150.594 84.2188L151.781 84.2188L151.781 82.8438C151.781 82.7127 151.768 82.607 151.719 82.5C151.67 82.393 151.595 82.2967 151.5 82.2188C151.405 82.1408 151.292 82.0733 151.156 82.0312C151.019 81.9892 150.834 81.9687 150.656 81.9688ZM150.594 83.125L151.188 83.125L151.188 83.9375L150.594 83.9375C150.273 83.9375 150.125 83.7962 150.125 83.5312C150.125 83.2663 150.273 83.125 150.594 83.125ZM159.719 81.9688C159.653 81.9688 159.577 81.989 159.5 82C159.423 82.011 159.359 82.0102 159.281 82.0312C159.203 82.0523 159.136 82.094 159.062 82.125C158.988 82.155 158.905 82.1777 158.844 82.2188L159 82.4688C159.095 82.4048 159.192 82.3505 159.312 82.3125C159.433 82.2755 159.562 82.25 159.688 82.25C159.854 82.25 159.99 82.3112 160.094 82.4062C160.199 82.5013 160.25 82.6438 160.25 82.8438L159.656 82.8438C159.277 82.8438 159.023 82.9162 158.844 83.0312C158.664 83.1453 158.562 83.2992 158.562 83.5312C158.562 83.7623 158.664 83.9485 158.844 84.0625C159.023 84.1775 159.277 84.2188 159.656 84.2188L160.844 84.2188L160.844 82.8438C160.844 82.7127 160.799 82.607 160.75 82.5C160.701 82.393 160.657 82.2967 160.562 82.2188C160.468 82.1408 160.324 82.0733 160.188 82.0312C160.05 81.9892 159.898 81.9687 159.719 81.9688ZM159.656 83.125L160.25 83.125L160.25 83.9375L159.656 83.9375C159.335 83.9375 159.188 83.7962 159.188 83.5312C159.188 83.2663 159.335 83.125 159.656 83.125ZM155.469 82.0625L155.469 84.2188L156.062 84.2188L156.062 82.0625L155.469 82.0625ZM156.188 82.0625L157.031 84.2188L157.969 84.2188L158.781 82.0625L158.219 82.0625L157.5 83.875L157.469 83.875L156.781 82.0625L156.188 82.0625Z" fill="#000000" fill-rule="evenodd" opacity="0" stroke="none"/> </g> <g id="MenONeckDesign1BackColor1"> <path d="M479.093 54.4029L479.985 55.5299L481.763 57.7879L483.098 59.4809L484.121 60.7919L486.922 64.4529L490.205 68.8319L493.604 73.3519L495.892 76.3519L498.706 76.6969L498.592 77.6309L498.357 79.5019L497.754 84.4509L496.567 95.0089L495.799 102.048L495.184 107.916L494.891 110.84L494.597 113.787L493.699 123.584L493.295 128.488L492.927 133.398L492.691 137.142L492.512 140.896L492.355 145.406L492.188 152.165L492.072 159.429L492.029 166.695L492.047 175.414L492.152 188.495L492.257 199.688L492.283 209.092L492.257 215.129L492.203 220.252L492.158 222.751L493.253 228.316L490.56 228.783L487.871 229.279L479.816 230.869L473.424 232.158L468.037 233.148L464.569 233.723L461.618 234.161L460.174 234.347L458.94 234.506L456.495 234.777L454.086 235.003L451.701 235.188L449.103 235.348L446.268 235.476L443.155 235.569L438.954 235.631L436.068 235.628L431.182 235.624L427.151 235.549L424.671 235.473L422.401 235.369L420.317 235.242L418.218 235.079L416.097 234.876L415.038 234.753L413.382 234.561L410.002 234.092L406.034 233.464L401.989 232.74L397.689 231.924L392.578 230.904L384.37 229.297L378.882 228.316L379.978 222.751L380.099 162.236L380.082 161.117L380.054 158.879L379.948 152.165L379.78 145.409L379.622 140.892L379.443 137.136L379.208 133.398L378.748 127.264L378.244 121.137L377.697 115.014L377.295 110.833L377.109 108.897L376.482 102.782L375.817 96.6699L375.116 90.5599L374.381 84.4509L374.064 81.8719L373.639 78.4199L373.43 76.6969L376.243 76.3519L381.717 69.1449L386.953 62.2279L391.414 56.4609L393.042 54.4029L394.598 52.4379L397.623 48.7229L400.179 45.6959L402.285 43.2729L404.243 41.0879L406.057 39.1219L407.9 37.1859L409.774 35.2829L410.717 34.3589L411.793 33.3019L413.433 31.7539L415.3 30.0549L416.431 29.1059L417.853 27.9099L420.635 25.6319L422.737 23.9069L424.536 26.0959L426.856 26.0509L431.23 26.0059L436.068 25.9959L437.596 25.9929L446.109 26.0799L447.599 26.0959L449.398 23.9069L451.515 25.6449L454.307 27.9319L455.705 29.1059L456.839 30.0589L458.864 31.8999L460.537 33.4919L461.419 34.3589L462.363 35.2869L464.238 37.1939L466.08 39.1299L467.892 41.0929L469.849 43.2749L471.951 45.6939L474.507 48.7189L477.536 52.4349L479.093 54.4029Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1BackColor2"> <path d="M378.975 130.287L379.208 133.397L379.444 137.135L379.622 140.892L379.78 145.409L379.948 152.164L380.053 158.878L380.082 161.116L380.099 162.236L379.995 213.946L492.262 213.946L492.282 209.091L492.257 199.688L492.152 188.494L492.047 175.414L492.029 166.695L492.073 159.429L492.188 152.164L492.354 145.405L492.513 140.895L492.691 137.141L492.928 133.397L493.296 128.488L493.699 123.584L494.596 113.787L494.892 110.84L495.184 107.916L495.8 102.048L496.567 95.0093L497.451 87.1463L378.975 130.287Z" fill="#75b6d2" fill-rule="evenodd" opacity="1" stroke="none"/> </g><g id="MenONeckDesign1BackColor3"> <path d="M380.052 185.379L379.977 222.751L378.882 228.316L384.37 229.297L392.577 230.905L397.688 231.924L401.989 232.74L406.034 233.464L410.002 234.092L413.381 234.561L415.037 234.753L416.096 234.876L418.217 235.08L420.317 235.243L422.401 235.369L424.67 235.473L427.15 235.549L431.182 235.623L436.067 235.629L438.954 235.631L443.154 235.568L446.267 235.476L449.102 235.348L451.701 235.188L454.085 235.003L456.494 234.777L458.939 234.505L460.173 234.347L461.617 234.162L464.569 233.722L468.037 233.148L473.423 232.157L479.816 230.869L487.87 229.279L490.56 228.783L493.253 228.316L492.157 222.751L492.202 220.252L492.256 215.128L492.282 209.091L492.256 199.688L492.151 188.495L492.046 175.414L492.028 166.695L492.072 159.429L492.187 152.164L492.354 145.405L492.386 144.474L380.052 185.379Z" fill="#02234c" fill-rule="evenodd" opacity="1" stroke="none"/> </g> <g id="MenONeckDesign1BackLogo"> <path d="M428.469 33.2188C427.784 33.431 427.136 33.866 426.656 34.5312C427.699 33.4332 429.247 33.4745 429.906 34.0625C430.617 34.6975 430.699 35.8653 430 36.4062C427.51 38.3343 427.534 35.6187 428.719 34.7188C428.719 34.7188 427.568 34.3232 426.688 35.0312C425.601 35.9053 425.652 38.4935 428.313 38.1875C429.861 38.0095 430.683 36.474 431.594 37.375C432.861 33.9745 430.522 32.582 428.469 33.2188ZM440.125 33.875C440.018 33.875 439.94 33.8978 439.875 33.9688C439.811 34.0398 439.781 34.1247 439.781 34.2188C439.781 34.3128 439.811 34.3988 439.875 34.4688C439.94 34.5397 440.018 34.5625 440.125 34.5625C440.231 34.5625 440.342 34.5397 440.406 34.4688C440.471 34.3987 440.5 34.3127 440.5 34.2188C440.5 34.1248 440.472 34.0398 440.406 33.9688C440.34 33.8977 440.229 33.875 440.125 33.875ZM437.875 34.0625L437.875 34.8125L437.75 34.8125L437.438 34.8125L437.063 34.8125C436.683 34.8125 436.389 34.8845 436.188 35.0625C435.985 35.2395 435.875 35.4925 435.875 35.8125L435.875 37.25L436.531 37.25L436.531 35.8125C436.531 35.5875 436.606 35.4265 436.719 35.3125C436.832 35.1985 436.975 35.1562 437.188 35.1562L437.438 35.1562L437.75 35.1562L437.875 35.1562L437.875 36.375C437.875 36.682 437.965 36.9178 438.156 37.0938C438.347 37.2688 438.645 37.3438 439 37.3438C439.119 37.3438 439.224 37.3435 439.344 37.3125C439.466 37.2815 439.562 37.2345 439.656 37.1875L439.531 36.875C439.472 36.911 439.4 36.9388 439.312 36.9688C439.224 36.9987 439.125 37.0313 439.031 37.0312C438.965 37.0312 438.903 37.025 438.844 37C438.784 36.975 438.734 36.926 438.688 36.875C438.641 36.823 438.588 36.7402 438.562 36.6562C438.536 36.5743 438.531 36.495 438.531 36.375L438.531 35.1562L439.281 35.1562L439.281 34.8125L438.531 34.8125L438.531 34.0625L437.875 34.0625ZM434.406 34.7188C434.331 34.7188 434.273 34.737 434.188 34.75C434.101 34.762 433.993 34.7572 433.906 34.7812C433.818 34.8043 433.738 34.84 433.656 34.875C433.572 34.909 433.506 34.953 433.438 35L433.594 35.2812C433.701 35.2083 433.834 35.168 433.969 35.125C434.104 35.083 434.233 35.0625 434.375 35.0625C434.563 35.0625 434.695 35.1117 434.813 35.2188C434.93 35.3247 435 35.4918 435 35.7188L434.344 35.7188C433.918 35.7188 433.609 35.7782 433.406 35.9062C433.204 36.0352 433.094 36.2088 433.094 36.4688C433.094 36.7298 433.204 36.9335 433.406 37.0625C433.609 37.1905 433.918 37.25 434.344 37.25L435.656 37.25L435.656 35.7188C435.656 35.5707 435.649 35.4325 435.594 35.3125C435.539 35.1915 435.451 35.087 435.344 35C435.237 34.912 435.091 34.8282 434.938 34.7812C434.784 34.7343 434.607 34.7188 434.406 34.7188ZM434.344 36.0312L435 36.0312L435 36.9375L434.344 36.9375C433.983 36.9375 433.812 36.7667 433.813 36.4688C433.813 36.1707 433.983 36.0312 434.344 36.0312ZM444.594 34.7188C444.519 34.7188 444.461 34.737 444.375 34.75C444.289 34.762 444.181 34.7572 444.094 34.7812C444.006 34.8043 443.927 34.84 443.844 34.875C443.761 34.909 443.694 34.953 443.625 35L443.781 35.2812C443.887 35.2083 444.021 35.168 444.156 35.125C444.291 35.083 444.422 35.0625 444.562 35.0625C444.751 35.0625 444.914 35.1117 445.031 35.2188C445.149 35.3247 445.188 35.4918 445.188 35.7188L444.531 35.7188C444.104 35.7188 443.797 35.7782 443.594 35.9062C443.392 36.0352 443.281 36.2088 443.281 36.4688C443.281 36.7298 443.392 36.9335 443.594 37.0625C443.797 37.1905 444.104 37.25 444.531 37.25L445.844 37.25L445.844 35.7188C445.844 35.5707 445.836 35.4325 445.781 35.3125C445.726 35.1915 445.637 35.087 445.531 35C445.424 34.912 445.309 34.8282 445.156 34.7812C445.002 34.7343 444.795 34.7188 444.594 34.7188ZM444.531 36.0312L445.188 36.0312L445.188 36.9375L444.531 36.9375C444.17 36.9375 444 36.7667 444 36.4688C444 36.1707 444.17 36.0312 444.531 36.0312ZM439.812 34.8125L439.812 37.25L440.469 37.25L440.469 34.8125L439.812 34.8125ZM440.625 34.8125L441.562 37.25L442.625 37.25L443.563 34.8125L442.906 34.8125L442.125 36.8438L442.063 36.8438L441.281 34.8125L440.625 34.8125Z" fill="#000000" fill-rule="evenodd" opacity="0" stroke="none"/> </g></g> </svg>';
+
+fabric.loadSVGFromString(MenONeckDesign1Svg, function(objects, options) {
+	for (let i = 0; i < objects.length; i++){
+		let obj = objects[i];
+		//obj.setTop(0);
+		//obj.setCoords();
+		//obj.scaleToHeight(pdf_canvas.height)
+		MenONeckDesign1SvgGroup.addWithUpdate(obj)
+	} 
+});
+
+MenONeckDesign1SvgGroup.set({ 
+	lockMovementX:true,
+	lockMovementY:true,
+	lockScalingX:true,
+	lockScalingY:true,
+	lockRotation:true,
+	hasControls:false,
+	hasBorders:false,
+	selectable: false,
+	fixed: true,
+})
+
+//canvas1.add(MenONeckDesign1SvgGroup);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//logos
+
+
+ MenONeckLogoFrontSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="2048" height="1536"> <g transform="matrix(2.2653513 0 0 2.2653513 -0 0)"><g id="MenONeckDesign1FrontLogo"> <path d="M154.594 73.5C153.645 73.7943 152.727 74.421 152.062 75.3438C153.51 73.8207 155.68 73.8403 156.594 74.6562C157.58 75.5362 157.656 77.1552 156.688 77.9062C153.232 80.5803 153.295 76.8115 154.938 75.5625C154.938 75.5625 153.315 75.0493 152.094 76.0312C150.587 77.2433 150.653 80.799 154.344 80.375C156.489 80.128 157.642 78.0312 158.906 79.2812C160.664 74.5645 157.441 72.6171 154.594 73.5ZM155.75 81.2188C155.655 81.2188 155.588 81.2495 155.531 81.3125C155.474 81.3745 155.437 81.4483 155.438 81.5312C155.438 81.6153 155.474 81.687 155.531 81.75C155.588 81.813 155.655 81.8438 155.75 81.8438C155.845 81.8438 155.943 81.813 156 81.75C156.057 81.687 156.063 81.6153 156.062 81.5312C156.062 81.4483 156.058 81.3745 156 81.3125C155.941 81.2495 155.842 81.2188 155.75 81.2188ZM153.75 81.375L153.75 82.0625L153.656 82.0625L153.344 82.0625L153.031 82.0625C152.693 82.0625 152.43 82.1243 152.25 82.2812C152.07 82.4392 151.969 82.6525 151.969 82.9375L151.969 84.2188L152.562 84.2188L152.562 82.9375C152.562 82.7365 152.619 82.602 152.719 82.5C152.82 82.399 152.967 82.3438 153.156 82.3438L153.344 82.3438L153.656 82.3438L153.75 82.3438L153.75 83.4375C153.75 83.7115 153.83 83.9065 154 84.0625C154.17 84.2185 154.404 84.3125 154.719 84.3125C154.825 84.3125 154.954 84.3082 155.062 84.2812C155.169 84.2522 155.26 84.1983 155.344 84.1562L155.219 83.9062C155.166 83.9373 155.109 83.9428 155.031 83.9688C154.953 83.9958 154.864 84.0313 154.781 84.0312C154.722 84.0312 154.647 84.023 154.594 84C154.541 83.978 154.51 83.921 154.469 83.875C154.429 83.829 154.399 83.7615 154.375 83.6875C154.351 83.6135 154.344 83.5445 154.344 83.4375L154.344 82.3438L154.969 82.3438L154.969 82.0625L154.344 82.0625L154.344 81.375L153.75 81.375ZM150.656 81.9688C150.589 81.9688 150.546 81.989 150.469 82C150.392 82.011 150.297 82.0102 150.219 82.0312C150.141 82.0523 150.074 82.094 150 82.125C149.926 82.155 149.842 82.1777 149.781 82.2188L149.938 82.4688C150.032 82.4048 150.13 82.3505 150.25 82.3125C150.37 82.2755 150.499 82.25 150.625 82.25C150.792 82.25 150.927 82.3112 151.031 82.4062C151.136 82.5013 151.188 82.6438 151.188 82.8438L150.594 82.8438C150.215 82.8438 149.96 82.9162 149.781 83.0312C149.601 83.1453 149.5 83.2992 149.5 83.5312C149.5 83.7623 149.601 83.9485 149.781 84.0625C149.96 84.1775 150.215 84.2188 150.594 84.2188L151.781 84.2188L151.781 82.8438C151.781 82.7127 151.768 82.607 151.719 82.5C151.67 82.393 151.595 82.2967 151.5 82.2188C151.405 82.1408 151.292 82.0733 151.156 82.0312C151.019 81.9892 150.834 81.9687 150.656 81.9688ZM150.594 83.125L151.188 83.125L151.188 83.9375L150.594 83.9375C150.273 83.9375 150.125 83.7962 150.125 83.5312C150.125 83.2663 150.273 83.125 150.594 83.125ZM159.719 81.9688C159.653 81.9688 159.577 81.989 159.5 82C159.423 82.011 159.359 82.0102 159.281 82.0312C159.203 82.0523 159.136 82.094 159.062 82.125C158.988 82.155 158.905 82.1777 158.844 82.2188L159 82.4688C159.095 82.4048 159.192 82.3505 159.312 82.3125C159.433 82.2755 159.562 82.25 159.688 82.25C159.854 82.25 159.99 82.3112 160.094 82.4062C160.199 82.5013 160.25 82.6438 160.25 82.8438L159.656 82.8438C159.277 82.8438 159.023 82.9162 158.844 83.0312C158.664 83.1453 158.562 83.2992 158.562 83.5312C158.562 83.7623 158.664 83.9485 158.844 84.0625C159.023 84.1775 159.277 84.2188 159.656 84.2188L160.844 84.2188L160.844 82.8438C160.844 82.7127 160.799 82.607 160.75 82.5C160.701 82.393 160.657 82.2967 160.562 82.2188C160.468 82.1408 160.324 82.0733 160.188 82.0312C160.05 81.9892 159.898 81.9687 159.719 81.9688ZM159.656 83.125L160.25 83.125L160.25 83.9375L159.656 83.9375C159.335 83.9375 159.188 83.7962 159.188 83.5312C159.188 83.2663 159.335 83.125 159.656 83.125ZM155.469 82.0625L155.469 84.2188L156.062 84.2188L156.062 82.0625L155.469 82.0625ZM156.188 82.0625L157.031 84.2188L157.969 84.2188L158.781 82.0625L158.219 82.0625L157.5 83.875L157.469 83.875L156.781 82.0625L156.188 82.0625Z" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/></g></g> </svg>';
+
+fabric.loadSVGFromString(MenONeckLogoFrontSVG, function(objects, options) {
+
+	MenONeckLogoFront = fabric.util.groupSVGElements(objects, options);
+	MenONeckLogoFront.set({
+		fill:'black', strokeWidth:0.8,stroke: "white",   paintFirst: "stroke",
+		hasControls:false,
+		hasBorders:false,
+		selectable: false,
+		fixed: true,
+		//id: 'MenONeckLogoFrontID'
+		})
+	canvas1.add(MenONeckLogoFront).renderAll();
+});
+
+
+
+
+
+
+MenONeckLogoBackSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="2048" height="1536"> <g transform="matrix(2.2653513 0 0 2.2653513 -0 0)"><g id="MenONeckDesign1BackLogo"> <path d="M428.469 33.2188C427.784 33.431 427.136 33.866 426.656 34.5312C427.699 33.4332 429.247 33.4745 429.906 34.0625C430.617 34.6975 430.699 35.8653 430 36.4062C427.51 38.3343 427.534 35.6187 428.719 34.7188C428.719 34.7188 427.568 34.3232 426.688 35.0312C425.601 35.9053 425.652 38.4935 428.313 38.1875C429.861 38.0095 430.683 36.474 431.594 37.375C432.861 33.9745 430.522 32.582 428.469 33.2188ZM440.125 33.875C440.018 33.875 439.94 33.8978 439.875 33.9688C439.811 34.0398 439.781 34.1247 439.781 34.2188C439.781 34.3128 439.811 34.3988 439.875 34.4688C439.94 34.5397 440.018 34.5625 440.125 34.5625C440.231 34.5625 440.342 34.5397 440.406 34.4688C440.471 34.3987 440.5 34.3127 440.5 34.2188C440.5 34.1248 440.472 34.0398 440.406 33.9688C440.34 33.8977 440.229 33.875 440.125 33.875ZM437.875 34.0625L437.875 34.8125L437.75 34.8125L437.438 34.8125L437.063 34.8125C436.683 34.8125 436.389 34.8845 436.188 35.0625C435.985 35.2395 435.875 35.4925 435.875 35.8125L435.875 37.25L436.531 37.25L436.531 35.8125C436.531 35.5875 436.606 35.4265 436.719 35.3125C436.832 35.1985 436.975 35.1562 437.188 35.1562L437.438 35.1562L437.75 35.1562L437.875 35.1562L437.875 36.375C437.875 36.682 437.965 36.9178 438.156 37.0938C438.347 37.2688 438.645 37.3438 439 37.3438C439.119 37.3438 439.224 37.3435 439.344 37.3125C439.466 37.2815 439.562 37.2345 439.656 37.1875L439.531 36.875C439.472 36.911 439.4 36.9388 439.312 36.9688C439.224 36.9987 439.125 37.0313 439.031 37.0312C438.965 37.0312 438.903 37.025 438.844 37C438.784 36.975 438.734 36.926 438.688 36.875C438.641 36.823 438.588 36.7402 438.562 36.6562C438.536 36.5743 438.531 36.495 438.531 36.375L438.531 35.1562L439.281 35.1562L439.281 34.8125L438.531 34.8125L438.531 34.0625L437.875 34.0625ZM434.406 34.7188C434.331 34.7188 434.273 34.737 434.188 34.75C434.101 34.762 433.993 34.7572 433.906 34.7812C433.818 34.8043 433.738 34.84 433.656 34.875C433.572 34.909 433.506 34.953 433.438 35L433.594 35.2812C433.701 35.2083 433.834 35.168 433.969 35.125C434.104 35.083 434.233 35.0625 434.375 35.0625C434.563 35.0625 434.695 35.1117 434.813 35.2188C434.93 35.3247 435 35.4918 435 35.7188L434.344 35.7188C433.918 35.7188 433.609 35.7782 433.406 35.9062C433.204 36.0352 433.094 36.2088 433.094 36.4688C433.094 36.7298 433.204 36.9335 433.406 37.0625C433.609 37.1905 433.918 37.25 434.344 37.25L435.656 37.25L435.656 35.7188C435.656 35.5707 435.649 35.4325 435.594 35.3125C435.539 35.1915 435.451 35.087 435.344 35C435.237 34.912 435.091 34.8282 434.938 34.7812C434.784 34.7343 434.607 34.7188 434.406 34.7188ZM434.344 36.0312L435 36.0312L435 36.9375L434.344 36.9375C433.983 36.9375 433.812 36.7667 433.813 36.4688C433.813 36.1707 433.983 36.0312 434.344 36.0312ZM444.594 34.7188C444.519 34.7188 444.461 34.737 444.375 34.75C444.289 34.762 444.181 34.7572 444.094 34.7812C444.006 34.8043 443.927 34.84 443.844 34.875C443.761 34.909 443.694 34.953 443.625 35L443.781 35.2812C443.887 35.2083 444.021 35.168 444.156 35.125C444.291 35.083 444.422 35.0625 444.562 35.0625C444.751 35.0625 444.914 35.1117 445.031 35.2188C445.149 35.3247 445.188 35.4918 445.188 35.7188L444.531 35.7188C444.104 35.7188 443.797 35.7782 443.594 35.9062C443.392 36.0352 443.281 36.2088 443.281 36.4688C443.281 36.7298 443.392 36.9335 443.594 37.0625C443.797 37.1905 444.104 37.25 444.531 37.25L445.844 37.25L445.844 35.7188C445.844 35.5707 445.836 35.4325 445.781 35.3125C445.726 35.1915 445.637 35.087 445.531 35C445.424 34.912 445.309 34.8282 445.156 34.7812C445.002 34.7343 444.795 34.7188 444.594 34.7188ZM444.531 36.0312L445.188 36.0312L445.188 36.9375L444.531 36.9375C444.17 36.9375 444 36.7667 444 36.4688C444 36.1707 444.17 36.0312 444.531 36.0312ZM439.812 34.8125L439.812 37.25L440.469 37.25L440.469 34.8125L439.812 34.8125ZM440.625 34.8125L441.562 37.25L442.625 37.25L443.563 34.8125L442.906 34.8125L442.125 36.8438L442.063 36.8438L441.281 34.8125L440.625 34.8125Z" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/> </g></g> </svg>';
+
+fabric.loadSVGFromString(MenONeckLogoBackSVG, function(objects, options) {
+	MenONeckLogoBack = fabric.util.groupSVGElements(objects, options);
+	MenONeckLogoBack.set({
+		fill:'black', strokeWidth:0.8,stroke: "white",   paintFirst: "stroke",
+		hasControls:false,
+		hasBorders:false,
+		selectable: false,
+		fixed: true,
+		});
+	canvas1.add(MenONeckLogoBack).renderAll();
+	//obj.setCoords();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MenONeckDesignSvgMask = new fabric.Path(
+	"M99.875 15.4062L99.875 32.4062L177.656 32.4062L255.312 32.4062L255.312 15.4062L177.656 15.4062L99.875 15.4062ZM422.75 23.9062L420.625 25.625L417.844 27.9062L416.438 29.0938L415.312 30.0625L413.438 31.75L411.781 33.3125L410.719 34.3438L409.781 35.2812L407.906 37.1875L406.062 39.125L404.25 41.0938L402.281 43.2812L400.188 45.6875L397.625 48.7188L394.594 52.4375L393.031 54.4062L391.406 56.4688L386.938 62.2188L381.719 69.1562L376.25 76.3438L373.438 76.6875L373.625 78.4062L374.062 81.875L374.375 84.4375L375.125 90.5625L375.812 96.6562L376.469 102.781L377.094 108.906L377.281 110.844L377.688 115L378.25 121.125L378.75 127.25L379.219 133.406L379.438 137.125L379.625 140.906L379.781 145.406L379.938 152.156L380.062 158.875L380.094 161.125L380.094 162.25L379.969 222.75L378.875 228.312L384.375 229.312L392.562 230.906L397.688 231.938L402 232.75L406.031 233.469L410 234.094L413.375 234.562L415.031 234.75L416.094 234.875L418.219 235.094L420.312 235.25L422.406 235.375L424.656 235.469L427.156 235.562L431.188 235.625L436.062 235.625L438.969 235.625L443.156 235.562L446.281 235.469L449.094 235.344L451.688 235.188L454.094 235L456.5 234.781L458.938 234.5L460.188 234.344L461.625 234.156L464.562 233.719L468.031 233.156L473.438 232.156L479.812 230.875L487.875 229.281L490.562 228.781L493.25 228.312L492.156 222.75L492.188 220.25L492.25 215.125L492.281 209.094L492.25 199.688L492.156 188.5L492.031 175.406L492.031 166.688L492.062 159.438L492.188 152.156L492.344 145.406L492.5 140.906L492.688 137.156L492.938 133.406L493.281 128.5L493.688 123.594L494.594 113.781L494.906 110.844L495.188 107.906L495.812 102.062L496.562 95L497.75 84.4375L498.344 79.5L498.594 77.625L498.719 76.6875L495.906 76.3438L493.594 73.3438L490.219 68.8438L486.906 64.4375L484.125 60.7812L483.094 59.4688L481.75 57.7812L480 55.5312L479.094 54.4062L477.531 52.4375L474.5 48.7188L471.938 45.6875L469.844 43.2812L467.906 41.0938L466.094 39.125L464.25 37.1875L462.375 35.2812L461.406 34.3438L460.531 33.5L458.875 31.9062L456.844 30.0625L455.719 29.0938L454.312 27.9375L451.5 25.6562L449.406 23.9062L447.594 26.0938L446.094 26.0938L437.594 26L436.062 26L431.219 26L426.844 26.0625L424.531 26.0938L422.75 23.9062ZM199.969 37.6562L199.688 37.9688L199 38.8438L198.219 39.875L197 41.5L196.062 42.5938L195.125 43.5312L194 44.5L193.375 45L192.719 45.4688L191.406 46.3438L190.031 47.0938L188.625 47.75L187.156 48.3125L185.688 48.7812L184.188 49.125L182.656 49.375L181.656 49.5L180.625 49.5625L179.406 49.5938L177.375 49.5938L175.125 49.5625L173.656 49.5L172.438 49.375L171.219 49.1562L169.719 48.8438L168.25 48.4062L166.781 47.8438L165.375 47.2188L164 46.4688L162.688 45.625L162.031 45.1875L161.406 44.6875L160.812 44.1875L160.219 43.6562L159.281 42.7812L158.562 42L157.844 41.1875L157 40.1562L156.312 39.25L155.656 38.5625L154.938 37.875L153.469 39.0938L151.656 40.5938L150.781 41.4062L150.125 42L148.812 43.2812L147.531 44.5625L146.25 45.875L144.781 47.4688L143.125 49.4062L141.188 51.6875L138.219 55.3438L134.812 59.7812L134.219 60.5625L132.406 62.9062L128.812 67.5938L122.438 75.8438L118.188 81.3438L115.375 81.6875L115.469 82.5625L115.688 84.375L116.312 89.4375L117.875 103.625L118.844 113.094L119.562 121L120.219 128.938L120.719 135.562L121.094 142.188L121.375 148.812L121.562 155.406L121.656 161.969L121.688 168.531L121.656 176.406L121.562 188.219L121.406 199.969L121.406 209.844L121.438 216.156L121.531 221.531L121.594 224.156L121.625 224.688L121.719 226.188L121.938 227.969L122.156 229.844L128.656 230.062L139.844 230.406L149.25 230.688L158.094 230.875L162.938 230.969L164.562 230.969L169.156 231.031L174.625 231L177.594 231L181 231.031L187.625 231L194.25 230.938L200.906 230.812L204.188 230.719L209 230.625L218.594 230.281L227.25 230L233.031 229.844L233.25 227.969L233.438 226.188L233.562 224.688L233.562 224.156L233.656 221.531L233.719 216.156L233.781 209.844L233.75 199.969L233.625 188.219L233.5 176.406L233.469 168.531L233.5 161.969L233.594 155.406L233.781 148.812L234.094 142.188L234.469 135.594L234.938 129L235.594 121.094L236.312 113.156L237.281 103.656L238.875 89.4375L239.438 84.75L239.688 82.7188L239.812 81.6875L237 81.3438L234.406 77.9688L230.562 72.9062L226.688 67.7812L224.719 65.25L224.281 64.75L223.469 63.6875L220.969 60.5625L217.312 55.8438L214.375 52.1562L212.375 49.75L210.625 47.75L209.094 46.0625L207.781 44.6875L206.469 43.3438L205.094 42.0312L204.406 41.4062L203.469 40.5312L201.5 38.9375L199.969 37.6562ZM328.531 80.875L325.719 81.125L325.344 81.5312L324.594 82.3438L323.75 83.375L322.438 85L320.938 86.9688L318.812 89.7188L317.344 91.5L316.062 92.875L315.406 93.5625L314.719 94.1875L314.156 94.6562L313.531 95.125L312.844 95.5625L312.094 95.9375L311.594 96.1562L311.094 96.3438L310.594 96.4375L310.094 96.4688L309.344 96.4375L308.531 96.2812L307.688 96.0625L306.875 95.75L306.062 95.4062L305.312 95.0312L304.625 94.5938L304.031 94.1875L302.75 93.0938L301.531 91.9375L300.125 90.4688L298.062 88.1562L296.688 86.625L295.531 85.4062L294.438 84.2812L293.812 83.6875L291 83.4375L290.844 85.1875L290.562 88.625L290.344 91.2188L290.062 94.375L289.562 100.781L289.125 107.156L288.719 113.562L288.531 116.844L288.375 119.594L288.094 125.25L287.844 131.406L287.594 139.469L287.438 145.188L287.344 148.375L287.25 154.938L287.188 162.625L287.188 174.594L287.281 188.812L287.375 202.219L287.406 211.188L287.344 218.688L287.281 226.219L287.562 231.875L291.938 231.719L296.344 231.625L301.594 231.562L309.469 231.5L312.281 231.531L315.094 231.625L317.906 231.844L320.719 232.094L323.188 232.406L325.656 232.719L328.125 233.094L330.594 233.531L332.5 228.094L332.406 223.781L332.312 219.5L332.219 210.969L332.25 200.812L332.375 185.688L332.5 174.875L332.531 165.781L332.531 159.906L332.5 154.906L332.469 152.469L332.344 146.469L332.156 138.125L331.969 132.438L331.719 125.781L331.344 118.188L331.156 115.156L331.125 114.438L330.812 109.531L330.219 101.156L329.656 93.6875L329.219 88.6562L329.094 86.9375L328.781 83.5625L328.594 81.3438L328.531 80.875ZM39.1875 81.0312L39.1562 81.4688L38.9375 83.7188L38.625 87.0938L38.5 88.8125L38.0938 93.8438L37.5 101.281L36.9062 109.656L36.625 114.594L36.5625 115.281L36.375 118.312L36.0312 125.906L35.75 132.594L35.5938 138.281L35.375 146.625L35.2812 152.594L35.25 155.062L35.1875 160.062L35.1875 165.938L35.2188 175.031L35.3438 185.844L35.5 200.969L35.5 211.094L35.4062 219.625L35.3438 223.938L35.2188 228.25L37.1562 233.656L39.5938 233.25L42.0625 232.875L44.5312 232.531L47 232.25L49.8125 231.969L52.625 231.781L55.4375 231.656L58.25 231.625L66.125 231.688L71.4062 231.781L75.7812 231.875L80.1562 232.031L80.4688 226.344L80.375 218.844L80.3438 211.344L80.3438 202.375L80.4375 188.969L80.5625 174.719L80.5312 162.75L80.4688 155.062L80.375 148.531L80.2812 145.312L80.125 139.625L79.875 131.562L79.625 125.406L79.3438 119.75L79.1875 116.969L79 113.719L78.5938 107.312L78.1562 100.906L77.6562 94.5L77.4062 91.3438L77.1875 88.7812L76.875 85.3125L76.7188 83.5938L73.9062 83.8438L73.2812 84.4062L72.1875 85.5312L71.0312 86.7812L69.6875 88.3125L67.5938 90.625L66.1875 92.0938L64.9688 93.25L63.6875 94.3125L63.0938 94.75L62.4062 95.1562L61.6562 95.5625L60.8438 95.9062L60.0312 96.2188L59.1875 96.4375L58.4062 96.5938L57.625 96.625L57.1562 96.5938L56.6562 96.4688L56.1562 96.3125L55.625 96.0938L54.9062 95.6875L54.1875 95.25L53.5625 94.7812L53.0312 94.3438L52.3125 93.6875L51.6562 93.0312L50.375 91.625L48.9062 89.875L46.7812 87.125L45.2812 85.125L44 83.5L43.125 82.5L42.375 81.6562L42 81.2812L39.1875 81.0312ZM605.25 98.2188L605 98.875L604.5 100.219L602.438 105.688L601.688 107.5L600.938 109.281L600.062 111.312L599.125 113.312L598.188 115.281L597.188 117.25L596.188 119.219L595.156 121.156L593 125L591.688 127.25L590.344 129.531L587.562 134L585.438 137.344L583.25 140.656L578.844 147.219L576.875 150.094L574.844 152.969L572.812 155.812L570.719 158.656L566.531 164.281L562.25 169.812L561.5 170.75L560.844 171.531L560.281 172.125L559.781 172.625L559.281 173.062L558.844 173.344L558.344 173.594L557.625 173.844L556.969 174.062L556.062 174.438L555.562 174.719L554.875 175.062L553.875 175.562L553.312 175.844L554.469 178.938L555.781 181.719L557 184.344L558.125 186.906L559.188 189.375L560.188 191.875L561.188 194.406L562.156 197.062L562.969 199.375L563.031 199.531L563.75 201.719L564.5 204.062L565.25 206.438L563.438 212.094L637.75 212.094L658.75 212.125L669.281 212.125L668.219 208.75L667.5 206.438L668.219 204.062L668.969 201.719L669.688 199.531L669.719 199.375L670.531 197.031L671.5 194.344L672.531 191.688L673.594 189.062L674.688 186.438L675.812 183.844L676.969 181.281L678.188 178.719L679.406 176.156L678.594 175.625L677.875 175.125L677.219 174.781L676.75 174.531L676.25 174.406L675.719 174.312L675 174.188L674.438 174.031L673.906 173.812L673.344 173.531L672.812 173.188L672.25 172.781L671.594 172.25L670.906 171.625L669.688 170.406L668.531 169.125L667.406 167.75L666.312 166.312L665.031 164.531L663.781 162.688L662.344 160.438L660.219 157.094L658.719 154.625L657.469 152.688L657.031 152.031L656.094 150.594L654.188 147.719L650.75 142.562L648.5 139.125L646.688 136.219L644.875 133.281L643.438 130.812L642.062 128.312L640.719 125.781L639.438 123.25L638.719 121.75L638.062 120.25L636.781 117.219L635.594 114.156L634.469 111.094L632.875 111.438L631.25 111.75L630.188 111.938L629.125 112.062L628.219 112.156L627.312 112.219L626.375 112.219L625.438 112.188L623.625 112.031L622.688 111.906L621.781 111.75L620.875 111.562L619.969 111.344L619.062 111.094L618.219 110.812L617.219 110.438L616.531 110.125L616.219 110L615.25 109.469L614.312 108.906L613.438 108.25L612.594 107.562L611.844 106.781L611.5 106.375L611.188 105.938L610.531 104.969L609.969 103.969L609.375 102.688L608.562 100.75L608.156 99.7188L607.906 99.2188L605.25 98.2188ZM816.906 98.25L814.25 99.2188L814.031 99.75L813.594 100.781L812.781 102.719L812.188 103.969L811.625 105L811 105.969L810.656 106.406L810.312 106.812L809.562 107.594L808.719 108.281L807.844 108.938L806.906 109.5L805.938 110L805.656 110.156L804.969 110.469L803.969 110.844L803.094 111.125L802.219 111.375L801.312 111.594L800.375 111.781L799.469 111.906L798.531 112.031L796.719 112.188L795.781 112.25L794.875 112.219L793.969 112.188L793.062 112.094L791.969 111.969L790.906 111.781L789.312 111.469L787.719 111.125L786.562 114.188L785.375 117.25L784.094 120.281L783.438 121.781L782.75 123.25L781.469 125.812L780.125 128.344L778.719 130.844L777.281 133.312L775.5 136.25L773.656 139.156L771.406 142.594L768 147.75L766.094 150.625L765.125 152.062L764.688 152.719L763.438 154.656L761.938 157.094L759.844 160.469L758.375 162.719L757.156 164.562L755.875 166.344L754.75 167.781L753.625 169.156L752.469 170.438L751.281 171.656L750.562 172.281L749.938 172.812L749.344 173.219L748.812 173.562L748.25 173.844L747.75 174.062L747.188 174.219L746.438 174.344L745.938 174.438L745.406 174.562L744.938 174.781L744.312 175.156L743.562 175.656L742.75 176.188L744 178.75L745.188 181.312L746.344 183.875L747.469 186.469L748.562 189.062L749.625 191.719L750.656 194.375L751.625 197.062L752.438 199.375L752.5 199.531L753.219 201.75L753.938 204.094L754.656 206.469L753.938 208.781L752.906 212.125L763.406 212.125L784.406 212.125L858.719 212.125L856.938 206.469L857.656 204.094L858.406 201.75L859.188 199.406L860 197.062L861 194.438L861.969 191.906L863 189.406L864.062 186.906L865.188 184.375L866.375 181.75L867.719 178.969L868.875 175.875L868.312 175.594L867.281 175.094L866.625 174.75L866.094 174.469L865.219 174.094L864.531 173.875L863.812 173.625L863.312 173.375L862.875 173.062L862.375 172.656L861.906 172.156L861.344 171.562L860.688 170.781L859.938 169.844L855.656 164.312L851.438 158.688L849.375 155.844L847.312 152.969L845.312 150.125L843.312 147.219L838.906 140.656L836.75 137.344L834.594 134.031L831.844 129.562L830.469 127.281L829.156 125L827.031 121.188L825.969 119.25L824.969 117.281L824 115.312L823.031 113.344L822.125 111.344L821.219 109.312L820.469 107.531L819.75 105.719L817.656 100.25L817.156 98.9062L816.906 98.25Z", 
+{
+left: 79.18749999999977,
+top: 33.4062000000001,
+lockMovementX:true,
+lockMovementY:true,
+lockScalingX:true,
+lockScalingY:true, 
+lockRotation:true,
+hasControls:false,
+hasBorders:false, 
+fixed: true, 
+selectable: true, 
+strokeWidth: 0.1,
+paintFirst: "stroke",
+stroke: 'black',
+fill: 'transparent',
+scaleX: 2.265615677046781,
+scaleY: 2.265615677046781,
+id: 'MenONeckMaskID'
+}
+);
+canvas1.add(MenONeckDesignSvgMask);
+
+
+
+	
+
+
+
+
+
+
+function addtexttest() {
+	var text1 = new fabric.Text('test text', { 
+		originX: "center",
+		originY: "center",
+		scaleX: 1.0,
+		scaleY: 1.0,
+		left: 500,
+		top: 400, 
+		angle: 0,
+		//fontStyle: "",
+		fontFamily: document.getElementById("txtFont").getAttribute('value'),
+		transparentCorners: false,
+		cornerSize: 14,
+		borderScaleFactor: 2, 
+		centeredScaling: true,
+		//cornerStyle: 'circle',
+		fill: 'green',
+		fontStyle: fontStyleCheckerGlobal,
+		fontWeight: fontWeightCheckerGlobal,
+		//id: textitemcounter,
+		//borderColor: 0x64646481,
+		//http://fabricjs.com/controls-customization
+	});
+		canvas1.add(text1);
+		text1.bringToFront();
+	}
+	
+	addtexttest(); 
+
+	
+
+
+
+/* canvas1.getObjects().forEach(function(o) {
+	if(o.id == 'MenONeckLogoFrontID') {
+		canvas1.setActiveObject(o);
+		console.log(o)
+	}
+}) */
+
+
+/* canvas1.getObjects().forEach(function(o) {
+	if(o.id == 'MenONeckLogoFrontID') {
+		canvas1.setActiveObject(o);
+		console.log(o)
+	}
+}) 
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+window.jsPDF = window.jspdf.jsPDF;
+//⬇️ generate new window of pdf canvas for printing. after "save button"
+
+document.getElementById("printCanvasTest").addEventListener("click", function () {
+
+	/* var myWindow = window.open("", "", "width=auto,height=auto");
+	var window_body = myWindow.document.getElementsByTagName("body")[0];
+	
+	var buttonForDownloadPDF = document.createElement("button");
+	buttonForDownloadPDF.innerHTML = 'Download'
+	buttonForDownloadPDF.id = "buttonForDownloadPDFid";
+	window_body.appendChild(buttonForDownloadPDF) 
+
+	var canvasPrint = document.createElement("canvas");
+	canvasPrint.id = "canvasPrint_id";
+	canvasPrint.style.zIndex = 8;
+	canvasPrint.style.position = "absolute"
+
+	window_body.appendChild(canvasPrint) */
+
+	zoomIn();
+
+	//canvasPrint_FabricObject = new fabric.Canvas(canvasPrint, {width: 6144, height: 6144})
+	//6144 
+	//canvasPrint_FabricObject.backgroundColor = "#ffffff"
+
+	//document.getElementById('finishedPage').style.display = 'flex'
+
+	//MenONeckDesignSvgMask.set({strokeWidth: 0.5, scaleX:1, scaleY:1});
+
+	
+	//let jsoned_canvas = canvas1.toJSON(['selectable', 'centeredRotation' ]);
+
+
+
+	var objx2 = canvas1.getObjects().filter(function(o) {
+		if (o.get('type') === 'text' ) {
+			canvas1TextsObjectsToMask.unshift(o);
+		}
+	});
+
+	/* var objx1 = canvas1.getObjects().filter(function(o) {
+		if (o.get('type') === 'image' ) {
+			canvas1TextsObjectsToMask.unshift(o);
+		}
+	}); */
+	
+	//canvasPrint_FabricObject.renderAll();
+
+	for (var x = 0; x < canvas1TextsObjectsToMask.length; x++) {
+		canvas1TextsObjectsToMask[x].clipPath = MenONeckDesignSvgMask;
+		canvas1TextsObjectsToMask[x].clipTo = function(ctx) {
+			clipObject(this, ctx)
+		}
+	} 
+
+	 canvas1.getObjects().forEach(function(o) {
+		if(o.id == 'MenONeckMaskID') {
+			//o.bringToFront(0);
+			canvas1.setActiveObject(o);
+			//o.set({selectable: true, strokeWidth: 0, fill: green, stroke: 'green'})
+			//canvasPrint_FabricObject.renderAll();
+			//console.log(o)
+		}
+	})
+
+	/* canvas1.calcOffset();
+	canvas1.renderAll();
+ 		*/
+
+
+	var imgData = canvas1.toDataURL(   {format: 'png',
+    multiplier:1  });
+	//console.log(imgData)
+	
+	var newTab = window.open('about:blank','image from canvas');
+	newTab.document.write("<img src='" + imgData + "' alt='from canvas'/>"); 
+
+
+	
+});
+
+
+
+/* window.jsPDF = window.jspdf.jsPDF;
+var pdf = new jsPDF();
+console.log(pdf)
+ */
+
+
+
+
+
+
+
+
+
+
+//zoom elements of pdf canvas (to get high res)
+
+var canvasScale = 1;
+var SCALE_FACTOR = 3;
+function zoomIn() {
+    
+    canvasScale = canvasScale * SCALE_FACTOR;
+    
+    canvas1.setHeight(canvas1.getHeight());
+    canvas1.setWidth(canvas1.getWidth());
+    
+    var objects = canvas1.getObjects();
+    for (var i in objects) {
+        var scaleX = objects[i].scaleX;
+        var scaleY = objects[i].scaleY;
+        var left = objects[i].left;
+        var top = objects[i].top;
+        
+        var tempScaleX = scaleX * SCALE_FACTOR;
+        var tempScaleY = scaleY * SCALE_FACTOR;
+        var tempLeft = left * SCALE_FACTOR;
+        var tempTop = top * SCALE_FACTOR;
+        
+        objects[i].scaleX = tempScaleX;
+        objects[i].scaleY = tempScaleY;
+        objects[i].left = tempLeft;
+        objects[i].top = tempTop;
+        
+        objects[i].setCoords();
+    }
+
+    canvas1.renderAll();
+
+}
+
+
+
+
+
+
+
+//for testing/getting real-time pos of fabricjs objects
+/*  var objt, objtLeft, objtRight;
+function doStuff() {
+    objt = canvas1.getActiveObject();
+    console.log(objt.left + "," + objt.top + "," + objt.scaleX);
+	//objtLeft = objt.left;
+	//objtRight = objt.right;
+}
+setInterval(doStuff, 100);   */
+
+//export { objtLeft, objtRight  } 

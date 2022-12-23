@@ -1,0 +1,272 @@
+
+html, body {
+	overflow: scroll;
+	overflow-x: hidden;
+	}
+	::-webkit-scrollbar {
+	
+	width: 0px;  /* Remove scrollbar space */
+	background: transparent;  /* Optional: just make scrollbar invisible */
+	}
+	/* Optional: show position indicator in red */
+	
+	::-webkit-scrollbar-thumb {
+	background:black;
+}
+
+body {
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow-y: hidden;
+	background-color: #ffffff;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+#c-right {
+	height: 20em;
+	width: 20em;
+	display: none;
+	background-color: blue;
+	position: absolute;
+	z-index: 999;
+}
+
+#canvas1 {
+position: absolute;
+display:none;
+width: 1024px;
+height: 1024px;
+left: 0px;
+top: 0px;
+/* touch-action: none; */
+/* -webkit-user-select: none; */
+background-color: rgba(255, 0, 0, 0.31);
+}
+
+#renderer {
+	height: 0px;
+	width: 0px;
+	width: 100%;
+    height: 100%;
+}
+
+
+
+
+#responsive_canvas {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -100;
+    margin-top: 0em;
+    left: 9em;
+	background: rgb(255, 255, 255);
+	background: radial-gradient(circle, rgb(135, 135, 135) 0%, rgb(59, 59, 59) 100%);
+	/* 	position: fixed;
+    width: 30em;
+    height: 30em;
+    overflow: hidden;
+    z-index: -100;
+    margin-top: 5em;
+    right: 0em;  */
+}
+
+#canvas {
+	width: 100% !important;
+    height: 100% !important;
+}
+
+div.filler0 {
+	background-color: #f0f0f0;
+	border-style: solid;
+    border-width: 1px;
+	border-color: white;
+	padding: 8px 8px 8px 8px;
+}
+
+div.filler1 {
+	background-color: #f8f8f8;
+	border-style: solid;
+    border-width: 1px;
+	border-color: white;
+	padding: 8px 8px 8px 8px;
+}
+
+div.filler2 {
+	background-color: #e0ffe0;
+	border-style: solid;
+    border-width: 1px;
+	border-color: white;
+	padding: 8px 8px 8px 8px;
+}
+
+#farbfeld {
+	display: inline-block;
+	background-color: #ccc;
+	border: 1px solid #222222;
+	border-radius: 2px;
+	padding: 2px 2px;
+	width: 50px;
+	height: 28px;
+	left: 2px;
+	top: 2px;
+}
+
+#farbfeld_innen {
+	border: 1px solid #222222;
+	border-radius: 2px;
+	display: inline-block;
+	width: 48px;
+	height: 26px;
+}
+
+#farbfeld_aussen {
+	display: inline-block;
+	padding: 1px 2px;
+	width: 54px;
+	height: 32px;
+}
+
+
+
+
+
+
+
+
+.switch {
+    position: sticky;
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 10px;
+    margin-left: 0.6em;
+    }
+
+    .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    .roundCheck {
+    border: 0px solid #fff;
+    width: 2.3em;
+    height: 1.18em;
+    }
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 0.9em;
+    width: 0.9em;
+    left: 2.5px;
+    bottom: 0.14em;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #B5B5B5;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px rgb(130, 130, 130);
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+    }
+
+    /* Rounded sliders */
+    .slider.roundCheck {
+    border-radius: 4em;
+    }
+
+    .slider.roundCheck:before {
+    border-radius: 50%;
+    }
+
+    #SwitchBlock {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.4em;
+    margin-bottom: 10px;
+    z-index: 101;
+    top: 0.6em;
+    left: 1.2em;
+    font-size: 0.9em;
+    font-family: BeVietnam_Regular;
+    }
+
+	
+
+
+
+    #CrossIconAccent1Jersey {
+        position: relative;
+        height: 1em;
+        width: 0.8em;
+        font-size: 1em;
+        color: #000000;
+        text-align: left;
+        line-height: 1em;
+        font-family: monospace,monospace;
+        top: 0.1em;
+        left: -0.8em;
+        cursor:pointer;
+    }
+
+
+
+
+
+    /*font selector*/
+
+
+
+
+    .NameSelectedColor {
+        position: static;
+        height: 2em;
+        width: 13.4em;
+        border-radius: 0.3em;
+        font-size: 0.6em;
+        font-family: BeVietnam_Regular;
+        color: #000000;
+        margin-top: 0.2em;
+    }   
+    
+
+    .TypeColorTitle {
+        position: static;
+        height: 4em;
+        width: 16em;
+        border-radius: 0.3em;
+        font-size: 0.9em;
+        font-family: BeVietnam_Bold;
+        color: #000000;
+        margin-top: 0.8em;
+    }
+
+      

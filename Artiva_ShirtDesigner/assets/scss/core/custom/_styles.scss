@@ -1,0 +1,19 @@
+// User styles
+//
+// This is the place where you should place all additional styles and imports.
+// This will allow you to take advantage of future updates with lower time consumed on the upgrade process.
+
+.dropdown-menu {
+  .menu-label {
+    margin-left: -10px;
+    display: inline-flex;
+    top: -2px;
+  }
+}
+
+.hero-unit {
+  .column-inner {
+    padding: 30px;
+    background-color: rgba(#fafafa, .5);
+  }
+}

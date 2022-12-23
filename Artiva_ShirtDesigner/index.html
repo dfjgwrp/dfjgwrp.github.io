@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Artiva Shirt Designer - Developer version </title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="HTMLstyles.css">
+		<link type="text/css" rel="stylesheet"  href="fonts/fonts.css">
+
+		<script src="skripte/globals.js"></script>
+		<script src="skripte/jquery.js"></script>
+		<script src="skripte/fabric2.js"></script>
+		<script src="skripte/customiseControls.js"></script>
+
+		<meta name="msapplication-TileColor" content="#000000">
+		<meta name="theme-color" content="#000000">
+
+		<link rel="stylesheet" href="fonts/font-awesome.min.css">
+
+		<link href="skripte/bootstrap.min.css" rel="stylesheet">
+		<script src="skripte/bootstrap.bundle.min.js"></script>
+
+		<link rel="preload" href="fonts/CocogooseProItalic.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/BebasNeue-Regular.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/BigNoodleTitling-Regular.otf" as="font" type="font/otf" crossorigin>
+		<link rel="preload" href="fonts/Canterbury.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/college.bold.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/deftone_stylus.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/emilio-19.regular.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/LeagueSpartan-Bold.otf" as="font" type="font/otf" crossorigin>
+		<link rel="preload" href="fonts/monoton.regular.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/montserrat.regular.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/public-enemy.regular.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/Sportsjersey.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="fonts/BronxBystreets.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/aclonica-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/AmsTrameItalique.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/BostonTraffic.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/ArialNarrow-Bold.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/ABRICOS7.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/AlienLeagueBold.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/architects-daughter-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/ArvoGruen.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/autour-one-v7-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/bangers-v10-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/BebasNeue.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/HighJakarta.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/College.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/CenturyGothic.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Captureit.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Colleged.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Helvetica.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/GalderglynnTitlingBk-Regular.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/germania-one-v5-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/DCC-Ash.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Futura-Bold.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/MicrogrammaD-BoldExte.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/MetalGear.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Renogare-Regular.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/RimouskiSb-Regular.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/SportsJersey.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/luckiest-guy-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/NeuropoliticalRg-Regular.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/JerseyM54.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/NewAthleticM54.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/Impact.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/pacifico-v12-latin-regular.woff2" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/rock-salt-v8-latin-regular.woff2" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/special-elite-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/Stereofunk.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/MontserratAlternates-Bold.woff" as="font" type="font/woff" crossorigin>
+		<link rel="preload" href="fonts/sue-ellen-francisco-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/sunshiney-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/tillana-v3-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/trade-winds-v6-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/uncial-antiqua-v5-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/unkempt-v9-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/vast-shadow-v7-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="fonts/wellfleet-v5-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+		<link rel="preload" href="fonts/Athletic_Regular.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/gentilis_bold.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/gentilis_regular.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/helvetiker_bold.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/helvetiker_regular.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/optimer_bold.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/optimer_regular.typeface.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/Jacketshop_Regular.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/Stahls_OE_1C_Regular.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/Stahls_Pro_3inch_Regular.json" as="font" type="font/json" crossorigin>
+		<link rel="preload" href="fonts/Stahls_Tiffany_BOTTOM_Regular.json" as="font" type="font/json" crossorigin>
+
+		<link rel="stylesheet" href="skripte/dropzone.css">
+
+
+
+		
+		<!-- ! better to download to local storage-->
+
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"> 
+
+
+		<!-- One of the following themes -->
+		<link rel="stylesheet" href="skripte/classic.min.css"/> <!-- 'classic' theme -->
+		<link rel="stylesheet" href="skripte/monolith.min.css"/> <!-- 'monolith' theme -->
+		<link rel="stylesheet" href="skripte/nano.min.css"/> <!-- 'nano' theme -->
+
+		<!-- Modern or es5 bundle -->
+		<script src="skripte/pickr.es5.min.js"></script>
+
+
+		inputElement
+
+		<!-- <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.es5.min.js"></script> -->
+
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  -->
+		<!-- <script src="skripte/jspdf.umd.min"></script>
+		<script src="skripte/opentypejs/opentype.min.js"></script>
+		-->
+
+		<!--better to download to local storage-->
+
+
+		<script src="skripte/FileSaver.js"></script>
+
+
+
+		<style>
+		div::-webkit-scrollbar {
+		width: 10px;
+		}
+		div::-webkit-scrollbar-track {
+		background-color: #9993 !important;
+		}
+		div::-webkit-scrollbar-thumb {
+		background-color: #9999 !important;
+		}
+		</style>
+		
+	</head>
+	<body>
+
+	<!--preloader-->
+	<script>
+		window.onload = function(){ document.querySelector(".preloader").style.display = "none"; }
+	</script>
+
+	<div class="preloader"> 
+		<img class="preloader-icon" src="./icons/loading.gif" alt="Loading...">
+	</div>
+
+	<div id="finishedPage"> 
+		Thanks! &nbsp
+		<button onClick="window.location.reload();"> Refresh Page </button>
+	</div>
+
+
+
+
+
+
+
+
+
+	
+
+
+	<i class="fa-solid fa-person-half-dress"></i>
+
+	<!---BIG MAIN LEFT MENU-->
+	<div class="flexboxMain disable-scrollbars">
+		<div id="center-bottom-area" class="disable-scrollbars">
+
+			<div id="MenuTypeContainer" onclick="openType()">
+				<!-- <div style="z-index:999;color:#d0d0d0; font-family:sans-serif">↕ scroll ↕</div> -->
+				
+				<div class="IconSpan">
+					<img src="icons/shirt-solid.svg" class="MenuIconPng "> 
+				</div>
+				<div class="MenuTitle">
+					Type
+				</div>
+			</div>  
+
+			<div id="MenuDesignContainer" onclick="openDesign()">
+				<div class="IconSpan">
+					<img src="icons/signature-solid.svg"  class="MenuIconPng">
+				</div>
+				<div class="MenuTitle">
+					Design
+				</div>
+			</div>  
+		
+			<div id="MenuFarbeContainer" onclick="openFarbe()">
+				<div class="IconSpan">
+					<img src="icons/palette-solid.svg"  class="MenuIconPng">
+				</div>
+				<div class="MenuTitle">
+					Farbe
+				</div>
+			</div>  
+		
+			<div id="MenuTextContainer" onclick="openText()">
+				<div class="IconSpan">
+					<img src="icons/text-height-solid.svg"  class="MenuIconPng">
+				</div>
+				<div class="MenuTitle">
+					Text
+				</div>
+			</div>  
+		
+			<div id="MenuLogoContainer" onclick="openLogo()">
+				<div class="IconSpan">
+					<img src="icons/certificate-solid.svg"  class="MenuIconPng">
+				</div>
+				<div class="MenuTitle">
+					Logo
+				</div>
+			</div> 
+		
+		</div>
+	</div> 
+	
+
+
+	<!-- content inside main left menu ↙️ -->
+	<!--#region-->
+
+	<!--T-SHIRT Type-->
+	<div id="bigMainMenuOfType">
+		<div class="ff_mainContainer">
+			<div class="MainBlockForAllComponent">
+
+				<!--button to close, separeted code-->	
+				<div id="ff_closeTitleType" onclick="closeType()">
+				<p style="width:1em;height:1em;">×</p>	
+				</div>
+
+				<!-- Type-->
+				<div class="titleTextMainMenu">
+					Jersey Type
+				</div>
+
+				<div class="titleTextMaterials2">
+					Gender
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockType_Man">
+						<img src="icons/man.png" class="Block_icon">
+						<div class="Block_title">
+							<b>Man</b><br>
+						</div>
+					</div>
+
+					<!-- <div class="Block_Choise" id="BlockType_Woman" onclick="chooseWoman()">
+						<img src="icons/man.png" class="Block_icon">
+						<div class="Block_title">
+							<b>Woman</b><br>
+						</div>
+					</div> -->
+				</div>
+
+				<div class="titleTextMaterials2">
+					Neck
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockType_RoundNeck" onclick="chooseRoundNeck()">
+						<img src="icons/man.png" class="Block_icon">
+						<div class="Block_title">
+							<b>Runder</b><br>
+						</div>
+					</div>
+
+					<!-- <div class="Block_Choise" id="BlockType_VNeck" onclick="chooseVNeck()">
+						<img src="icons/man.png" class="Block_icon">
+						<div class="Block_title">
+							<b>V-Ausschnitt</b><br>
+						</div>
+					</div> -->
+				</div>
+
+
+				
+
+			</div> <!--Type inside rounede main closure-->
+		</div>	<!--end of ff_mainContainerType-->
+	</div> <!--end of bigMainMenuOfType-->
+	<!--Type!"-->
+
+
+
+
+
+	<!--Design BIG MAIN MENU!"-->
+	<div id="bigMainMenuOfDesign">
+		<div class="ff_mainContainer">
+			<div class="MainBlockForAllComponent" >
+
+				<!--button to close, separeted code-->	
+				<div id="ff_closeTitleDesign" onclick="closeDesign()">
+				<p style="width:1em;height:1em;">×</p>	
+				</div>
+
+				<!-- Design-->
+				<div class="titleTextMainMenu">
+					Jersey Design
+				</div>
+
+				<div class="titleTextMaterials2">
+					Entscheide dich für ein Basis-Design<br>
+					<!-- <b><i>Current items to be deleted if you change Design</i></b> -->
+				</div>
+						
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockDesign0" >
+						<img src="icons/Design0.png" class="Block_icon">
+					</div>
+				</div>
+					
+				<div class="LayOutChoiseRow">
+
+					<div class="Block_Choise" id="BlockDesign1">
+						<img src="icons/Design1.png" class="Block_icon">
+					</div>
+					
+					<div class="Block_Choise" id="BlockDesign2" onclick="ChooseDesign2()">
+						<img src="icons/Design2.png" class="Block_icon">
+					</div>
+					
+				</div>
+
+				
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockDesign3" onclick="ChooseDesign3()">
+						<img src="icons/Design3.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockDesign4" onclick="ChooseDesign4()">
+						<img src="icons/Design4.png" class="Block_icon">
+					</div>
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockDesign5" onclick="ChooseDesign5()">
+						<img src="icons/Design5.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockDesign6" onclick="ChooseDesign6()">
+						<img src="icons/Design6.png" class="Block_icon">
+					</div>
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockDesign7" onclick="ChooseDesign7()">
+						<img src="icons/Design7.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockDesign8" onclick="ChooseDesign8()">
+						<img src="icons/Design8.png" class="Block_icon">
+					</div>
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockDesign9" onclick="ChooseDesign9()">
+						<img src="icons/Design9.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockDesign10" onclick="ChooseDesign10()">
+						<img src="icons/Design10.png" class="Block_icon">
+					</div>
+				</div>
+
+			</div> <!--Design inside rounede main closure-->
+		</div>	<!--end of ff_mainContainerDesign-->
+	</div> <!--end of bigMainMenuOfDesign-->
+	<!--Design!"-->
+
+
+
+
+	<!--Farbe BIG MAIN MENU!"-->
+	<div id="bigMainMenuOfFarbe">
+		<div class="ff_mainContainer">
+			<div class="MainBlockForAllComponent">
+
+				<!--button to close, separeted code-->	
+				<div id="ff_closeTitleFarbe" onclick="closeFarbe()">
+				<p style="width:1em;height:1em;">×</p>	
+				</div>
+
+				<!-- Farbe-->
+				<div class="titleTextMainMenu">
+					Jersey Farben
+				</div>
+
+				<div class="titleTextMaterials2">
+					Entscheide dich für deine Farbkombination
+				</div>
+
+				<div id="BlockSelectorForSolidColor">
+
+					<div class="ColorsSelectorMenu" id="ColorFront" >
+						<div class="TypeColorTitle">Color of Front</div>
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedColorFront">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="ColorBack" >
+						
+						<div class="TypeColorTitle">Color of Back</div>		
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedColorBack">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="LeftSleeve" >
+						
+						<div class="TypeColorTitle">Color of Left Sleeve</div>	
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedLeftSleeve">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="LeftSide" >
+						
+						<div class="TypeColorTitle">Color of Left Side</div>	
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedLeftSide">
+					</div>
+				
+					<div class="ColorsSelectorMenu" id="RightSleeve">
+						
+						<div class="TypeColorTitle">Color of Right Sleeve</div>	
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedRightSleeve">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="RightSide">
+						
+						<div class="TypeColorTitle">Color of Right Side</div>	
+						<input type="text" value="#ffffff" class="SelectedColor" id="SelectedRightSide">
+					</div>
+
+			
+
+
+				</div>
+
+
+
+
+
+
+
+
+				<div id="BlockSelectorForDesignColor">
+
+					<div class="ColorsSelectorMenu" id="Farbe1">
+						
+						<div class="TypeColorTitle">Farbe 1</div>	
+						<input type="text" value="#АААААА" class="SelectedColor"  id="SelectedColorFarbe1">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="Farbe2">
+						
+						<div class="TypeColorTitle">Farbe 2</div>	
+						<input type="text" value="#82BBD7" class="SelectedColor" id="SelectedColorFarbe2">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="Farbe3">
+						
+						<div class="TypeColorTitle">Farbe 3</div>	
+						<input type="text" value="#0d2849" class="SelectedColor" id="SelectedColorFarbe3">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="Farbe4">
+						
+						<div class="TypeColorTitle">Farbe 4</div>	
+						<input type="text" value="#1B5A93" class="SelectedColor" id="SelectedColorFarbe4">
+					</div>
+
+					<div class="ColorsSelectorMenu" id="Farbe5">
+						
+						<div class="TypeColorTitle">Farbe 5</div>	
+						<input type="text" value="#3F8BBC" class="SelectedColor" id="SelectedColorFarbe5">
+					</div> 
+
+				</div>		
+
+
+				<div class="ColorsSelectorMenu" id="KnitTrimSleeve">
+						
+					<div class="TypeColorTitle">Color of Knit Trim Sleeve</div>	
+					<input type="text" value="#ffffff" class="SelectedColor" id="SelectedKnitTrimSleeve">
+				</div>
+
+				<div class="ColorsSelectorMenu" id="KnitTrimColar">
+						
+					<div class="TypeColorTitle">Color of Knit Trim Colar</div>	
+					<input type="text" value="#ffffff" class="SelectedColor" id="SelectedKnitTrimColar">
+				</div>
+				
+
+			</div> <!--Farbe inside rounede main closure-->
+		</div>	<!--end of ff_mainContainerFarbe-->
+	</div> <!--end of bigMainMenuOfFarbe-->
+	<!--Farbe!"-->
+
+
+
+
+
+
+	<!--Text BIG MAIN MENU!"-->
+	<div id="bigMainMenuOfText">
+		<div class="ff_mainContainer ">
+			<div class="MainBlockForAllComponent" >
+
+				<!--button to close, separeted code-->	
+				<div id="ff_closeTitleText" onclick="closeText()">
+				<p style="width:1em;height:1em;">×</p>	
+				</div>
+
+				<!-- Text-->
+				<div class="titleTextMainMenu">
+					Text on model
+				</div>
+				<div id="titleTextMaterials2_hints">
+					To accept options like colors, text object must be selected
+					<!-- <b>Important hints:</b><br>1. Select letters on the model to take control. <i>Unselect</i> (so blue border disappears) to continue rotating. To unselect text just click any free space on the model.<br> 2. Touch free space on model and refill the "Enter Text" field below to add new lettering object. -->
+				</div> 
+
+
+				<div class="tab-pane active" id="pills-text" role="tabpanel" aria-labelledby="pills-text-tab">
+
+
+					<input type="text" id="txtText" size="21" maxlength="20"  placeholder="Enter text" oninput="javascript:setTextValue(this.value);"><br>
+
+					<div class="TypeColorTitle">
+							&nbsp;
+							Scale Border
+					</div>
+					<div class="slidecontainer" style="max-width: 300px;">
+						<input type="range" class="form-range" min="0" max="5" id="txtBorder"  onchange="javascript:setTextBorder(this.value);" >
+					</div>
+
+					<div class="TypeColorTitle">
+						&nbsp;
+						Letter Spacing
+					</div>
+					<div class="slidecontainer" style="max-width: 300px;">
+						<input type="range" class="form-range" min="-100" max="250" id="txtBorder" onchange="javascript:setLetterSpacing(this.value);" >
+					</div>
+
+					  
+
+
+
+
+
+
+										  
+					<div class="ColorsSelectorMenuText">
+						<input type="checkbox"  id="setFontItalic_value" onchange="setTextFontStyleItalic()">
+						<br>
+						<div class="TypeColorTitle">
+							&nbsp;
+							<i>Italic</i>
+						</div>
+					</div>
+
+					<div class="ColorsSelectorMenuText">
+						<input type="checkbox"  id="setFontBold_value" onchange="setTextFontStyleBold()">
+						<br>
+						<div class="TypeColorTitle">
+							&nbsp;
+							<b>Bold</b>
+						</div>
+					</div>
+
+
+					<div class="ColorsSelectorMenuText">
+						<input type="text" id="txtColor" value="#582382" class="SelectedColor"><br>
+						<div class="TypeColorTitle">
+							&nbsp;
+							Farbe Text
+						</div>
+					</div>
+
+					
+					<div class="ColorsSelectorMenuText">
+						<input type="text" id="txtColorBorder" value="#495823" class="SelectedColor"><br>
+						<div class="TypeColorTitle">
+							&nbsp;
+							Farbe Text Border
+						</div>
+					</div>
+
+
+
+
+					<div class="ColorsSelectorMenu">
+
+						<div id="CrossIconAccent1Jersey" style="position: relative; height: 1em;width: 1em;font-size: 1em;color: #000000;text-align: left;line-height:1em;font-family: monospace,monospace;top: 0.1em;left: -0.8em;cursor:pointer;"><b>+</b></div>
+						
+						<div class="TypeColorTitle">Select Fontstyle</div>	
+			
+					</div>
+
+			
+					<div id="txtFont" value="Helvetica" style="display:none;opacity:0">
+					</div>
+
+					<!--region-->
+					<div id="FontListRollText1">
+
+
+
+						<div class="TypeFontTitle" style="font-family: CocogooseProItalic;display:flex" onclick="highlightSelectedFont('CocogooseProItalic', 0); ">
+							CocogooseProItalic
+						</div>
+
+						<div class="TypeFontTitle" style="font-family: Consolas;display:flex" onclick="highlightSelectedFont('Consolas', 1);">
+							Consolas
+						</div>
+
+						<div class="TypeFontTitle" style="font-family: Canterbury;display:flex" onclick="highlightSelectedFont('Canterbury', 2);">
+							Canterbury
+						</div>
+
+						<div class="TypeFontTitle" style="font-family: Courier;display:flex" onclick="highlightSelectedFont('Courier', 3);">
+							Courier
+						</div>
+
+
+						<div class="TypeFontTitle" style="font-family: Helvetica;display:flex" onclick="highlightSelectedFont('Helvetica',4);">
+							Helvetica
+						</div>
+
+						<div class="TypeFontTitle" style="font-family: Impact;display:flex" onclick="highlightSelectedFont('Impact',5);">
+							Impact
+						</div>
+
+						
+						<div class="TypeFontTitle" style="font-family: Times New Roman;display:flex" onclick="highlightSelectedFont('Times New Roman',6);">
+							Times New Roman
+						</div>
+						<div class="TypeFontTitle" style="font-family: College_Bold;display:flex" onclick="highlightSelectedFont('College_Bold',7);">
+							College_Bold
+						</div>
+						<div class="TypeFontTitle" style="font-family: Deftone_Stylus;display:flex" onclick="highlightSelectedFont('Deftone_Stylus',8);">
+							Deftone_Stylus
+						</div>
+						<div class="TypeFontTitle" style="font-family: Emilio_19_Regular;display:flex" onclick="highlightSelectedFont('Emilio_19_Regular',9);">
+							Emilio_19_Regular
+						</div>
+						<div class="TypeFontTitle" style="font-family: Monoton_Regular;display:flex" onclick="highlightSelectedFont('Monoton_Regular',10);">
+							Monoton_Regular
+						</div>
+						<div class="TypeFontTitle" style="font-family: Montserrat_Regular;display:flex" onclick="highlightSelectedFont('Montserrat_Regular',11);">
+							Montserrat_Regular
+						</div>
+						<div class="TypeFontTitle" style="font-family: Public_Enemy_Regular;display:flex" onclick="highlightSelectedFont('Public_Enemy_Regular',12);">
+							Public_Enemy_Regular
+						</div>
+						<div class="TypeFontTitle" style="font-family: Sportsjersey;display:flex" onclick="highlightSelectedFont('Sportsjersey',13);">
+							Sportsjersey
+						</div>
+						<div class="TypeFontTitle" style="font-family: Bronx Bystreets;display:flex" onclick="highlightSelectedFont('Bronx Bystreets',14);">
+							Bronx Bystreets
+						</div>
+						<div class="TypeFontTitle" style="font-family: Ams Trame;display:flex" onclick="highlightSelectedFont('Ams Trame',15);">
+							Ams Trame
+						</div>
+						<div class="TypeFontTitle" style="font-family: ABRICOS 7;display:flex" onclick="highlightSelectedFont('ABRICOS 7',16);">
+							ABRICOS 7
+						</div>
+						<div class="TypeFontTitle" style="font-family: Alien League;display:flex" onclick="highlightSelectedFont('Alien League',17);">
+							Alien League
+						</div>
+						<div class="TypeFontTitle" style="font-family: Architects Daughter;display:flex" onclick="highlightSelectedFont('Architects Daughter',18);">
+							Architects Daughter
+						</div>
+						<div class="TypeFontTitle" style="font-family: Arvo Gruen;display:flex" onclick="highlightSelectedFont('Arvo Gruen',19);">
+							Arvo Gruen
+						</div>
+						<div class="TypeFontTitle" style="font-family: Autour One;display:flex" onclick="highlightSelectedFont('Autour One',20);">
+							Autour One
+						</div>
+						<div class="TypeFontTitle" style="font-family: Bangers;display:flex" onclick="highlightSelectedFont('Bangers',21);">
+							Bangers
+						</div>
+						<div class="TypeFontTitle" style="font-family: Bebas Neue;display:flex" onclick="highlightSelectedFont('Bebas Neue',22);">
+							Bebas Neue
+						</div>
+						<div class="TypeFontTitle" style="font-family: High Jakarta;display:flex" onclick="highlightSelectedFont('High Jakarta',23);">
+							High Jakarta
+						</div>
+						<div class="TypeFontTitle" style="font-family: College;display:flex" onclick="highlightSelectedFont('College',24);">
+							College
+						</div>
+						<div class="TypeFontTitle" style="font-family: Century Gothic;display:flex" onclick="highlightSelectedFont('Century Gothic',25);">
+							Century Gothic
+						</div>
+						<div class="TypeFontTitle" style="font-family: Capture it;display:flex" onclick="highlightSelectedFont('Capture it',26);">
+							Capture it
+						</div>
+						<div class="TypeFontTitle" style="font-family: Colleged;display:flex" onclick="highlightSelectedFont('Colleged',27);">
+							Colleged
+						</div>
+						<div class="TypeFontTitle" style="font-family: College;display:flex" onclick="highlightSelectedFont('College',28);">
+							College
+						</div>
+						<div class="TypeFontTitle" style="font-family: CollCreampuffege;display:flex" onclick="highlightSelectedFont('Creampuff',29);">
+							Creampuff
+						</div>
+						<div class="TypeFontTitle" style="font-family: Galderglynn Titling Bk;display:flex" onclick="highlightSelectedFont('Galderglynn Titling Bk',30);">
+							Galderglynn Titling Bk
+						</div>
+						<div class="TypeFontTitle" style="font-family: Germania One;display:flex" onclick="highlightSelectedFont('Germania One',31);">
+							Germania One
+						</div>
+						<div class="TypeFontTitle" style="font-family: DCC_Ash;display:flex" onclick="highlightSelectedFont('DCC_Ash',32);">
+							DCC_Ash
+						</div>
+						<div class="TypeFontTitle" style="font-family: MicrogrammaDBolExt;display:flex" onclick="highlightSelectedFont('MicrogrammaDBolExt',33);">
+							MicrogrammaDBolExt
+						</div>
+						<div class="TypeFontTitle" style="font-family: Metal Gear;display:flex" onclick="highlightSelectedFont('Metal Gear',34);">
+							Metal Gear
+						</div>
+						<div class="TypeFontTitle" style="font-family: Rimouski Sb;display:Renogare" onclick="highlightSelectedFont('Rimouski Sb',35);">
+							Rimouski Sb
+						</div>
+						<div class="TypeFontTitle" style="font-family: Sports Jersey;display:flex" onclick="highlightSelectedFont('Sports Jersey',36);">
+							Sports Jersey
+						</div>
+						<div class="TypeFontTitle" style="font-family: Luckiest Guy;display:flex" onclick="highlightSelectedFont('Luckiest Guy',37);">
+							Luckiest Guy
+						</div>
+						<div class="TypeFontTitle" style="font-family: Neuropolitical Rg;display:flex" onclick="highlightSelectedFont('Neuropolitical Rg',38);">
+							Neuropolitical Rg
+						</div>
+						<div class="TypeFontTitle" style="font-family: New Athletic M54;display:flex" onclick="highlightSelectedFont('New Athletic M54',39);">
+							New Athletic M54
+						</div>
+						<div class="TypeFontTitle" style="font-family: Pacifico;display:flex" onclick="highlightSelectedFont('Pacifico',40);">
+							Pacifico
+						</div>
+						<div class="TypeFontTitle" style="font-family: Rock Salt;display:flex" onclick="highlightSelectedFont('Rock Salt',41);">
+							Rock Salt
+						</div>
+						<div class="TypeFontTitle" style="font-family: Stereofunk;display:flex" onclick="highlightSelectedFont('Stereofunk',42);">
+							Stereofunk 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Montserrat Alternates;display:flex" onclick="highlightSelectedFont('Montserrat Alternates',43);">
+							Montserrat Alternates 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Sue Ellen Francisco;display:flex" onclick="highlightSelectedFont('Sue Ellen Francisco',44);">
+							Sue Ellen Francisco 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Sunshiney;display:flex" onclick="highlightSelectedFont('Sunshiney',45);">
+							Sunshiney 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Tillana;display:flex" onclick="highlightSelectedFont('Tillana',46);">
+							Tillana 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Trade Winds;display:flex" onclick="highlightSelectedFont('Trade Winds',47);">
+							Trade Winds 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Uncial Antiqua;display:flex" onclick="highlightSelectedFont('Uncial Antiqua',48);">
+							Uncial Antiqua 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Unkempt;display:flex" onclick="highlightSelectedFont('Unkempt',49);">
+							Unkempt 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Vast Shadow;display:flex" onclick="highlightSelectedFont('Vast Shadow',50);">
+							Vast Shadow 
+						</div>
+						<div class="TypeFontTitle" style="font-family: Wellfleet;display:flex" onclick="highlightSelectedFont('Wellfleet',51);">
+							Wellfleet 
+						</div>
+				
+					</div>
+					<!--endregion-->
+
+					
+
+					<div class="BlockButtons">
+						<button class="ButtonUpload" id="addTextButton">+</button>&nbsp;
+						<button  class="ButtonUpload" onclick="deleteObject();">−</button><br>
+					</div>
+			 	</div>
+
+			</div> <!--Design inside rounede main closure-->
+		</div>	<!--end of ff_mainContainerDesign-->
+	</div> <!--end of bigMainMenuOfDesign-->
+	<!--Design!"-->
+
+
+
+
+
+
+
+
+
+
+	<!--Logo BIG MAIN MENU!"-->
+
+
+
+	<script src="skripte/dropzone.min.js"></script>
+	<script>
+		var Dateiname = '';
+		//$(function() {	 
+			
+			Dropzone.options.myDropZone = {
+				maxFiles:1,
+				addRemoveLinks: true,
+				acceptedFiles: "image/jpeg,image/png,image/gif,application/postscript,application/pdf,image/svg+xml",
+				init: function () {
+					this.hiddenFileInput.removeAttribute('multiple');
+					this.on("processing", function(file, responseText) {
+						$('#modalTitle').html('Bitte warten');
+						$('#Errormessage').html('<span>Die Grafik wird hochgeladen und verarbeitet. <br>Dies kann je nach Grafik bis zu 60 Sekunden dauern.</span><img src="./icons/loading.gif" align="absmiddle">');
+						$('#error-modal').modal('show');
+					});
+
+
+					this.on("success", function(file, responseText) {
+
+						console.log(responseText);
+						//console.log(xhr.getResponseHeader('Dateiname'));
+						
+						Dateiname = responseText;
+						
+						if (Dateiname.indexOf("Fehler") !== -1) {
+							setTimeout(function(){ 
+								$('#modalTitle').html('Fehler');
+								$('#Errormessage').html('<span>'+Dateiname+'</span>');
+								$('#error-modal').modal('show');
+							}, 1000);
+						} 
+						else if (Dateiname == ''){ 
+							setTimeout(function(){ 
+								$('#modalTitle').html('Fehler');
+								$('#Errormessage').html('<span>Kein erlaubtes Bildformat</span>');
+								$('#error-modal').modal('show');
+							}, 1000);
+						}
+						else {
+							console.log("Grafik loaded")
+							//loadGrafik('Ball', 'ball.png');
+							//loadGrafik1('Dateiname', Dateiname);	
+							
+							attachUserSelectedPictureToCanvas1(Dateiname)
+						}
+					});
+
+
+					this.on("error", function(file, responseText) {
+						setTimeout(function(){ 
+							$('#modalTitle').html('Fehler');
+							$('#Errormessage').html('<span>Beim Verarbeiten der Datei ist ein Fehler aufgetreten. Bitte versuche es mit einer anderen Grafik noch einmal.</span>');
+							$('#error-modal').modal('show');
+						}, 1000);
+					});
+					this.on("complete", function(file) {
+						this.removeAllFiles();
+					});
+					
+				}
+			};
+		//});
+		
+
+		function attachUserSelectedPictureToCanvas1(e) {
+			//console.log(e)
+
+			document.getElementById("titleTextMaterials2inner").innerHTML = "<b>↖ Now Press + </b>";
+			titleTextMaterials2inner.style.color = "#e25129c7"
+			BlockLogoPreset1.style.backgroundColor = "#bbbbbb"
+			document.getElementById("addAreaSpecificGFX").value = e;
+
+			//newGFX(canvas1, e, 200, 700, 0.2, 0.2, 0) 
+
+			/* targetFiles = e.target.files[0];     
+			userimageURL = URL.createObjectURL( targetFiles );
+
+			newGFX(canvas1, userimageURL, 200, 700, 0.2, 0.2, 0) */
+		}
+
+	</script>
+
+
+	<div id="bigMainMenuOfLogo">
+		<div class="ff_mainContainer">
+			<div class="MainBlockForAllComponent">
+
+				<!--button to close, separeted code-->	
+				<div id="ff_closeTitleLogo" onclick="closeLogo()">
+				<p style="width:1em;height:1em;">×</p>	
+				</div>
+
+				<!-- Logo-->
+				<div class="titleTextMainMenu">
+				  	Add your pictures
+				</div>
+
+				<div id="titleTextMaterials2_hints">
+					<i align="center"><b>Important hints:</b></i><br>0. <i><u>Double Click</u></i> to add pictures.<Br>1. Select (touch) pictures on the model to take control. <i>Unselect</i> (so blue border disappears) to continue rotating. To unselect pictures just click any free space on the model.
+				</div>
+
+
+				<div id="dropzone" >
+					<form action="https://www.artiva-sports.com/captiva/upload3d.asp" class="dropzone" id="myDropZone">
+
+					<div class="dz-message" style="margin: 12px 0px;font-size: 14px;font-weight: bold;">
+							UPLOAD GRAPHICS (DRAG AND DROP OR SELECT)<br>
+							
+							<i class="fa fa-cloud-upload fa-3x" aria-hidden="true" style="color:#009dde;"></i><br>
+			
+					</div>
+					</form>
+				</div>
+
+				<br>
+				<div class="BlockButtons">
+					<button id="addAreaSpecificGFX" value="" class="ButtonUpload">+</button>
+
+					<button class="ButtonUpload" onclick='deleteObject();'>−</button>
+
+					<button class="ButtonUpload" onclick='objectToFront();'>⬆</button>
+
+					<button class="ButtonUpload" onclick='objectToBack();'>⬇</button>
+				</div>
+				<br>
+				<div id="titleTextMaterials2inner" class="titleTextMaterials2">
+					<i>Choose ready-made pictures:</i>
+				</div>
+
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockLogoPreset7">
+						<img src="logos/eintracht_frankfurt.svg" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockLogoPreset8">
+						<img src="logos/coca-cola.svg" class="Block_icon">
+					</div>
+				</div>
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockLogoPreset1">
+						<img src="logos/logo.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockLogoPreset2">
+						<img src="logos/logo1.png" class="Block_icon">
+					</div>
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockLogoPreset3">
+						<img src="logos/logo2.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockLogoPreset4">
+						<img src="logos/logo2.jpg" class="Block_icon">
+					</div>
+				</div>
+
+				<div class="LayOutChoiseRow">
+					<div class="Block_Choise" id="BlockLogoPreset5">
+						<img src="logos/pokal.png" class="Block_icon">
+					</div>
+
+					<div class="Block_Choise" id="BlockLogoPreset6">
+						<img src="logos/ball.png" class="Block_icon">
+					</div>
+				</div>
+		
+
+			</div> <!--Logo inside rounede main closure-->
+		</div>	<!--end of ff_mainContainerLogo-->
+	</div> <!--end of bigMainMenuOfLogo-->
+	<!--Logo!"-->
+
+	<!--#endregion-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	<!--fabricjs canvas-->
+	
+	<div id="c-right">
+		<!-- <div id='svgcontent' width="2048" height="2048"></div> -->
+		<canvas id="canvas1" width="2560" height="2560"></canvas>
+	</div>   
+
+	<!--three.js canvas-->
+	<canvas id="c"></canvas>	
+
+	<div id="rightsideinfoblock_main">
+		<style>
+			#SaveDataButton {
+			position: absolute;
+			width: 5em;
+			height: 5em;
+			cursor: default;
+			opacity: 0.5;
+			right: 1em;
+			top: 0em;
+			z-index: 999;
+			font-size: 0.5em;
+			text-align: center;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			color: rgb(255, 255, 255);
+			}
+		</style>
+		
+		<div id="SaveDataButton" style="cursor:pointer; text-align:center">
+
+			<div style="width:7em; right:2em; position: relative">
+				<a class="btn zoom"><i class="fas fa-search-plus"></i></a>
+				<a class="btn zoom-out"><i class="fas fa-search-minus"></i></a>
+			</div>
+			<br><br>
+
+			<p id="printCanvasTest" style="color:white;">
+				GENERATE SVG
+			</p>
+			<!-- <button id="Download">Download</button> -->
+			<p id="deliverDesignData">
+				
+			</p> 
+
+			<br>
+			<p id="shirtObjectsAreasQuestion" class="pulse circle">
+				<b> ← <b>DOUBLE CLICK</b> on shirt where you'd like to add the new object </b>
+			</p>
+
+		</div> 
+
+		
+		<!-- <a class="btn zoom-init"><i class="fas fa-recycle"></i></a> --> 
+
+
+	</div>
+
+
+
+	<script src="skripte/ui.js"></script>
+
+	<script type="module" src="skripte/main2.js"></script>
+
+
+	</body>
+</html>
