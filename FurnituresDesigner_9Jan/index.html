@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
+ --><title>Furnitures Designer</title>
+<meta charset="UTF-8">
+<link href="UIstyle.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="bootstrap.min.css">
+
+</head>
+
+
+<body>
+
+	<!-- <script>
+		setTimeout(function(){document.querySelector(".preloader").style.display = "none";},3500);
+	</script>
+	<div class="preloader">Loading...<br>
+	Because of copyrights, this is highly restricted, low quality demo version of a big commercial project.<br><br>
+	<b>Please use second click or two fingers touchpad to move/correct view around the scene</b>
+	</div>  -->
+
+
+
+	
+	<div id="TopPanel"> 
+		<div id="productName">
+			COFFEE TABLE
+		</div>
+		<div id="productPrice">
+			$2000
+		</div>	
+		<div class="mainDivider" style="top:8.8vh"></div>
+	</div>
+	<div id="MiddlePanel"> 
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Width <i style="opacity:0.5">(60-110cm)</i>
+				</div>
+
+				<div class="Inputdimention">
+					<input id="subdomainWidthCabinet_Dimensions" type="number" placeholder="Enter value here..." min="60" max="110" value="75">
+				</div>
+
+				<!-- <div class="Inputdimention">
+					<button type="button" onclick="this.parentNode.querySelector('[type=number]').stepDown();">
+					-
+					</button>
+					<input id="subdomainWidthCabinet_Dimensions" type="number" placeholder="60-110cm" min="60" max="110" value="">
+					<button type="button" onclick="this.parentNode.querySelector('[type=number]').stepUp();">
+					+
+					</button>
+				</div> -->
+
+				<!-- <div class="number-input">
+					<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+					<input class="quantity" min="0" name="quantity" value="1" type="number">
+					<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+				  </div> -->
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Depth <i style="opacity:0.5">(35-65cm)</i>
+				</div>
+				<div class="Inputdimention">
+					<input id="subdomainDepth_Cabinet_Dimensionsz" type="number" placeholder="Enter value here..." min="35" max="65" value="45">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Height <i style="opacity:0.5">(35-50cm)</i>
+				</div>
+				<div class="Inputdimention">
+					<input id="subdomainHeightCabinet_Dimensions" type="number" placeholder="35-50cm" min="35" max="50" value="45">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Feet
+				</div>
+
+				<select id="typeFeet" class="custom-select sources" placeholder="Feet Type">
+					<option value="Slider">Slider</option>
+					<option value="Plinth">Plinth</option>
+					<option value="MetalLegs">Metal Legs</option>
+				</select>
+			
+			</div>	
+
+			<div class="minorDivider"></div>
+		</div>
+
+
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Vertical Partition
+				</div>
+				<div class="Inputdimention">
+					<input id="subdomainNumberElementCorpus_Cabinet_Dimensionsz" type="number" placeholder="1 to 3" min="1" max="3" value="1">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+		
+		<div class="rowSection" id="section1HTMLWidth" style="display:none">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Section 1 Width <br><i style="opacity:0.5">minimum 20cm</i>
+				</div>
+				<div class="Inputdimention">
+					<button id="pillar1StepDownButton" class="buttonMove" type="button" >
+					<
+					</button>
+
+					<div id="pillar1PositionField" style="font-size:1em; text-align:center; width:4em; color:white;">25cm</div>
+
+					<button id="pillar1StepUpButton"  class="buttonMove" type="button">
+					>
+					</button>
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="section2HTMLWidth" style="display:none">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Section 2 Width <br><i style="opacity:0.5">minimum 20cm</i>
+				</div>
+				<div class="Inputdimention">
+					<button id="pillar2StepDownButton" class="buttonMove" type="button">
+					<
+					</button>
+
+					<div id="pillar2PositionField" style="font-size:1em; text-align:center; width:4em;color:white">30cm</div>
+					
+					<button id="pillar2StepUpButton" class="buttonMove" type="button" >
+					>
+					</button>
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+
+		<div class="rowSection" id="section3HTMLWidth" style="display:none">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Section 3 Width <br><i style="opacity:0.5">minimum 20cm</i>
+				</div>
+				<div class="Inputdimention">
+					<button id="pillar3StepDownButton" class="buttonMove" type="button">
+					<
+					</button>
+
+					<div id="pillar3PositionField" style="font-size:1em; text-align:center; width:4em;color:white">30cm</div>
+					
+					<button id="pillar3StepUpButton" class="buttonMove" type="button" >
+					>
+					</button>
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+
+
+
+
+
+
+		<div class="rowSection" id="HorizontalPartition_Column1">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Horizontal Partition
+				</div>
+				<div class="Inputdimention">
+					<input id="inputDimensionHorizontalDiveder" type="number" name="number" min="0" max="2" value="0">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="Doors_Column1">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Doors & Drawers
+				</div>
+
+				<select id="typeDoor1" class="custom-select sources" placeholder="Door Type">
+					<option value="doubleDoor">Double Door</option>
+					<option value="drawer">Drawer</option>
+					<option value="rightDoor">Right Door</option>
+					<option value="leftDoor">Left Door</option>
+					<option value="emptyCompartment">Empty Compartment</option>
+				</select>
+			</div>
+
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="HorizontalPartition_Column2">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Horizontal Partition
+				</div>
+				<div class="Inputdimention">
+					<input id="inputDimensionHorizontalDiveder" type="number" name="number" min="0" max="2" value="0">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="Doors_Column2">			
+			<div class="insideSection">
+				<div class="dimentionName">
+					Doors & Drawers
+				</div>
+
+				<select id="typeDoor2" class="custom-select sources" placeholder="Door Type">
+					<option value="doubleDoor">Double Door</option>
+					<option value="drawer">Drawer</option>
+					<option value="rightDoor">Right Door</option>
+					<option value="leftDoor">Left Door</option>
+					<option value="emptyCompartment">Empty Compartment</option>
+				</select>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="HorizontalPartition_Column3">	
+			<div class="insideSection">
+				<div class="dimentionName">
+					Horizontal Partition
+				</div>
+				<div class="Inputdimention">
+					<input id="inputDimensionHorizontalDiveder" type="number" name="number" min="0" max="2" value="0">
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection" id="Doors_Column3">			
+			<div class="insideSection">
+				<div class="dimentionName">
+					Doors & Drawers
+				</div>
+
+				<select id="typeDoor3" class="custom-select sources" placeholder="Door Type">
+					<option value="doubleDoor">Double Door</option>
+					<option value="drawer">Drawer</option>
+					<option value="rightDoor">Right Door</option>
+					<option value="leftDoor">Left Door</option>
+					<option value="emptyCompartment">Empty Compartment</option>
+				</select>
+			</div>
+			
+			<div class="dimentionName">
+				<select name="sources" id="sources" class="custom-select sources" placeholder="Door Type">
+					<option value="doubleDoor">Double Door</option>
+					<option value="drawer">Drawer</option>
+					<option value="rightDoor">Right Door</option>
+					<option value="leftDoor">Left Door</option>
+					<option value="emptyCompartment">Empty Compartment</option>
+				</select>
+			</div>
+
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection">	
+			<div class="insideSection">
+				<div class="dimentionName">
+					Carcass Color
+				</div>
+
+				<div class="colorsPanel">  
+					<div class="c-button-round" id="AntraciteGrey"title="Antracite Grey" style="background-color:#282d33"></div>
+					<div class="c-button-round" id="Cashmere"title="Cashmere" style="background-color:#c1bbab"></div>
+					<div class="c-button-round" id="ChalkWhite"title="Chalk White" style="background-color:#fbfaf8"></div>
+					<div class="c-button-round" id="CubaLibre"title="Cuba Libre" style="background-color:#b69c8d"></div>
+					<div class="c-button-round" id="FirenzeOvatta"title="Firenze Ovatta" style="background-color:#ea835f"></div>
+					<div class="c-button-round" id="BiancoVanguard"title="Bianco Vanguard">
+						<img src="icons/BiancoVanguard.jpg" style="width:150%; height:150%;">
+					</div>
+				</div>
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection">	
+			<div class="insideSection">
+				<div class="dimentionName">
+					Doors & Drawers Facades Color
+				</div>
+
+				<div class="colorsPanel">  
+					<div class="c-button-round" style="background-color:#282d33"></div>
+					<div class="c-button-round" style="background-color:#c1bbab"></div>
+					<div class="c-button-round" style="background-color:#fbfaf8"></div>
+					<div class="c-button-round" style="background-color:#b69c8d"></div>
+					<div class="c-button-round" style="background-color:#ea835f"></div>
+					<div class="c-button-round" style="background-color:#5d686a"></div>
+				</div>
+				
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+		<div class="rowSection">
+			<div class="insideSection">
+				<div class="dimentionName">
+					Back Panels
+				</div>
+
+				<select id="typeBack" class="custom-select sources" placeholder="Back Type">
+					<option value="Remove">Remove</option>
+					<option value="Add">Add</option>
+				</select>
+				<!-- <div id="backWallCheckbox_Cabinet_Dimensions">
+					<input type="checkbox" id="backWallCheckbox_Cabinet_Dimensions_Accept">
+				</div> -->
+
+			</div>
+			<div class="minorDivider"></div>
+		</div>
+
+	</div>
+	<div id="BottomPanel"> 
+		<div class="mainDivider" style="top:0"></div>
+		<button class="button-87" role="button">CheckOut Order</button>
+	</div>	
+
+
+	<div id="additionalButtonsPanel">  
+		<div class="c-button-round">
+			<img src="icons/ruler.png" style="width:80%; height:80%;">
+		</div>
+		<div class="c-button-round">
+			<img src="icons/share.png" style="width:70%; height:70%; margin-right: 0.1em;">
+		</div>
+		<div class="c-button-round" onclick="ChangeBackground()">
+			<img src="icons/theme.png" style="width:80%; height:80%;">
+		</div>
+	</div>
+
+	<div id="HintPanel"> 
+		Welcome the the furniture designer v0.4! 
+	</div>	
+
+
+
+	<div id="container">  
+		
+		<canvas id="appCanvas" oncontextmenu="return false;" style="position: fixed;">Browser not supported
+		</canvas> 
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+
+		let BackgroundStatus = 0;
+
+		function ChangeBackground() {
+			if (BackgroundStatus == 0) {
+				container.style.background = "linear-gradient(rgba(72, 112, 166, 1), rgba(43, 55, 94, 1) 52.94%, rgba(27, 54, 101, 1) 87.39%)";
+				
+				BackgroundStatus = 1; }
+			else if (BackgroundStatus == 1) {
+
+				container.style.background = "linear-gradient(rgba(255, 255, 255, 1) 48.74%, rgba(252, 252, 252, 1) 56.72%, rgba(228, 228, 228, 1) 88.24%)";
+				BackgroundStatus = 0; }
+}
+	</script>
+
+
+
+
+
+
+
+	
+
+	<script src="three.min.js"></script>
+
+	<script src="OrbitControls.js"></script>
+	<script src="MTLLoader.js"></script>
+	<script src="OBJLoader.js"></script>
+	
+	<script src="app.js"></script>
+
+</body>
+</html>
+
+
+
