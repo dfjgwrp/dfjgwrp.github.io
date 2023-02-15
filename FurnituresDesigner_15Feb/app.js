@@ -7029,6 +7029,12 @@ App.prototype = {
                                     VerticalSection2_2_4.style.transform = "translateX(-150%)";
                                     VerticalSection2_2_4.style.animation = 'animHideFromLeft 0.7s';
                                 break;
+                                case 3:
+                                    self.RayCastRecieverSection3_1.material.opacity = 0
+                                    self.section3_WireframeMesh3_1.material.opacity = 0
+                                    VerticalSection3_1.style.transform = "translateX(-150%)";
+                                    VerticalSection3_1.style.animation = 'animHideFromLeft 0.7s';
+                                break;
                                 case 312:
                                     self.RayCastRecieverSection3_1_2.material.opacity = 0
                                     self.section3_WireframeMesh3_1_2.material.opacity = 0
