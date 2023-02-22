@@ -35355,10 +35355,12 @@ App.prototype = {
             if (self.options.statusHideRoom == 0) {
                 self.wall.visible = false
                 self.floor.visible = false
+                self.human.visible = false
                 self.options.statusHideRoom = 1;
                 document.getElementById("hideRoomIcon").src = "icons/roomOff.png"
             } else {
                 self.wall.visible = true
+                self.human.visible = true
                 self.floor.visible = true
                 self.options.statusHideRoom = 0;
                 document.getElementById("hideRoomIcon").src = "icons/roomon.png"
